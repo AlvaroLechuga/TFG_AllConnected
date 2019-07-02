@@ -1,0 +1,485 @@
+/* Establecer letras externas */
+
+@font-face{
+	font-family: "yanone";
+	src: url("fonts/yanone.ttf");
+}
+
+@font-face{
+	font-family: "finger";
+	src: url("fonts/finger.ttf");
+}
+
+/* General */
+
+.red{
+	color: red;
+}
+
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+body{
+	background: url(../img/background.jpg) no-repeat center center fixed;
+	background-size: cover;
+}
+
+.clearfix{
+	float: none;
+	clear: both;
+}
+
+.error-sesion{
+	margin: 0px auto;
+	width: 40%;
+	background-color: white;
+	text-align: center;
+	margin-top: 25px;
+}
+
+a.btn.up_btn.afu-attach-pin{
+	margin-top: 20px;
+	color: #222;
+	background-color: white;
+	width: 40%;
+}
+
+/* Cabecera */
+
+header{
+	position: fixed;
+	width: 100%;
+	font-size: 15px;
+	height: 50px;
+	background-color: #222;
+}
+
+#buscar{
+	margin-top: 7px;
+}
+
+#pruebas{
+	padding-top: 5px;
+}
+
+.avatar_mask{
+	width: 40px;
+	height: 40px;
+	overflow: hidden;
+	border-radius: 900px;
+}
+.avatar_mask img{
+	height: 40px;
+	width: 100%;
+}
+
+/* Contenedor principal */
+
+#content {
+	width: 80%;
+	min-height: 100vh;
+	margin: 0px auto;
+	box-shadow: 0px 0px 40px #ccc;
+	border-left: 1px solid #b7b7b7;
+	border-right: 1px solid #b7b7b7;
+	background: rgba(110, 110, 100, 0.7); 
+	padding-top: 4%;
+	padding-bottom: 1px;
+
+}
+
+/* Página principal */
+
+.titular-web{
+	text-align: center;
+	color: white;
+}
+
+.titular-noticias{
+	margin-left: 10px;
+	color: white;
+	width: 307px;
+	border-bottom: 1px solid #ccc;
+}
+
+#noticia{
+	margin-top: 10px;
+	margin-left: 10px;
+	height: 250px;
+	width: 77%;
+	float: left;
+	color: black;
+	background-color: white;
+	padding-bottom: 10px;
+	border: 5px double black;
+}
+
+.titular-noticia{
+	margin-left: 10px;
+}
+
+.categoria-noticia{
+	margin-left: 30px;
+	color: #00CC00;
+}
+
+.noticia-noticia{
+	margin-left: 10px;
+	text-align: justify;
+	letter-spacing: 1px;	
+}
+
+.imagen-noticia{
+	margin-top: 10px;
+	height: 250px;
+	width: 250px;
+	border: 5px double black;
+}
+
+
+/* Registro de usuario */
+
+#v-sup{
+	margin-bottom: -30px;
+	margin: 0px auto;
+	text-align: center;
+	margin-right: 32%;
+	margin-left: 32%;
+	background-color: #222;
+	border-radius: 15px 15px 15px 15px;
+	color: #fff;
+}
+
+#registro{
+	text-align: center;
+	margin-right: 32%;
+	margin-left: 32%;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	background-color: #222;
+	color:#fff;
+	border-radius: 15px 15px 50px 15px;
+}
+
+#registro label{
+	display: block;
+	font-style: italic;
+	padding-top: 10px;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+.form_error{
+	color: red;
+}
+
+
+.form-datos{
+	width: 70%;
+	margin-left: 15%;
+	margin-right: 15%;
+	
+}
+
+#gridCheck{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+/* Error */
+
+#error-div{
+	padding-top: 10px;
+	width: 30%;
+	height: 100px;
+	margin-left: 35%;
+	margin-right: 35%;
+	text-align: center;
+	background-color: #222;
+	color: #fff;
+	border-radius: 25px;
+}
+
+/* Index usuario */
+
+	/* Caja del usuario */
+
+#datos_usuario{
+	margin-top: 10px;
+	margin-left: 10px;
+	text-align: center;
+	height: 100%;
+	width: 21%;
+	float: left;
+	color: black;
+	background-color: white;
+	padding-bottom: 10px;
+	border: 5px double black;
+}
+
+.circulo-imagen{
+	margin-top: 10px;
+	margin-left: 28%;
+    width: 100px;
+    height: 100px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    background: #5cb85c;
+    border: 2px solid black;
+}
+
+.imgan-perfil{
+	height: 100%;
+	width: 100%;
+	border-radius: 900px;
+}
+
+#nombre-usuario{
+	margin-top: 7px;
+	font-weight: bold;
+}
+
+.title-publicaciones{
+	padding-left: 3px;
+	padding-right: 4px;
+}
+
+.title-siguiendo{
+	padding-right: 4px;
+}
+
+	/* Muro de publicaciones*/
+	/* Cuadro de publicar */
+
+#muro{
+	margin-right: 10px;
+	width: 70%;
+	margin-top: 10px;
+	margin-left: 10px;
+	background-color: white;
+	display: inline-block;
+	
+}
+
+#publicar{
+	margin-top: 2px;
+	margin-left: 2px;
+	background-color: #333;
+	resize: none;
+	color: #fff;
+	float: left;
+	width: 99.5%;
+}
+
+#bnt-publicar{
+	margin-left: 4px;
+	margin-top: 10px;
+}
+
+.bnt-subir{
+	margin-top: 3px;
+	margin-left: 3px;
+	float: left;
+	
+}
+
+.img-subit{
+	font-size: 35px;
+	cursor: pointer;
+}
+
+.horizontal-publicacion{
+	height: 1px;
+	margin-top: 20px;
+	background-color: #CCCCCC;
+	margin-top: 10px;
+}
+
+	/* Publicaciones */
+
+#publicacion{ 
+	background-color: #AB9;
+	margin-left: 13px;
+	width: 97%;
+	border: 5px double black;
+}
+
+.circulo-imagenPublicacion{
+	margin-top: 20px;
+	margin-left: 15px;
+    width: 100px;
+    height: 100px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    background: #5cb85c;
+    border: 2px solid black;
+}
+
+.circulo-imagenPublicacion img{
+	height: 100%;
+	width: 100%;
+	border-radius: 900px;
+}
+
+#datos-publicacion{
+	width: 35%;
+	margin-top: -100px;
+	margin-left: 130px;
+	color:black;
+	font-weight: bold;
+}
+
+#publicacion-publicacion{
+	width: 78%;
+	float: right;
+	margin-right: 30px;
+	color: #333;
+	letter-spacing: 1px;
+	text-align: justify;
+}
+
+#bnt-admin{
+	margin-left: 5px;
+	margin-top: 90px;
+}
+
+.btn-like, 
+.btn-response, 
+.btn-remove{
+	margin-right: 10px;
+	font-size: 17px;
+	margin-bottom: 5px;
+}
+
+hr{ 
+	display: block; height: 1px;
+    border: 0; border-top: 1px solid #CCCCCC;
+    margin: 1em 0; padding: 0; 
+}
+
+/* Mensajes */
+
+#contain-mensajes{
+	width: 90%;
+	margin: 0px auto;
+	background-color: white;
+	min-height: 200px;
+}
+
+.title-notificaciones{
+	padding-top: 15px;
+	padding-left: 10px;
+	border-bottom: 1px solid black;
+}
+
+#icon-info{
+	margin-right: 5px;
+}
+
+#alerta-notificacion{
+	font-size: 20px;
+	padding-top: 5px;
+	padding-bottom: 20px;
+	margin-left: 50px;
+}
+
+/* Perfil de usuario */
+
+#profile-user{
+	min-height: 100vh;
+	width: 100%;
+	background-color: white;
+}
+
+.picture-profile{
+	width: 20%;
+	height: 200px;
+	margin: 0px auto;
+	overflow: hidden;
+	border-radius: 900px;
+}
+
+.picture-profile img{
+	height: 100%;
+	width: 100%;
+}
+
+.btn-profile{
+	width: 26.99%;
+	margin-left: 10px;
+	margin: 0px auto;
+	margin-top: 10px;
+}
+
+.btn-editar{
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+.btn-cerrar{
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+.btn-seguir{
+	width: 100%;
+}
+
+.datos-user{
+	width: 25%;
+	margin: 0px auto;
+	text-align: center;
+	padding-bottom: 10px;
+}
+
+.informacion-user{
+	width: 80%;
+	margin: 0px auto;
+	text-align: center;
+}
+
+.publicaciones{
+	width: 96%;
+	margin: 0px auto;
+}
+
+/* Editar perfil */
+
+#txt-description{
+	height: 100px;
+}
+
+.avatar_edit{
+	width: 150px;
+	height: 150px;
+	margin-top: 20px;
+}
+
+/* Footer */
+
+footer{
+	position: unset;
+	text-align: center;
+	background-color: #222;
+	color:#fff;
+	border-color: #080808;
+}
+
+
+#title-footer{
+	margin-top: 15px;
+	font-size: 25px;
+}
+
+#title-redes{
+	margin-top: 5px;
+	font-size: 18px;
+}
+
+#separator{
+	border-left: 1px solid black;
+}

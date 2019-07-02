@@ -1,0 +1,62 @@
+<header>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" [routerLink]="['/inicio']" [routerLinkActive]="['actived']">AllConnected</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+
+        <li><a [routerLink]="['/index']" [routerLinkActive]="['actived']"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
+        <li *ngIf="identity"><a [routerLink]="['/notificaciones']" [routerLinkActive]="['actived']"><span class="glyphicon glyphicon-bell"></span> Notificaciones</a></li>
+        <li>
+          <input type="text" class="form-control" id="buscar" placeholder="Buscar usuario"/>
+        </li>    
+        <li *ngIf="identity"><a [routerLink]="['/mensajes']" [routerLinkActive]="['actived']"><span class="glyphicon glyphicon-envelope"></span> Mensajes</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" *ngIf="!identity">
+        <li><a [routerLink]="['/login']"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" *ngIf="identity">
+        <li>
+		<div id="pruebas">
+          <div *ngIf="identity && identity.image" class="avatar_mask">
+            <img src="{{url+ 'user/avatar/'+identity.image}}" class="avatar_nav">
+          </div>
+		  </div>
+        </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" [routerLink]="['/perfil']" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{identity.name+' '+identity.surname}}
+        </a>
+      </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
+
+<section id="content">
+  <router-outlet></router-outlet>
+</section>
+
+<footer>
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <p id="title-footer">AllConnected Social NetWork &copy;</p>
+    </div>
+    <div class="col-12 col-md-6" id="separator">
+      <p id="title-redes">REDES SOCIALES</p>
+      <a title="Facebook" href=""><img src="../assets/img/facebook.png" alt="Los Tejos" /></a>
+      <a title="Instagram" href=""><img src="../assets/img/instagram.png" alt="Los Tejos" /></a>
+      <a title="LinkeIN" href=""><img src="../assets/img/linkedin.png" alt="Los Tejos" /></a>
+      <a title="Twitter" href=""><img src="../assets/img/twitter.png" alt="Los Tejos" /></a>
+      <a title="YouTube" href=""><img src="../assets/img/youtube.png" alt="Los Tejos" /></a>
+    </div>
+  </div>
+</footer>
