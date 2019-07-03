@@ -48,3 +48,7 @@ Route::get('api/numberfollowers/{id}', 'FollowController@getNumberFollowers');
 Route::post('/api/like/{id_publication}', 'LikeController@like');
 Route::delete('/api/dislike/{id_publication}', 'LikeController@dislike');
 Route::get('/api/numberlikes/{id}', 'LikeController@getNumberLikes');
+
+// Rutas del controlador de Message
+Route::post('api/insertmessage', 'MessageController@InsertarMensaje');
+Route::get('api/getmessages/{id}', 'MessageController@ObtenerMensajes');
