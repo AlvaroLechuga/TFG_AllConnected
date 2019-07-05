@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Follow;
+use App\Notification;
 use App\User;
 
 class FollowController extends Controller {
@@ -64,6 +65,13 @@ class FollowController extends Controller {
 
             $follow->save();
 
+            $notification = new Notification();
+            $notification->id_user_emmit = $user->sub;
+            $notification->id_user_recep = $id;
+            $notification->description = "Te ha seguido";
+
+            $notification->save();
+
             $data = array(
                 'status' => 'sucess',
                 'code' => '200',
@@ -93,8 +101,8 @@ class FollowController extends Controller {
             $follow->user = $user->sub;
             $follow->followed = (int) $id;
 
+            Notification::where('id_user_emmit', $follow->user)->where('id_user_recep', $follow->followed)->delete();
             Follow::where('user', $follow->user)->where('followed', $follow->followed)->delete();
-
 
             $data = array(
                 'status' => 'success',
@@ -111,30 +119,30 @@ class FollowController extends Controller {
 
         return response()->json($data, $data['code']);
     }
-    
-    public function getNumberFollows($id){
-        
+
+    public function getNumberFollows($id) {
+
         $nFollows = Follow::where('user', $id)->count();
-        
+
         $data = array(
-                'status' => 'success',
-                'code' => '200',
-                'nfollows' => $nFollows
+            'status' => 'success',
+            'code' => '200',
+            'nfollows' => $nFollows
         );
-        
+
         return response()->json($data, $data['code']);
     }
-    
-    public function getNumberFollowers($id){
-        
+
+    public function getNumberFollowers($id) {
+
         $nFollowers = Follow::where('followed', $id)->count();
-        
+
         $data = array(
-                'status' => 'success',
-                'code' => '200',
-                'nfollowers' => $nFollowers
+            'status' => 'success',
+            'code' => '200',
+            'nfollowers' => $nFollowers
         );
-        
+
         return response()->json($data, $data['code']);
     }
 

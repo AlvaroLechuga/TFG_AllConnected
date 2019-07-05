@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Publication;
+use App\Notification;
 use App\Helpers\jwtAuth;
 use Illuminate\Support\Facades\DB;
 
@@ -88,6 +89,13 @@ class PublicationController extends Controller {
                 $publication->response_id = $id;
 
                 $publication->save();
+                
+                $notification = new Notification();
+                $notification->id_user_emmit = $user->sub;
+                $notification->id_user_recep = $publication->id_user;
+                $notification->description = "Ha respondido una publicación";
+                
+                $notification->save();
 
                 $data = array(
                     'status' => 'sucess',
@@ -117,12 +125,21 @@ class PublicationController extends Controller {
 
             if ($publication) {
                 if ($publication->id_user == $user->sub) {
+                    
+                    if($publication->response_id != null){
+                        Notification::where('id_user_emmit', $user->sub)->where('id_user_recep', $publication->id_user)->delete();
+                    }
+                    
                     $publication->delete();
+                    
+                    
+                    
                     $data = array(
                         'status' => 'success',
                         'code' => '200',
                         'message' => 'Se a eliminado la publicación',
                     );
+                    
                 } else {
                     $data = array(
                         'status' => 'error',

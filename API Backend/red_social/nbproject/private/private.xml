@@ -6,6 +6,8 @@
             <file>file:/C:/xampp/htdocs/red_social/app/Http/Controllers/MessageController.php</file>
             <file>file:/C:/xampp/htdocs/red_social/routes/web.php</file>
             <file>file:/C:/xampp/htdocs/red_social/app/Http/Controllers/PublicationController.php</file>
+            <file>file:/C:/xampp/htdocs/red_social/app/Http/Controllers/FollowController.php</file>
+            <file>file:/C:/xampp/htdocs/red_social/app/Http/Controllers/LikeController.php</file>
         </group>
     </open-files>
 </project-private>

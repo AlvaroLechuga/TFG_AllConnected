@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Like;
 use App\User;
+use App\Notification;
 use App\Publication;
 use App\Helpers\jwtAuth;
 
@@ -27,6 +28,13 @@ class LikeController extends Controller {
                 $like->id_user_reciver = $publication->id_user;
 
                 $like->save();
+                
+                $notification = new Notification();
+                $notification->id_user_emmit = $user->sub;
+                $notification->id_user_recep = $publication->id_user;
+                $notification->description = "Le ha dado like a una publicación";
+                
+                $notification->save();
 
                 $data = array(
                     'status' => 'success',
@@ -67,8 +75,10 @@ class LikeController extends Controller {
                 $like->id_user_emmiter = $user->sub;
                 $like->id_user_reciver = $publication->id_user;
 
+                
+                Notification::where('id_user_emmit', $like->id_user_emmiter)->where('id_user_recep', $like->id_user_reciver)->delete();
                 Like::where('id_publication', $like->id_publication)->where('id_user_emmiter', $like->id_user_emmiter)->where('id_user_reciver', $like->id_user_reciver)->delete();
-
+                
                 $data = array(
                     'status' => 'success',
                     'code' => '200',

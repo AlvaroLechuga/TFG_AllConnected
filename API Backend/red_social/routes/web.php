@@ -50,5 +50,8 @@ Route::delete('/api/dislike/{id_publication}', 'LikeController@dislike');
 Route::get('/api/numberlikes/{id}', 'LikeController@getNumberLikes');
 
 // Rutas del controlador de Message
-Route::post('api/insertmessage', 'MessageController@InsertarMensaje');
+Route::post('api/insertmessage/{id}', 'MessageController@InsertarMensaje');
 Route::get('api/getmessages/{id}', 'MessageController@ObtenerMensajes');
+
+// Rutas del controlador de Notifications
+Route::get('api/getnotifications/{id}', 'NotificationController@getNotification');

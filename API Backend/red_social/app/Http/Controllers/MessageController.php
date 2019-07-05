@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class MessageController extends Controller {
 
-    public function InsertarMensaje(Request $request) {
+    public function InsertarMensaje($id, Request $request) {
         $json = $request->input('json', null);
         $params_array = json_decode($json, true);
 
@@ -34,8 +34,8 @@ class MessageController extends Controller {
                 $user = $jwtAuth->checkToken($token, true);
 
                 $message = new Message();
-                $message->emmiter = $params_array['emmiter'];
-                $message->reciver = $params_array['reciver'];
+                $message->emmiter = $user->sub;
+                $message->reciver = $id;
                 $message->text = $params_array['text'];
 
                 $message->save();
