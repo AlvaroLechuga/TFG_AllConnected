@@ -6,7 +6,6 @@ import { PublicationService } from '../../services/publication.service';
 import { FollowService } from '../../services/follow.service';
 import { global } from '../../services/global';
 import { ViewChild } from '@angular/core';
-import { AngularFileUploaderComponent } from "angular-file-uploader";
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,7 +18,6 @@ export class IndexComponent implements OnInit {
 
 	public user: User;
   public publication: Publication;
-	public status: string;
 	public identity;
 	public token;
   public url;

@@ -15,7 +15,7 @@
         <li><a [routerLink]="['/index']" [routerLinkActive]="['actived']"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
         <li *ngIf="identity"><a [routerLink]="['/notificaciones']" [routerLinkActive]="['actived']"><span class="glyphicon glyphicon-bell"></span> Notificaciones</a></li>
         <li>
-          <input type="text" class="form-control" id="buscar" placeholder="Buscar usuario"/>
+          <input #searchUser (keyup.enter)="buscarUsuario(searchUser.value)" type="text" class="form-control" id="buscar" placeholder="Buscar usuario"/>
         </li>    
         <li *ngIf="identity"><a [routerLink]="['/mensajes']" [routerLinkActive]="['actived']"><span class="glyphicon glyphicon-envelope"></span> Mensajes</a></li>
       </ul>

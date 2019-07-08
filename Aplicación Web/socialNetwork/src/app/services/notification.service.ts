@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { global } from './global';
 
 @Injectable()
-export class LikeService{
+export class NotificationService{
 	public url: string;
 
 	constructor(
@@ -12,22 +12,12 @@ export class LikeService{
 	){
 		this.url = global.url;
 	}
+	
 
-	getLikes(token, id){
+	sacarNotificaciones(token, id): Observable<any>{
 		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
 
-		return this._http.get(this.url+'getlikes/'+id, {headers: headers});
+		return this._http.get(this.url+'getnotifications/'+id, {headers: headers});
 	}
 
-	like(){
-
-	}
-
-	dislike(){
-
-	}
-
-	numberLikes(id): Observable<any>{
-		return this._http.get(this.url+'numberlikes/'+id);
-	}
 }

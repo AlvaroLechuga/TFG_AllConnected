@@ -1,18 +1,10 @@
 <div id="contain-mensajes">
 	<h1 class="title-notificaciones">Notificaciones</h1>
 
-	<div id="alerta-notificacion">
-		<span id="icon-info" class="glyphicon glyphicon-info-sign"></span>
-		<a href="">Carlos Sanchez</a> le ha dado me gusta a una publicación
+	<div *ngFor="let notif of notifications">
+		<div id="alerta-notificacion">
+			<span id="icon-info" class="glyphicon glyphicon-info-sign"></span>
+			<a href="">{{notif.name_emmit+' '+notif.surname_emmit+' '}}</a>{{notif.description}}
+		</div>
 	</div>
-	<div id="alerta-notificacion">
-		<span id="icon-info" class="glyphicon glyphicon-info-sign"></span>
-		<a href="">Carlos Sanchez</a> te está siguiendo
-	</div>
-
-	<div id="alerta-notificacion">
-		<span id="icon-info" class="glyphicon glyphicon-info-sign"></span>
-		<a href="">Carlos Sanchez</a> le ha dado me gusta a una publicación
-	</div>
-
 </div>

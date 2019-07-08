@@ -31,4 +31,8 @@ export class AppComponent implements OnInit, DoCheck{
 		this.identity = this._userService.getIdentity();
 	}
 
+	buscarUsuario(value){
+		console.log(value);
+	}
+
 }

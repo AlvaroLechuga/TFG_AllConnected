@@ -22,17 +22,14 @@
     <input type="submit" class="btn btn-info" id="bnt-publicar" value="Publicar" [disabled]="publicationForm.invalid">
   </form>
   <p class="horizontal-publicacion"></p>
-  <div *ngFor="let publicacion of publications">
+  <div *ngFor="let publicacion of publications; let i = index" [attr.data-index]="i">
     <div id="publicacion">
     <div class="circulo-imagenPublicacion"></div>
-    <p id="datos-publicacion">{{infoUsers.name+' '+infoUsers.surname+' -  @'+infoUsers.nick}} - Hace 10 días</p>
+    <p id="datos-publicacion">{{infoUsers[i].name+' '+infoUsers[i].surname+' -  @'+infoUsers[i].nick}} - Hace 10 días</p>
     <p id="publicacion-publicacion">
       {{publicacion.text}}
     </p>
         <div id="bnt-admin">
-      <button type="button" class="btn btn-default btn-sm btn-like">
-        <span class="glyphicon glyphicon-heart" title="Me gusta"></span>
-      </button>
       <button type="button" class="btn btn-default btn-sm btn-response">
         <span class="glyphicon glyphicon-share-alt" title="Responder"></span>
       </button>
