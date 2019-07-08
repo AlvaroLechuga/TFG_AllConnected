@@ -48,6 +48,7 @@ Route::get('api/numberfollowers/{id}', 'FollowController@getNumberFollowers');
 Route::post('/api/like/{id_publication}', 'LikeController@like');
 Route::delete('/api/dislike/{id_publication}', 'LikeController@dislike');
 Route::get('/api/numberlikes/{id}', 'LikeController@getNumberLikes');
+Route::get('api/getlikes/{id}', 'LikeController@getLikes');
 
 // Rutas del controlador de Message
 Route::post('api/insertmessage/{id}', 'MessageController@InsertarMensaje');
@@ -55,3 +56,6 @@ Route::get('api/getmessages/{id}', 'MessageController@ObtenerMensajes');
 
 // Rutas del controlador de Notifications
 Route::get('api/getnotifications/{id}', 'NotificationController@getNotification');
+
+// Rutas del controlador de Notices
+Route::get('api/getnotices', 'NoticeController@getNotification');

@@ -68,7 +68,7 @@ class FollowController extends Controller {
             $notification = new Notification();
             $notification->id_user_emmit = $user->sub;
             $notification->id_user_recep = $id;
-            $notification->description = "Te ha seguido";
+            $notification->description = "te está siguiendo";
 
             $notification->save();
 

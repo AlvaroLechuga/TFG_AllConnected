@@ -9,6 +9,7 @@ use App\User;
 use App\Notification;
 use App\Publication;
 use App\Helpers\jwtAuth;
+use Illuminate\Support\Facades\DB;
 
 class LikeController extends Controller {
 
@@ -32,7 +33,7 @@ class LikeController extends Controller {
                 $notification = new Notification();
                 $notification->id_user_emmit = $user->sub;
                 $notification->id_user_recep = $publication->id_user;
-                $notification->description = "Le ha dado like a una publicación";
+                $notification->description = "le ha dado me gusta a una publicación";
                 
                 $notification->save();
 
@@ -114,5 +115,32 @@ class LikeController extends Controller {
 
         return response()->json($data, $data['code']);
     }
+	
+	public function getLikes($id, Request $request){
+		
+		$jwtAuth = new JwtAuth();
+        $token = $request->header('Authorization', null);
+
+        if ($token) {
+            $user = $jwtAuth->checkToken($token, true);
+			
+			$likes = DB::select("SELECT likes.* FROM likes INNER JOIN users ON likes.id_user_emmiter = users.id WHERE likes.id_user_emmiter = $user->sub AND likes.id_user_reciver = $id");
+			
+			$data = array(
+                'status' => 'success',
+                'code' => '200',
+                'likes' => $likes,
+            );
+			
+		}else{
+			$data = array(
+                'status' => 'error',
+                'code' => '404',
+                'message' => 'No hay token',
+            );
+		}
+		
+		return response()->json($data, $data['code']);
+	}
 
 }

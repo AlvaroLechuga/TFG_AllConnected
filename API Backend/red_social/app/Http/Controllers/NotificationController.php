@@ -16,7 +16,7 @@ class NotificationController extends Controller
         if ($token) {
             $user = $jwtAuth->checkToken($token, true);
             
-            $notifications = DB::select("SELECT e.name AS emmit, r.name AS recep, notifications.description, notifications.updated_at FROM notifications JOIN users e ON e.id = notifications.id_user_emmit JOIN users r ON r.id = notifications.id_user_recep WHERE notifications.id_user_recep = $id ORDER BY notifications.id ASC");
+            $notifications = DB::select("SELECT e.name AS name_emmit, e.surname AS surname_emmit, r.name AS name_recep, r.surname AS surname_recep, notifications.id_user_emmit, notifications.description, notifications.updated_at FROM notifications JOIN users e ON e.id = notifications.id_user_emmit JOIN users r ON r.id = notifications.id_user_recep WHERE notifications.id_user_recep = $id ORDER BY notifications.id ASC");
             
             $data = array(
                 'status' => 'success',
