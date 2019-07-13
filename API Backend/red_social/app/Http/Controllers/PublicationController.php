@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Publication;
+use App\User;
 use App\Notification;
 use App\Helpers\jwtAuth;
 use Illuminate\Support\Facades\DB;
@@ -132,8 +133,6 @@ class PublicationController extends Controller {
                     
                     $publication->delete();
                     
-                    
-                    
                     $data = array(
                         'status' => 'success',
                         'code' => '200',
@@ -163,10 +162,23 @@ class PublicationController extends Controller {
         $publications = Publication::where('id_user', $id)->orderBy('id', 'desc')->get();
 
         if ($publications) {
+			
+			$total = sizeof($publications);
+			
+			$array_tiempo = array();
+			
+			for ($i = 0; $i < $total; $i++) {
+				
+				$tiempo = \FormatTime::LongTimeFilter($publications[$i]->created_at);
+				array_push($array_tiempo, $tiempo);
+			}
+			
+			
             $data = array(
                 'status' => 'success',
                 'code' => '200',
                 'publications' => $publications,
+				'tiempo' => $array_tiempo
             );
         } else {
             $data = array(
@@ -198,19 +210,34 @@ class PublicationController extends Controller {
         if ($token) {
             $user = $jwtAuth->checkToken($token, true);
             
-            $publications = DB::select("SELECT p.* FROM publications p INNER JOIN follows f ON p.id_user = f.followed WHERE f.user = $id OR p.id_user = $id ORDER BY p.id ASC");            
-            $username = DB::select("SELECT u.* FROM users u INNER JOIN publications p ON u.id = p.id_user INNER JOIN follows f ON u.id = f.user WHERE f.user = $id OR f.followed = $id");
-            
+			$publications = DB::table('publications')
+			->join('follows', 'publications.id_user', '=', 'follows.followed')
+			->where('follows.user', "$id")
+			->orWhere('publications.id_user', '=', "$id")
+			->select('publications.*')
+			->orderBy('publications.id', 'DESC')->get();
+			
+			
             if(sizeof($publications) == 0){
-                $publications = DB::select("SELECT * FROM publications WHERE id_user = $id ORDER BY id ASC");
-                $username = DB::select("SELECT * FROM users WHERE id = $id");
+				$publications = Publication::where('id', $id)->orderBy('id', 'DESC');
             }
+			
+			$total = sizeof($publications);
+			
+			$array_tiempo = array();
+			$array_usuarios = array();
+			
+			for ($i = 0; $i < $total; $i++) {
+				$usuario = User::where('id', $publications[$i]->id_user)->get();				
+				array_push($array_usuarios, $usuario);
+			}
 			
             $data = array(
                 'status' => 'success',
                 'code' => '200',
                 'publications' => $publications,
-                'users' => $username
+				'users' => $array_usuarios
+                
             );
             
         } else {

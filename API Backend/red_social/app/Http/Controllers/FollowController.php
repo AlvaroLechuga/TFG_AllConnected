@@ -82,7 +82,7 @@ class FollowController extends Controller {
             $data = array(
                 'status' => 'error',
                 'code' => '400',
-                'message' => 'El usuario no está identificado'
+                'message' => 'No hay token'
             );
         }
 

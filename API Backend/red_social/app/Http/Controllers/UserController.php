@@ -32,7 +32,7 @@ class UserController extends Controller {
                         'direction' => 'required|max:255',
                         'country' => 'required|max:255|alpha',
                         'birthday' => 'required',
-                        'nick' => 'required|max:100',
+                        'nick' => 'required|max:100|unique:users',
                         'email' => 'required|max:100|unique:users|email',
                         'password' => 'required|max:10',
             ]);
@@ -292,8 +292,7 @@ class UserController extends Controller {
             $users = User::where('nick', 'LIKE', '%' . $search . '%')
                     ->orWhere('name', 'LIKE', '%' . $search . '%')
                     ->orWhere('surname', 'LIKE', '%' . $search . '%')
-                    ->orderBy('id', 'desc')
-                    ->paginate(10);
+                    ->orderBy('id', 'desc')->get();
 
             $data = array(
                 'status' => 'success',
@@ -301,11 +300,10 @@ class UserController extends Controller {
                 'users' => $users
             );
         } else {
-            $users = User::orderBy('id', 'desc')->paginate(10);
             $data = array(
-                'status' => 'success',
-                'code' => '200',
-                'users' => $users
+                'status' => 'error',
+                'code' => '400',
+                'message' => 'El campo está vacío'
             );
         }
 
