@@ -1,0 +1,12 @@
+<div id="contain-mensajes">
+  <h1 class="title-notificaciones">Usuarios</h1>
+  <div>
+
+    <div id="mostrarusuario" *ngFor="let user of users">
+      <div class="circulo-imagenPublicacion" style="float:left;"><img src="{{url+ 'user/avatar/'+user.image}}" class="avatar_nav"></div>
+      <h3><a [routerLink]="['/perfil/']+user.id">{{user.name+' '+user.surname}}</a></h3>
+      <h4>{{'@'+user.nick}}</h4>
+    </div>
+
+  </div>
+</div>

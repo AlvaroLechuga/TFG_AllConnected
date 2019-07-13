@@ -76,4 +76,10 @@ export class UserService{
 		return this._http.get(this.url+'user/detail/'+id, {headers: headers});
 	}
 
+	getUsers(cadena): Observable<any>{
+		let headers = new HttpHeaders().set('Content-Type', 'application/json');
+		
+		return this._http.get(this.url+'user/search/'+cadena, {headers: headers});
+	}
+
 }

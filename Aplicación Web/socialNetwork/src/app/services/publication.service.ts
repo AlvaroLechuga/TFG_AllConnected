@@ -24,6 +24,14 @@ export class PublicationService{
 		return this._http.post(this.url+'publicate', params, {headers: headers});
 	}
 
+	responseUser(token, publication, id){
+		let json = JSON.stringify(publication);
+		let params = 'json='+json;
+
+		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
+		return this._http.post(this.url+'publicateresponse/'+id, params, {headers: headers});
+	}
+
 	getPublications(id): Observable<any>{
 		let headers = new HttpHeaders().set('Content-Type', 'application/json');
 		

@@ -1,5 +1,6 @@
 <div id="v-sup"><h1>Iniciar Sesión</h1></div>
 <div id="registro">
+	<div class="alert alert-danger" *ngIf="status == 'error'">Error al iniciar sesión</div>
 	<form #loginForm="ngForm" (ngSubmit)="iniciarUsuario(loginForm)">
 		<label for="email">Email</label>
 		<input class="form-control form-datos" type="email" name="email" #email="ngModel" [(ngModel)]="user.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">

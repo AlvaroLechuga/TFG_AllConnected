@@ -22,13 +22,22 @@ export class ProfileComponent implements OnInit {
 	public identity;
 	public token;
 	public publications: Publication;
+  public publication: Publication;
 	public idIdentity;
 	public follow;
 
 	public nPublications;
-  	public nFollowers;
-  	public nFollowing;
-  	public nLikes;
+  public nFollowers;
+  public nFollowing;
+  public nLikes;
+
+  public likes;
+
+  public time;
+
+  public indice = -1;
+
+  public id_p;
 
   	constructor(private _userService: UserService, 
       private _publicationService: PublicationService, 
@@ -37,7 +46,8 @@ export class ProfileComponent implements OnInit {
       private _router: Router, 
       private _route: ActivatedRoute) {
   		this.url = global.url;
-		this.user = new User(1, '', '', '', '', '', '', '', '', 'user', '', '', '');
+      this.publication = new Publication(1, 1, '', '', '');
+		  this.user = new User(1, '', '', '', '', '', '', '', '', 'user', '', '', '');
   		this.identity = this._userService.getIdentity();
   		this.token = this._userService.getToken();
   	}
@@ -50,19 +60,16 @@ export class ProfileComponent implements OnInit {
 				this._router.navigate(['/perfil']);
 			}
 			
-	  		this.getIdentity(this.idIdentity);
-	  		this.getPublications(this.idIdentity);
-			
-			this.getFollow(this.idIdentity, this.token);
-			
-      this.numberPublication(this.idIdentity);
-      this.numberFollowers(this.idIdentity);
-      this.numberFollowings(this.idIdentity);
-      this.numberLikes(this.idIdentity);
-
+	  	  this.getIdentity(this.idIdentity);
+	  	  this.getPublications(this.idIdentity);
+        this.getFollow(this.idIdentity, this.token);
+        this.numberPublication(this.idIdentity);
+        this.numberFollowers(this.idIdentity);
+        this.numberFollowings(this.idIdentity);
+        this.numberLikes(this.idIdentity);
   		});
 
-  		
+  		this.getLikes();
   	}
 	
 	getFollow(id, token){
@@ -104,6 +111,7 @@ export class ProfileComponent implements OnInit {
   		this._publicationService.getPublications(id).subscribe(
   			response => {
   				this.publications = response.publications;
+          this.time = response.tiempo;
   			},
   			error => {
   				console.log(<any>error);
@@ -154,13 +162,14 @@ export class ProfileComponent implements OnInit {
 	
 	followUser(){
 		this._followService.follow(this.user.id, this.token).subscribe(
-			response => {
-				console.log(response);
-			},
-			error => {
-				console.log(<any>error);
-			}
-		);
+      response => {
+        this.follow = "UnFollow";
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+    
 	}
 	
 	unFollowUser(){
@@ -173,5 +182,60 @@ export class ProfileComponent implements OnInit {
 			}
 		);
 	}
+
+  getLikes(){
+    this._likeService.getLikes(this.token, this.user.id).subscribe(
+      response => {
+        this.likes = response.likes;
+      },
+      error => {
+
+      }
+    );
+  }
+
+  like(id){
+    this._likeService.like(this.token, id).subscribe(
+      response => {
+
+      },
+      error => {
+
+      }
+
+    );
+  }
+
+  dislike(id){
+    this._likeService.dislike(this.token, id).subscribe(
+      response => {
+
+      },
+      error => {
+        
+      }
+
+    );
+  }
+
+  submitResponse(responseuser){
+      this.publication.id_user = this.user.id;
+      this.id_p = this.publications[this.indice].id;
+      this.publication.text = responseuser;
+      
+      this._publicationService.responseUser(this.token, this.publication, this.id_p).subscribe(
+        response => {
+          this.getPublications(this.idIdentity)
+        },
+        error => {
+        }
+
+      );
+      
+    }
+
+  getIndex(i){
+    this.indice = i;
+  }
 
 }

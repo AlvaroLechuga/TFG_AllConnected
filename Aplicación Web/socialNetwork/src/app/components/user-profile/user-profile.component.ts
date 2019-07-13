@@ -22,6 +22,7 @@ export class UserProfileComponent implements OnInit {
 	public identity;
 	public token;
  	public url;
+  public publication: Publication;
   public publications: Publication;
 
   public nPublications;
@@ -29,8 +30,15 @@ export class UserProfileComponent implements OnInit {
   public nFollowing;
   public nLikes;
 
+  public time;
+
+  public indice = 0;
+
+  public id_p;
+
   constructor(private _userService: UserService, private _publicationService: PublicationService, private _followService: FollowService, private _likeService: LikeService, private _router: Router, private _route: ActivatedRoute) {
   		this.user = new User(1, '', '', '', '', '', '', '', '', 'user', '', '', '');
+      this.publication = new Publication(1, 1, '', '', '');
   		this.identity = this._userService.getIdentity();
   		this.token = this._userService.getToken();
   		this.user = this.identity;
@@ -93,7 +101,7 @@ export class UserProfileComponent implements OnInit {
     deletePublication(id){
       this._publicationService.deletePublication(id, this.token).subscribe(
         response => {
-          
+          this.getPublications(this.identity.sub);
         },
         error => {
           console.log(<any>error);
@@ -106,6 +114,7 @@ export class UserProfileComponent implements OnInit {
       this._publicationService.getPublications(id).subscribe(
         response => {
           this.publications = response.publications;
+          this.time = response.tiempo;
         },
         error => {
           console.log(<any>error);
@@ -113,5 +122,24 @@ export class UserProfileComponent implements OnInit {
 
       );
     }
+
+    submitResponse(responseuser){
+      //this.publication.id_user = this.user.id;
+      //this.id_p = this.publications[this.indice].id;
+      //this.publication.text = responseuser;
+      
+      /*this._publicationService.responseUser(this.token, this.publication, this.id_p).subscribe(
+        response => {
+          this.getPublications(this.identity.sub);
+        },
+        error => {
+        }
+
+      );*/
+    }
+
+  getIndex(i){
+    this.indice = i;
+  }
 
 }

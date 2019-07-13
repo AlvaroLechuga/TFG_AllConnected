@@ -24,23 +24,49 @@
   <p class="horizontal-publicacion"></p>
   <div *ngFor="let publicacion of publications; let i = index" [attr.data-index]="i">
     <div id="publicacion">
-    <div class="circulo-imagenPublicacion"></div>
-    <p id="datos-publicacion">{{infoUsers[i].name+' '+infoUsers[i].surname+' -  @'+infoUsers[i].nick}} - Hace 10 días</p>
+    <div class="circulo-imagenPublicacion">
+      <img src="{{url+ 'user/avatar/'+infoUsers[i][0].image}}" class="avatar_nav">
+    </div>
+    <p id="datos-publicacion"><a [routerLink]="['/perfil/']+publicacion.id_user">{{infoUsers[i][0].name+' '+infoUsers[i][0].surname}}</a>{{' @'+infoUsers[i][0].nick}}</p>
     <p id="publicacion-publicacion">
       {{publicacion.text}}
     </p>
         <div id="bnt-admin">
-      <button type="button" class="btn btn-default btn-sm btn-response">
+      <button type="button" class="btn btn-default btn-sm btn-response" data-toggle="modal" data-target="#exampleModal"(click)="getIndex(i)">
         <span class="glyphicon glyphicon-share-alt" title="Responder"></span>
       </button>
-      <button *ngIf="publicacion.id_user == identity.sub" type="button" class="btn btn-default btn-sm btn-remove">
+
+      <button *ngIf="publicacion.id_user == identity.sub" type="button" class="btn btn-default btn-sm btn-remove" (click)="deletePublication(publicacion.id)">
         <span class="glyphicon glyphicon-trash" title="Eliminar"></span>
       </button>
     </div>
   </div>
   <hr>
   </div>
+</div>
 
-  
-
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Responder publicación</h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Mensaje:</label>
+            <textarea disabled rows="4" cols="50" class="form-control shadow-textarea" id="message-text"><!--{{publications[indice].text}}--></textarea>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Respuesta:</label>
+            <textarea rows="4" cols="50" class="form-control shadow-textarea" id="message-text" #responseuser></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="submitResponse(responseuser.value)">Responder</button>
+      </div>
+    </div>
+  </div>
 </div>

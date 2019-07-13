@@ -13,18 +13,22 @@ export class LikeService{
 		this.url = global.url;
 	}
 
-	getLikes(token, id){
+	getLikes(token, id): Observable<any>{
 		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
 
 		return this._http.get(this.url+'getlikes/'+id, {headers: headers});
 	}
 
-	like(){
+	like(token, id): Observable<any>{
+		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
 
+		return this._http.post(this.url+'follow/'+id, {headers: headers});
 	}
 
-	dislike(){
+	dislike(token, id): Observable<any>{
+		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
 
+		return this._http.delete(this.url+'unfollow/'+id, {headers: headers});
 	}
 
 	numberLikes(id): Observable<any>{

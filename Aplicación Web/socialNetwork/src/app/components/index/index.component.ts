@@ -22,19 +22,26 @@ export class IndexComponent implements OnInit {
 	public token;
   public url;
 
-  public publications: Publication;
-  public infoUsers: User;
+  public publications;
+  public infoUsers;
 
   public nPublications;
   public nFollowers;
   public nFollowing;
 
+  public indice = 0;
+
+  public id_p;
+
     constructor(private _userService: UserService, private _publicationService: PublicationService, private _followService: FollowService ,private _router: Router) {
       this.user = new User(1, '', '', '', '', '', '', '', '', 'user', '', '', '');
       this.publication = new Publication(1, 1, '', '', '');
+
       this.identity = this._userService.getIdentity();
       this.token = this._userService.getToken();
-      this.user = new User(
+      
+      if(this.identity != null){
+        this.user = new User(
         this.identity.sub, 
         this.identity.name, 
         this.identity.surname, 
@@ -47,6 +54,7 @@ export class IndexComponent implements OnInit {
         this.identity.role,
         this.identity.description,
         this.identity.image, '');
+      }
 
 
       this.url = global.url;
@@ -55,10 +63,11 @@ export class IndexComponent implements OnInit {
         this._router.navigate(['/inicio']);
       }
 
+      this.getPublications();
+
     }
 
   	ngOnInit() {
-      this.getPublications();
       this.numberPublication();
       this.numberFollowers();
       this.numberFollowings();
@@ -69,7 +78,6 @@ export class IndexComponent implements OnInit {
         response => {
           this.publications = response.publications;
           this.infoUsers = response.users;
-          console.log(this.infoUsers);
         },
         error => {
           console.log(<any>error);
@@ -118,6 +126,39 @@ export class IndexComponent implements OnInit {
           console.log(<any>error);
         }
       );
+    }
+
+    submitResponse(responseuser){
+      this.publication.id_user = this.user.id;
+      this.id_p = this.publications[this.indice].id;
+      this.publication.text = responseuser;
+      
+      this._publicationService.responseUser(this.token, this.publication, this.id_p).subscribe(
+        response => {
+          this.getPublications();
+          this.numberPublication();
+        },
+        error => {
+        }
+
+      );
+      
+    }
+
+    deletePublication(id){
+      this._publicationService.deletePublication(id, this.token).subscribe(
+        response => {
+          this.getPublications();
+        },
+        error => {
+          console.log(<any>error);
+        }
+
+      );
+    }
+
+    getIndex(i){
+      this.indice = i;
     }
 
 }

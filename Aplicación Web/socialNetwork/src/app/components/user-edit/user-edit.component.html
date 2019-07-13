@@ -38,7 +38,7 @@
 		</div>
 
 		<label for="description">Biografía</label>
-		<textarea [froalaEditor]="froala_options" class="form-control" id="txt-description" name="description" #description="ngModel" [(ngModel)]="user.des"></textarea>
+		<textarea class="form-control" id="txt-description" name="description" #description="ngModel" [(ngModel)]="user.description"></textarea>
 
 		<br>
 		<input class="btn btn-primary" type="submit" name="modificar" value="Modificar usuario" [disabled]="modifyForm.invalid"><br><br>

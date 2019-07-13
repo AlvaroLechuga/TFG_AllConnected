@@ -447,6 +447,15 @@ hr{
 	margin: 0px auto;
 }
 
+#exampleModalLabel{
+	font-size: 20px;
+	font-weight: bold;
+}
+
+textarea{
+	resize: none;
+}
+
 /* Editar perfil */
 
 #txt-description{
@@ -458,6 +467,24 @@ hr{
 	height: 150px;
 	margin-top: 20px;
 }
+
+/* Usuarios */
+
+#mostrarusuario{
+	width: 100%;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #ccc;
+}
+
+#mostrarusuario .circulo-imagenPublicacion{
+	margin-top: -10px;
+} 
+
+#mostrarusuario h4{
+	margin-left: 130px;
+	padding-bottom: 10px;
+}
+
 
 /* Footer */
 

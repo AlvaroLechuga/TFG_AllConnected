@@ -35,8 +35,6 @@ export class UserEditComponent implements OnInit {
     attachPinText: "Sube la imagen de usuario"
 };
 
-  public froala_options;
-
   	constructor(private _userService: UserService) {
   		this.user = new User(1, '', '', '', '', '', '', '', '', 'user', '', '', '');
   		this.identity = this._userService.getIdentity();
@@ -54,14 +52,6 @@ export class UserEditComponent implements OnInit {
         this.identity.role,
         this.identity.description,
         '', '');
-      this.froala_options = {
-        charCounterCount: true,
-        placeholderText: this.user.description,
-        toolbarButtons: ['bold', 'italic', 'underline'],
-        toolbarButtonsXS: ['bold', 'italic', 'underline'],
-        toolbarButtonsSM: ['bold', 'italic', 'underline'],
-        toolbarButtonsMD: ['bold', 'italic', 'underline'],
-      };
 
       this.url = global.url;
 
