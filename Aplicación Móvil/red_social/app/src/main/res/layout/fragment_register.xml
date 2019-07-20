@@ -26,7 +26,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
-                    android:layout_marginTop="70dp"
+                    android:layout_marginTop="25dp"
                     android:layout_marginRight="25dp"
                     android:layout_marginBottom="10dp"
                     android:background="#3B4148"
@@ -35,7 +35,8 @@
                     android:inputType="textPersonName"
                     android:minHeight="60dp"
                     android:textColor="#FFFFFF"
-                    android:textColorHint="#4C5157"
+                    android:textColorHint="#66700000"
+                    android:textColorLink="#af0404"
                     android:textSize="24sp" />
 
                 <EditText
@@ -52,7 +53,8 @@
                     android:inputType="textPersonName"
                     android:minHeight="60dp"
                     android:textColor="#FFFFFF"
-                    android:textColorHint="#4C5157"
+                    android:textColorHint="#66700000"
+                    android:textColorLink="#af0404"
                     android:textSize="24sp" />
 
                 <EditText
@@ -68,7 +70,8 @@
                     android:inputType="textPersonName"
                     android:minHeight="60dp"
                     android:textColor="#FFFFFF"
-                    android:textColorHint="#4C5157"
+                    android:textColorHint="#66700000"
+                    android:textColorLink="#af0404"
                     android:textSize="24sp" />
 
                 <EditText
@@ -84,7 +87,8 @@
                     android:inputType="textPersonName"
                     android:minHeight="60dp"
                     android:textColor="#FFFFFF"
-                    android:textColorHint="#4C5157"
+                    android:textColorHint="#66700000"
+                    android:textColorLink="#af0404"
                     android:textSize="24sp" />
 
                 <EditText
@@ -96,11 +100,12 @@
                     android:layout_marginBottom="10dp"
                     android:background="#3B4148"
                     android:ems="10"
-                    android:hint="Fecha Cumpleaños"
+                    android:hint="Cumpleaños (yyyy/MM/dd)"
                     android:inputType="date"
                     android:minHeight="60dp"
                     android:textColor="#FFFFFF"
-                    android:textColorHint="#4C5157"
+                    android:textColorHint="#66700000"
+                    android:textColorLink="#af0404"
                     android:textSize="24sp" />
 
                 <EditText
@@ -116,7 +121,8 @@
                     android:inputType="textPersonName"
                     android:minHeight="60dp"
                     android:textColor="#FFFFFF"
-                    android:textColorHint="#4C5157"
+                    android:textColorHint="#66700000"
+                    android:textColorLink="#af0404"
                     android:textSize="24sp" />
 
                 <EditText
@@ -132,7 +138,8 @@
                     android:inputType="textEmailAddress"
                     android:minHeight="60dp"
                     android:textColor="#FFFFFF"
-                    android:textColorHint="#4C5157"
+                    android:textColorHint="#66700000"
+                    android:textColorLink="#af0404"
                     android:textSize="24sp" />
 
                 <EditText
@@ -148,7 +155,18 @@
                     android:inputType="textPassword"
                     android:minHeight="60dp"
                     android:textColor="#FFFFFF"
-                    android:textColorHint="#4C5157"
+                    android:textColorHint="#66700000"
+                    android:textColorLink="#af0404"
+                    android:textSize="24sp" />
+
+                <CheckBox
+                    android:id="@+id/cbRTerminos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:text="Acepta los términos y condiciones de servicio"
+                    android:textColor="#FFFF"
                     android:textSize="24sp" />
 
                 <Button
@@ -160,7 +178,20 @@
                     android:layout_marginRight="25dp"
                     android:backgroundTint="#EA4C88"
                     android:minHeight="60dp"
-                    android:text="Registrar" />
+                    android:text="Registrar"
+                    android:textColor="#FFFF" />
+
+                <TextView
+                    android:id="@+id/txtRIniciar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:text="¿Tienes cuenta? Click para Iniciar Sesión"
+                    android:textColor="#FFFF" />
             </LinearLayout>
         </ScrollView>
 

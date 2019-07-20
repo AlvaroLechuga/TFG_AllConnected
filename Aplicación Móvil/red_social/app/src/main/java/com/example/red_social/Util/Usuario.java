@@ -3,32 +3,34 @@ package com.example.red_social.Util;
 public class Usuario {
 
     private int id;
-    private String nombre;
-    private String apellidos;
-    private String direccion;
-    private String pais;
-    private String cumpleanos;
+    private String name;
+    private String surname;
+    private String direction;
+    private String country;
+    private String birthday;
     private String nick;
     private String email;
     private String password;
     private String image;
     private String descripcion;
+    private String getToken;
 
     public Usuario() {
     }
 
-    public Usuario(int id, String nombre, String apellidos, String direccion, String pais, String cumpleanos, String nick, String email, String password, String image, String descripcion) {
+    public Usuario(int id,  String name, String surname, String direction, String country, String birthday, String nick, String email, String password, String image, String descripcion, String getToken) {
         this.id = id;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.direccion = direccion;
-        this.pais = pais;
-        this.cumpleanos = cumpleanos;
+        this.name = name;
+        this.surname = surname;
+        this.direction = direction;
+        this.country = country;
+        this.birthday = birthday;
         this.nick = nick;
         this.email = email;
         this.password = password;
         this.image = image;
         this.descripcion = descripcion;
+        this.getToken = getToken;
     }
 
     public int getId() {
@@ -39,44 +41,44 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getApellidos() {
-        return apellidos;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getDirection() {
+        return direction;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
-    public String getPais() {
-        return pais;
+    public String getCountry() {
+        return country;
     }
 
-    public void setPais(String pais) {
-        this.pais = pais;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    public String getCumpleanos() {
-        return cumpleanos;
+    public String getBirthday() {
+        return birthday;
     }
 
-    public void setCumpleanos(String cumpleanos) {
-        this.cumpleanos = cumpleanos;
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
     public String getNick() {
@@ -117,5 +119,13 @@ public class Usuario {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getGetToken() {
+        return getToken;
+    }
+
+    public void setGetToken(String getToken) {
+        this.getToken = getToken;
     }
 }

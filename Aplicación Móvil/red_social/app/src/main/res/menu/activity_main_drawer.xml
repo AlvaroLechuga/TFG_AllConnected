@@ -7,10 +7,13 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Inicio" />
+            android:title="Noticias" />
     </group>
 
-    <item android:title="Communicate">
+    <item
+        android:id="@+id/menuLR"
+        android:title="Usuario"
+        android:visible="true">
         <menu>
             <item
                 android:id="@+id/nav_register"
@@ -20,6 +23,37 @@
                 android:id="@+id/nav_login"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Iniciar Usuario" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/menuInfo"
+        android:title="Usuario"
+        android:visible="false">
+        <menu>
+            <item
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Perfil" />
+            <item
+                android:id="@+id/nav_muro"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Muro" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Cerrar Sesión" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/menuPublication"
+        android:title="Publicaciones"
+        android:visible="false">
+        <menu>
+            <item
+                android:id="@+id/nav_publicate"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Publicar" />
+
         </menu>
     </item>
 

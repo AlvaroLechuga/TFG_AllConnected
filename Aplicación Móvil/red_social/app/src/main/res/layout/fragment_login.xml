@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="25dp"
             android:layout_marginRight="25dp"
             android:layout_marginBottom="10dp"
             android:background="#3B4148"
@@ -26,7 +26,8 @@
             android:inputType="textEmailAddress"
             android:minHeight="60dp"
             android:textColor="#FFFFFF"
-            android:textColorHint="#4C5157"
+            android:textColorHint="#66700000"
+            android:textColorLink="#af0404"
             android:textSize="24sp" />
 
         <EditText
@@ -42,7 +43,8 @@
             android:inputType="textPassword"
             android:minHeight="60dp"
             android:textColor="#FFFFFF"
-            android:textColorHint="#4C5157"
+            android:textColorHint="#66700000"
+            android:textColorLink="#af0404"
             android:textSize="24sp" />
 
         <Button
@@ -54,7 +56,20 @@
             android:layout_marginRight="25dp"
             android:backgroundTint="#EA4C88"
             android:minHeight="60dp"
-            android:text="Iniciar Sesión" />
+            android:text="Iniciar Sesión"
+            android:textColor="#FFFF" />
+
+        <TextView
+            android:id="@+id/txtLRegistrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="¿No tienes cuenta? Click para Crear"
+            android:textColor="#FFFF" />
     </LinearLayout>
 
 </FrameLayout>
