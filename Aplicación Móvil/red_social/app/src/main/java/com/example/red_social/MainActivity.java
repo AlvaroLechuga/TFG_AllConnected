@@ -186,7 +186,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         nav_Menu.findItem(R.id.menuInfo).setVisible(true);
         nav_Menu.findItem(R.id.menuPublication).setVisible(true);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        EstablecerValores();
+
+    }
+
+    private void EstablecerValores() {
+        NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         TextView navUsername =  headerView.findViewById(R.id.navUsername);
         TextView navEmail =  headerView.findViewById(R.id.navEmail);
@@ -203,7 +208,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .resize(200, 200)
                 .centerCrop()
                 .into(navImage);
-
     }
 
     private void cerrarSesion(){

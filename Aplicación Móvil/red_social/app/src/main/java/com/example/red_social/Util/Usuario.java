@@ -12,13 +12,13 @@ public class Usuario {
     private String email;
     private String password;
     private String image;
-    private String descripcion;
+    private String description;
     private String getToken;
 
     public Usuario() {
     }
 
-    public Usuario(int id,  String name, String surname, String direction, String country, String birthday, String nick, String email, String password, String image, String descripcion, String getToken) {
+    public Usuario(int id,  String name, String surname, String direction, String country, String birthday, String nick, String email, String password, String image, String description, String getToken) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -29,7 +29,7 @@ public class Usuario {
         this.email = email;
         this.password = password;
         this.image = image;
-        this.descripcion = descripcion;
+        this.description = description;
         this.getToken = getToken;
     }
 
@@ -113,12 +113,12 @@ public class Usuario {
         this.image = image;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getGetToken() {
