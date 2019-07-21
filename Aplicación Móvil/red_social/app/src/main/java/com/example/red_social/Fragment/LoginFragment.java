@@ -1,9 +1,7 @@
-package com.example.red_social;
+package com.example.red_social.Fragment;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -24,12 +22,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.red_social.R;
 import com.example.red_social.Util.Global;
 import com.example.red_social.Util.Usuario;
 import com.example.red_social.Util.VolleySingleton;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -154,7 +152,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         txtEmail.setText("");
                         txtPassword.setText("");
 
-                        String email = "", name = "", surname = "", nick = "", image = "";
+                        String email = "", name = "", surname = "", nick = "", image = "", description = "", country = "", direction = "";
                         int id = 0;
 
                         try {
@@ -165,7 +163,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                             nick = reader.getString("nick");
                             id = reader.getInt("sub");
                             image = reader.getString("image");
-                        } catch (JSONException e) { Log.i("errorInsertado", "Error"); }
+                            description = reader.getString("description");
+                            direction = reader.getString("direction");
+                            country = reader.getString("country");
+
+                        } catch (JSONException e) { }
 
                         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
                         SharedPreferences.Editor editor = prefs.edit();
@@ -176,6 +178,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         editor.putString("nick", nick);
                         editor.putInt("id", id);
                         editor.putString("image", image);
+                        editor.putString("description", description);
+                        editor.putString("direction", direction);
+                        editor.putString("country", country);
                         editor.commit();
 
                         progreso.hide();

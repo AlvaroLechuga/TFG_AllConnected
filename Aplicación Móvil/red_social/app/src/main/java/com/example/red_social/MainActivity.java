@@ -8,12 +8,9 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -25,6 +22,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.red_social.Fragment.BuscarFragment;
+import com.example.red_social.Fragment.EditProfileFragment;
+import com.example.red_social.Fragment.IndexFragment;
+import com.example.red_social.Fragment.LoginFragment;
+import com.example.red_social.Fragment.PublicateFragment;
+import com.example.red_social.Fragment.RegisterFragment;
+import com.example.red_social.Fragment.UsuarioPerfilFragment;
 import com.example.red_social.Util.Global;
 import com.squareup.picasso.Picasso;
 
@@ -34,8 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     SharedPreferences sharedPreferences;
 
-    String email, name, surname, nick, image, token;
-    int identificador;
+    String email, name, surname, nick, image;
 
     Context context;
 
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        contador = new Contador(2000,1000);
+        contador = new Contador(500,1000);
         contador.start();
 
     }
@@ -82,21 +85,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id){
+            case R.id.action_settings:
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new EditProfileFragment()).commit();
+                break;
+            case R.id.action_findUser:
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new BuscarFragment()).commit();
+                break;
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -120,12 +127,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentManager.beginTransaction().replace(R.id.contenedor, new RegisterFragment()).commit();
                 break;
             case R.id.nav_profile:
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new UsuarioPerfilFragment()).commit();
                 break;
             case R.id.nav_publicate:
                 fragmentManager.beginTransaction().replace(R.id.contenedor, new PublicateFragment()).commit();
                 break;
             case R.id.nav_logout:
                 cerrarSesion();
+                break;
+            case R.id.action_findUser:
+
                 break;
         }
 
@@ -134,6 +145,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return true;
     }
+
+
 
     public class Contador extends CountDownTimer {
 
@@ -148,12 +161,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             nick = sharedPreferences.getString("nick", "");
             name = sharedPreferences.getString("name", "");
             surname = sharedPreferences.getString("surname", "");
-            identificador = sharedPreferences.getInt("id", 0);
             image = sharedPreferences.getString("image", "");
-            token = sharedPreferences.getString("token", "");
 
             if(email.equals("")){
-                contador = new Contador(2000,1000);
+                contador = new Contador(500,1000);
                 contador.start();
             }else{
                 hideItem();
@@ -168,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void hideItem() {
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
 
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.menuLR).setVisible(false);
@@ -212,10 +223,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("name", "");
+                editor.putString("surname", "");
+                editor.putInt("id", 0);
+                editor.putString("nick", "");
                 editor.putString("email", "");
+                editor.putString("token", "");
+
+                email = "";
+                nick = "";
+                name = "";
+                surname = "";
+                image = "";
+
                 editor.commit();
 
-                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                NavigationView navigationView = findViewById(R.id.nav_view);
                 View headerView = navigationView.getHeaderView(0);
                 TextView navUsername =  headerView.findViewById(R.id.navUsername);
                 TextView navEmail =  headerView.findViewById(R.id.navEmail);
@@ -227,7 +250,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.contenedor, new IndexFragment()).commit();
 
-                contador = new Contador(2000,1000);
+                contador = new Contador(500,1000);
                 contador.start();
             }
         });

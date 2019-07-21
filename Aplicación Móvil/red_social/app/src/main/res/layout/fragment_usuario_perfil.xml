@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.UsuarioPerfilFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imagePProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <Button
+            android:id="@+id/btnPPEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="#EA4C88"
+            android:minHeight="60dp"
+            android:text="Editar"
+            android:textColor="#FFFF" />
+
+        <TextView
+            android:id="@+id/txtPPNameSur"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="Nombre Apellido" />
+
+        <TextView
+            android:id="@+id/txtPPNick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="@Nick" />
+
+        <TextView
+            android:id="@+id/txtPPDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pellentesque erat nec dui iaculis, sit amet pulvinar tellus auctor. Donec consequat, tellus et eleifend mattis, sem massa lacinia orci, quis malesuada diam sem non lectus. Nam sed aliquet turpis. Nulla vulputate augue felis, non ornare diam condimentum sed. Vivamus consectetur sem velit, sit amet ornare arcu egestas blandit. Mauris posuere blandit metus at posuere. Mauris blandit est vel sapien commodo, et laoreet metus vulputate. Vivamus sed nunc non dolor volutpat vestibulum sed id orci. Mauris quis lectus imperdiet, pulvinar diam at, imperdiet lorem. Donec quam augue, viverra eget pharetra sed, feugiat eu magna." />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="30dp"
+            android:text="Publicaciones" />
+
+    </LinearLayout>
+</FrameLayout>

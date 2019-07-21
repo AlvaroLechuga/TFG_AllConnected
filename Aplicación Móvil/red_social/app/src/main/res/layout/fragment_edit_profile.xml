@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.EditProfileFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#2E3237"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/txtENombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="10dp"
+                android:background="#3B4148"
+                android:ems="10"
+                android:hint="Nombre"
+                android:inputType="textPersonName"
+                android:minHeight="60dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#66700000"
+                android:textColorLink="#af0404"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/txtEApellidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="10dp"
+                android:background="#3B4148"
+                android:ems="10"
+                android:hint="Apellidos"
+                android:inputType="textPersonName"
+                android:minHeight="60dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#66700000"
+                android:textColorLink="#af0404"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/txtEDireccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="10dp"
+                android:background="#3B4148"
+                android:ems="10"
+                android:hint="Dirección"
+                android:inputType="textPersonName"
+                android:minHeight="60dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#66700000"
+                android:textColorLink="#af0404"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/txtEPais"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="10dp"
+                android:background="#3B4148"
+                android:ems="10"
+                android:hint="País"
+                android:inputType="textPersonName"
+                android:minHeight="60dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#66700000"
+                android:textColorLink="#af0404"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/txtENick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="10dp"
+                android:background="#3B4148"
+                android:ems="10"
+                android:hint="Nick"
+                android:inputType="textPersonName"
+                android:minHeight="60dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#66700000"
+                android:textColorLink="#af0404"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/txtEBiografia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="10dp"
+                android:background="#3B4148"
+                android:ems="10"
+                android:hint="Biografia"
+                android:inputType="textMultiLine"
+                android:lines="8"
+                android:maxLines="30"
+                android:minHeight="60dp"
+                android:minLines="6"
+                android:scrollbars="vertical"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#66700000"
+                android:textColorLink="#af0404"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:id="@+id/imageEProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:src="@mipmap/ic_launcher_round" />
+
+            <TextView
+                android:id="@+id/tvImagen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:text="TextView"
+                android:gravity="center"
+                android:textColor="#FFFF" />
+
+            <Button
+                android:id="@+id/btnEImagen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:backgroundTint="#EA4C88"
+                android:minHeight="60dp"
+                android:text="SELECCIONAR IMAGEN"
+                android:textColor="#FFFF" />
+
+            <Button
+                android:id="@+id/btnEModificar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="25dp"
+                android:backgroundTint="#EA4C88"
+                android:minHeight="60dp"
+                android:text="MODIFICAR"
+                android:textColor="#FFFF" />
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

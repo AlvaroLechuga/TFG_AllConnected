@@ -1,4 +1,4 @@
-package com.example.red_social;
+package com.example.red_social.Fragment;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -19,15 +19,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.red_social.DAO.DAOUsuarios;
+import com.example.red_social.R;
 import com.example.red_social.Util.Global;
 import com.example.red_social.Util.Usuario;
 import com.example.red_social.Util.VolleySingleton;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 import java.util.Map;
