@@ -6,61 +6,247 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.UsuarioPerfilFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imagePProfile"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:src="@mipmap/ic_launcher_round" />
+            android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/btnPPEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="30dp"
-            android:backgroundTint="#EA4C88"
-            android:minHeight="60dp"
-            android:text="Editar"
-            android:textColor="#FFFF" />
+            <ImageView
+                android:id="@+id/imagePProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/ic_launcher_round" />
 
-        <TextView
-            android:id="@+id/txtPPNameSur"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="Nombre Apellido" />
+            <Button
+                android:id="@+id/btnPPEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="30dp"
+                android:backgroundTint="#EA4C88"
+                android:minHeight="60dp"
+                android:text="Editar"
+                android:textColor="#FFFF" />
 
-        <TextView
-            android:id="@+id/txtPPNick"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="@Nick" />
+            <TextView
+                android:id="@+id/txtPPNameSur"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="Nombre Apellido" />
 
-        <TextView
-            android:id="@+id/txtPPDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pellentesque erat nec dui iaculis, sit amet pulvinar tellus auctor. Donec consequat, tellus et eleifend mattis, sem massa lacinia orci, quis malesuada diam sem non lectus. Nam sed aliquet turpis. Nulla vulputate augue felis, non ornare diam condimentum sed. Vivamus consectetur sem velit, sit amet ornare arcu egestas blandit. Mauris posuere blandit metus at posuere. Mauris blandit est vel sapien commodo, et laoreet metus vulputate. Vivamus sed nunc non dolor volutpat vestibulum sed id orci. Mauris quis lectus imperdiet, pulvinar diam at, imperdiet lorem. Donec quam augue, viverra eget pharetra sed, feugiat eu magna." />
+            <TextView
+                android:id="@+id/txtPPNick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="@Nick" />
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="30dp"
-            android:text="Publicaciones" />
+            <TextView
+                android:id="@+id/txtPPDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pellentesque erat nec dui iaculis, sit amet pulvinar tellus auctor. Donec consequat, tellus et eleifend mattis, sem massa lacinia orci, quis malesuada diam sem non lectus. Nam sed aliquet turpis. Nulla vulputate augue felis, non ornare diam condimentum sed. Vivamus consectetur sem velit, sit amet ornare arcu egestas blandit. Mauris posuere blandit metus at posuere. Mauris blandit est vel sapien commodo, et laoreet metus vulputate. Vivamus sed nunc non dolor volutpat vestibulum sed id orci. Mauris quis lectus imperdiet, pulvinar diam at, imperdiet lorem. Donec quam augue, viverra eget pharetra sed, feugiat eu magna." />
 
-    </LinearLayout>
+            <TableLayout
+                android:id="@+id/Tabla"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1">
+
+                <TableRow
+                    android:id="@+id/SeparadorCabecera0"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <FrameLayout
+                        android:id="@+id/LineaCabecera0"
+                        android:layout_width="fill_parent"
+                        android:layout_height="2px"
+                        android:layout_span="6"
+                        android:background="#CCC"></FrameLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/Cabecera"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/ColumnaCiudad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="5px"
+                        android:text="Siguiendo"
+                        android:textColor="#005500"
+                        android:textSize="26sp" />
+
+                    <TextView
+                        android:id="@+id/txtPSiguiendo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textSize="20sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/SeparadorCabecera"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <FrameLayout
+                        android:id="@+id/LineaCabecera"
+                        android:layout_width="fill_parent"
+                        android:layout_height="2px"
+                        android:layout_span="6"
+                        android:background="#CCC"></FrameLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/Fila1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/columnaCiudad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="5px"
+                        android:text="Seguidores"
+                        android:textColor="#005500"
+                        android:textSize="26sp" />
+
+                    <TextView
+                        android:id="@+id/txtPSeguidores"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textSize="20sp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/SeparadorCabecera2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <FrameLayout
+                        android:id="@+id/LineaCabecera2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="2px"
+                        android:layout_span="6"
+                        android:background="#CCC"></FrameLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/Fila2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/columnaCiudad2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="5px"
+                        android:text="Publicaciones"
+                        android:textColor="#005500"
+                        android:textSize="26sp" />
+
+                    <TextView
+                        android:id="@+id/txtPPublicaciones"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textSize="20sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/SeparadorCabecera3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <FrameLayout
+                        android:id="@+id/LineaCabecera3"
+                        android:layout_width="fill_parent"
+                        android:layout_height="2px"
+                        android:layout_span="6"
+                        android:background="#CCC"></FrameLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/Fila3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/columnaCiudad3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="5px"
+                        android:text="Me gusta"
+                        android:textColor="#005500"
+                        android:textSize="26sp" />
+
+                    <TextView
+                        android:id="@+id/txtPLikes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textSize="20sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/SeparadorCabecera4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <FrameLayout
+                        android:id="@+id/LineaCabecera4"
+                        android:layout_width="fill_parent"
+                        android:layout_height="2px"
+                        android:layout_span="6"
+                        android:background="#CCC"></FrameLayout>
+                </TableRow>
+
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Publicaciones"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <fragment
+                android:id="@+id/fragment3"
+                android:name="com.example.red_social.Fragment.PublicationFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </FrameLayout>

@@ -18,7 +18,7 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(int id,  String name, String surname, String direction, String country, String birthday, String nick, String email, String password, String image, String description, String getToken) {
+    public Usuario(int id,  String name, String surname, String direction, String country, String birthday, String nick, String email, String password, String image, String description) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -30,7 +30,6 @@ public class Usuario {
         this.password = password;
         this.image = image;
         this.description = description;
-        this.getToken = getToken;
     }
 
     public int getId() {

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,6 +94,17 @@ public class BuscarFragment extends Fragment implements View.OnClickListener{
 
                         if(response.equals("{\"status\":\"success\",\"code\":\"200\",\"users\":[]}")){
                             Toast.makeText(getContext(), "No hay usuarios", Toast.LENGTH_LONG).show();
+                        }else{
+
+                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putString("listausuarios", response);
+                            editor.commit();
+
+                            ListaUsuariosFragment fragment = new ListaUsuariosFragment();
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            ft.replace(R.id.contenedor, fragment, "fragment_meters");
+                            ft.commit();
                         }
 
                     }

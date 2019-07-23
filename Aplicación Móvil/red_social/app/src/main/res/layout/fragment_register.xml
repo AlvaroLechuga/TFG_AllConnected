@@ -35,7 +35,7 @@
                     android:inputType="textPersonName"
                     android:minHeight="60dp"
                     android:textColor="#FFFFFF"
-                    android:textColorHint="#66700000"
+                    android:textColorHint="#B3700000"
                     android:textColorLink="#af0404"
                     android:textSize="24sp" />
 
@@ -53,7 +53,7 @@
                     android:inputType="textPersonName"
                     android:minHeight="60dp"
                     android:textColor="#FFFFFF"
-                    android:textColorHint="#66700000"
+                    android:textColorHint="#B3700000"
                     android:textColorLink="#af0404"
                     android:textSize="24sp" />
 
@@ -70,7 +70,7 @@
                     android:inputType="textPersonName"
                     android:minHeight="60dp"
                     android:textColor="#FFFFFF"
-                    android:textColorHint="#66700000"
+                    android:textColorHint="#B3700000"
                     android:textColorLink="#af0404"
                     android:textSize="24sp" />
 
@@ -87,7 +87,7 @@
                     android:inputType="textPersonName"
                     android:minHeight="60dp"
                     android:textColor="#FFFFFF"
-                    android:textColorHint="#66700000"
+                    android:textColorHint="#B3700000"
                     android:textColorLink="#af0404"
                     android:textSize="24sp" />
 
@@ -104,7 +104,7 @@
                     android:inputType="date"
                     android:minHeight="60dp"
                     android:textColor="#FFFFFF"
-                    android:textColorHint="#66700000"
+                    android:textColorHint="#B3700000"
                     android:textColorLink="#af0404"
                     android:textSize="24sp" />
 
@@ -121,7 +121,7 @@
                     android:inputType="textPersonName"
                     android:minHeight="60dp"
                     android:textColor="#FFFFFF"
-                    android:textColorHint="#66700000"
+                    android:textColorHint="#B3700000"
                     android:textColorLink="#af0404"
                     android:textSize="24sp" />
 
@@ -138,7 +138,7 @@
                     android:inputType="textEmailAddress"
                     android:minHeight="60dp"
                     android:textColor="#FFFFFF"
-                    android:textColorHint="#66700000"
+                    android:textColorHint="#B3700000"
                     android:textColorLink="#af0404"
                     android:textSize="24sp" />
 
@@ -155,7 +155,7 @@
                     android:inputType="textPassword"
                     android:minHeight="60dp"
                     android:textColor="#FFFFFF"
-                    android:textColorHint="#66700000"
+                    android:textColorHint="#B3700000"
                     android:textColorLink="#af0404"
                     android:textSize="24sp" />
 

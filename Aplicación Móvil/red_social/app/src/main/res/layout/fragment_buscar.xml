@@ -19,7 +19,8 @@
             android:layout_marginTop="25dp"
             android:layout_marginRight="25dp"
             android:background="#EA4C88"
-            android:text="BUSCAR" />
+            android:text="BUSCAR"
+            android:textColor="#FFFF" />
 
         <EditText
             android:id="@+id/txtBUsuario"
@@ -36,6 +37,7 @@
             android:textColorHint="#66700000"
             android:textColorLink="#af0404"
             android:textSize="24sp" />
+
     </LinearLayout>
 
 </FrameLayout>

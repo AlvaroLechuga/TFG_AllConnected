@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.NoticiaFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/layout_border"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageNoticia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/txtNTitular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="Titular"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtNCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Categoria"
+            android:textColor="#43A047"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/txtNNoticia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed massa sit amet dui pulvinar accumsan at et lacus. Maecenas condimentum metus sit amet suscipit semper. Integer aliquet fermentum magna, tincidunt volutpat justo tempor non. Sed ornare, metus non iaculis venenatis, magna nunc pharetra mauris, vitae finibus ligula ante vitae ex. In gravida consequat varius. In vel elit sapien. Sed dui erat, consequat at lorem ut, elementum efficitur lorem."
+            android:textSize="14sp" />
+    </LinearLayout>
+</FrameLayout>

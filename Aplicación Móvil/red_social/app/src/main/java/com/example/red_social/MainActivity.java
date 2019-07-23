@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.example.red_social.Fragment.BuscarFragment;
 import com.example.red_social.Fragment.EditProfileFragment;
 import com.example.red_social.Fragment.IndexFragment;
+import com.example.red_social.Fragment.ListaNoticiasFragment;
 import com.example.red_social.Fragment.LoginFragment;
 import com.example.red_social.Fragment.PublicateFragment;
 import com.example.red_social.Fragment.RegisterFragment;
@@ -119,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id){
             case R.id.nav_home:
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new ListaNoticiasFragment()).commit();
                 break;
             case R.id.nav_login:
                 fragmentManager.beginTransaction().replace(R.id.contenedor, new LoginFragment()).commit();

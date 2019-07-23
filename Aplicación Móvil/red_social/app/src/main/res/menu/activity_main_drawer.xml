@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_menu_notices"
             android:title="Noticias" />
     </group>
 
@@ -17,11 +17,11 @@
         <menu>
             <item
                 android:id="@+id/nav_register"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_menu_register"
                 android:title="Registrar Usuario" />
             <item
                 android:id="@+id/nav_login"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_menu_login"
                 android:title="Iniciar Usuario" />
         </menu>
     </item>
@@ -32,15 +32,15 @@
         <menu>
             <item
                 android:id="@+id/nav_profile"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_menu_profile"
                 android:title="Perfil" />
             <item
                 android:id="@+id/nav_muro"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_menu_muro"
                 android:title="Muro" />
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_menu_logout"
                 android:title="Cerrar Sesión" />
         </menu>
     </item>
@@ -51,7 +51,7 @@
         <menu>
             <item
                 android:id="@+id/nav_publicate"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_menu_publicate"
                 android:title="Publicar" />
 
         </menu>
