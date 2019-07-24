@@ -22,7 +22,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.red_social.R;
 import com.example.red_social.Util.Global;
 import com.example.red_social.Util.Noticia;
-import com.example.red_social.Util.Usuario;
 import com.example.red_social.Util.VolleySingleton;
 import com.squareup.picasso.Picasso;
 
@@ -35,7 +34,6 @@ import java.util.List;
 
 
 public class ListaNoticiasFragment extends Fragment {
-
 
     ListView listaNoticias;
 
@@ -97,7 +95,7 @@ public class ListaNoticiasFragment extends Fragment {
 
                 noticias.add(noticia);
             }
-            
+
             listaNoticias.setAdapter(new NoticiasAdapter(getActivity(),R.layout.fragment_user, noticias));
 
         } catch (JSONException e) { Log.i("errorInsertado", "Error"); }
@@ -117,16 +115,16 @@ public class ListaNoticiasFragment extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
             View v = ((Activity)getContext()).getLayoutInflater().inflate(R.layout.fragment_noticia,null);
 
-            TextView txt1 = (TextView) v.findViewById(R.id.txtNTitular);
+            TextView txt1 = v.findViewById(R.id.txtNTitular);
             txt1.setText(noticias.get(position).getTitle());
 
-            TextView txt2 = (TextView) v.findViewById(R.id.txtNCategoria);
+            TextView txt2 = v.findViewById(R.id.txtNCategoria);
             txt2.setText(noticias.get(position).getNameTitle());
 
-            TextView txt3 = (TextView) v.findViewById(R.id.txtNNoticia);
+            TextView txt3 = v.findViewById(R.id.txtNNoticia);
             txt3.setText(noticias.get(position).getText());
 
-            ImageView img = (ImageView) v.findViewById(R.id.imageNoticia);
+            ImageView img = v.findViewById(R.id.imageNoticia);
 
             Picasso.get()
                     .load(noticias.get(position).getImage())

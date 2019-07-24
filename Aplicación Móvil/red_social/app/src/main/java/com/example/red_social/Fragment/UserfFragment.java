@@ -1,15 +1,12 @@
 package com.example.red_social.Fragment;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,16 +21,13 @@ import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.red_social.R;
 import com.example.red_social.Util.Global;
-import com.example.red_social.Util.Noticia;
 import com.example.red_social.Util.Publicacion;
 import com.example.red_social.Util.VolleySingleton;
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -41,64 +35,46 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
-public class UsuarioPerfilFragment extends Fragment implements View.OnClickListener{
+public class UserfFragment extends Fragment implements View.OnClickListener{
 
-    ImageView imageProfile;
-    Button btnEdit;
-    TextView txtNombre, txtNick, txtDescripcion, txtSiguiendo, txtSeguidores, txtPublicaciones, txtLikes;
+    String name, surname, nick, description, image;
+    int id, nPublicaciones, nFollowers, nFollows, nLikes;
 
-    String nombre, apellidos, nick, image, token;
-
+    ImageView imagenProfile;
+    Button btnFollow;
+    TextView txtName, txtNick, txtDescription, txtSeguidores, txtPublicaciones, txtSiguiendo, txtLikes;
     ListView listaPublicaciones;
-
-    int nPublicaciones, nLikes, nFollows, nFollowers, id;
-
-    ProgressDialog progreso;
 
     SharedPreferences sharedPreferences;
 
-    Context context;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_usuario_perfil, container, false);
+        View view = inflater.inflate(R.layout.fragment_userf, container, false);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
+        imagenProfile = view.findViewById(R.id.imagePFind);
+        btnFollow = view.findViewById(R.id.btnPFollow);
+        txtName = view.findViewById(R.id.txtPFNameSur);
+        txtNick = view.findViewById(R.id.txtPFNick);
+        txtDescription = view.findViewById(R.id.txtPFDescription);
+        txtSiguiendo = view.findViewById(R.id.txtPSiguiendoF);
+        txtSeguidores =  view.findViewById(R.id.txtPSeguidoresF);
+        txtPublicaciones =  view.findViewById(R.id.txtPPublicacionesF);
+        txtLikes =  view.findViewById(R.id.txtPLikesF);
+        listaPublicaciones = view.findViewById(R.id.listaFPublicaciones);
 
-        context = getContext();
+        btnFollow.setOnClickListener(this);
 
-        nombre = sharedPreferences.getString("name", "");
-        apellidos = sharedPreferences.getString("surname", "");
-        nick = sharedPreferences.getString("nick", "");
-        String description = sharedPreferences.getString("description", "");
-        image = sharedPreferences.getString("image", "");
-        id = sharedPreferences.getInt("id", 0);
-        token = sharedPreferences.getString("token", "");
-
-        imageProfile = view.findViewById(R.id.imagePFind);
-        btnEdit = view.findViewById(R.id.btnPPEdit);
-        txtNombre = view.findViewById(R.id.txtPPNameSur);
-        txtNick = view.findViewById(R.id.txtPPNick);
-        txtDescripcion = view.findViewById(R.id.txtPPDescription);
-        txtSeguidores = view.findViewById(R.id.txtPSeguidores);
-        txtSiguiendo = view.findViewById(R.id.txtPSiguiendo);
-        txtLikes = view.findViewById(R.id.txtPLikes);
-        txtPublicaciones = view.findViewById(R.id.txtPPublicaciones);
-
-        listaPublicaciones = view.findViewById(R.id.listaPublicaciones);
-
-        btnEdit.setOnClickListener(this);
+        id = sharedPreferences.getInt("finduser_id", 0);
+        name = sharedPreferences.getString("finduser_name", "");
+        surname = sharedPreferences.getString("finduser_surname", "");
+        nick = sharedPreferences.getString("finduser_nick", "");
+        description = sharedPreferences.getString("finduser_descripcion", "");
+        image = sharedPreferences.getString("finduser_image", "");
 
         Global global = new Global();
         String url = global.url;
@@ -107,11 +83,11 @@ public class UsuarioPerfilFragment extends Fragment implements View.OnClickListe
                 .load(url+"user/avatar/"+image)
                 .resize(300, 300)
                 .centerCrop()
-                .into(imageProfile);
+                .into(imagenProfile);
 
-        txtNombre.setText(nombre+" "+apellidos);
+        txtName.setText(name+" "+surname);
         txtNick.setText("@"+nick);
-        txtDescripcion.setText(description);
+        txtDescription.setText(description);
 
         SacarValores(id);
 
@@ -319,35 +295,15 @@ public class UsuarioPerfilFragment extends Fragment implements View.OnClickListe
             View v = ((Activity)getContext()).getLayoutInflater().inflate(R.layout.fragment_publication,null);
 
             TextView txt1 = v.findViewById(R.id.txtPLInfo);
-            txt1.setText(nombre+" "+apellidos+" - @"+nick+" - "+"Hace 10 días");
+            txt1.setText(name+" "+surname+" - @"+nick+" - "+"Hace 10 días");
 
             TextView txt3 = v.findViewById(R.id.txtPLText);
             txt3.setText(publicacions.get(position).getText());
 
             ImageButton btnEliminar = v.findViewById(R.id.btnPLDelete);
+            btnEliminar.setVisibility(View.GONE);
+
             ImageButton btnResponse = v.findViewById(R.id.btnPLResponse);
-
-            btnEliminar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    AlertDialog.Builder dialogo1 = new AlertDialog.Builder(context);
-                    dialogo1.setTitle("Eliminar Publicación");
-                    dialogo1.setMessage("¿ Desea eliminar la publicación ?");
-                    dialogo1.setCancelable(false);
-                    dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialogo1, int id) {
-                            EliminarPublicacion(publicacions.get(position).getId());
-                        }
-                    });
-                    dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialogo1, int id) {
-                            dialogo1.cancel();
-                        }
-                    });
-                    dialogo1.show();
-                }
-            });
 
             btnResponse.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -381,55 +337,10 @@ public class UsuarioPerfilFragment extends Fragment implements View.OnClickListe
         }
     }
 
-    private void EliminarPublicacion(int idp) {
-
-        progreso = new ProgressDialog(getContext());
-        progreso.setMessage("Cargando...");
-        progreso.show();
-
-        Global global = new Global();
-        String url = global.url;
-        url = url+"publication/delete/"+idp;
-
-        StringRequest postRequest = new StringRequest(Request.Method.DELETE, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progreso.hide();
-                        Toast.makeText(getContext(), "Se ha eliminado correctamente", Toast.LENGTH_LONG).show();
-                        SacarValores(id);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progreso.hide();
-                        Log.i("errorInsertado", error.toString());
-                        Toast.makeText(getContext(), "No se ha pidido eliminar la publicación", Toast.LENGTH_LONG).show();
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("Authorization", token);
-
-                return params;
-            }
-        };
-        postRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(postRequest);
-
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.btnPPEdit:
-                EditProfileFragment fragment = new EditProfileFragment();
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.contenedor, fragment, "fragment_meters");
-                ft.commit();
+            case R.id.btnPFollow:
                 break;
         }
     }

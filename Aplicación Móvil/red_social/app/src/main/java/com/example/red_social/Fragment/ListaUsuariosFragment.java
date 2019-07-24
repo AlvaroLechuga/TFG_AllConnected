@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.red_social.R;
 import com.example.red_social.Util.Global;
@@ -75,7 +75,21 @@ public class ListaUsuariosFragment extends Fragment {
         listaUsuarios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("finduser_name", usuarios.get(position).getName());
+                editor.putString("finduser_surname", usuarios.get(position).getSurname());
+                editor.putString("finduser_nick", usuarios.get(position).getNick());
+                editor.putString("finduser_descripcion", usuarios.get(position).getDescription());
+                editor.putString("finduser_image", usuarios.get(position).getImage());
+                editor.putInt("finduser_id", usuarios.get(position).getId());
+                editor.commit();
+
+
+                UserfFragment fragment = new UserfFragment();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.contenedor, fragment, "fragment_meters");
+                ft.commit();
             }
         });
 
@@ -94,13 +108,13 @@ public class ListaUsuariosFragment extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View v = ((Activity)getContext()).getLayoutInflater().inflate(R.layout.fragment_user,null);
-            TextView txt1 = (TextView) v.findViewById(R.id.txtUserFind);
+            TextView txt1 = v.findViewById(R.id.txtUserFind);
             txt1.setText(usuarios.get(position).getName()+" "+usuarios.get(position).getSurname());
 
-            TextView txt2 = (TextView) v.findViewById(R.id.txtNickFind);
+            TextView txt2 = v.findViewById(R.id.txtNickFind);
             txt2.setText("@"+usuarios.get(position).getNick());
 
-            ImageView img = (ImageView) v.findViewById(R.id.imageUserFind);
+            ImageView img = v.findViewById(R.id.imageUserFind);
 
             Global global = new Global();
             String url = global.url;

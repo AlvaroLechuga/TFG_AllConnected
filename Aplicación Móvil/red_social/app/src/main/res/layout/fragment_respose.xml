@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.ResposeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#2E3237"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Responder publicación"
+            android:textColor="#FFFF"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mensaje:"
+            android:textColor="#FFFF" />
+
+        <EditText
+            android:id="@+id/txtRMensaje"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#3B4148"
+            android:editable="false"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="textMultiLine"
+            android:lines="8"
+            android:maxLines="30"
+            android:minHeight="60dp"
+            android:minLines="6"
+            android:scrollbars="vertical"
+            android:textColor="#FFFF"
+            android:textColorHint="#B3700000"
+            android:textColorLink="#af0404" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Respuesta:"
+            android:textColor="#FFFF" />
+
+        <EditText
+            android:id="@+id/txtRResponse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#3B4148"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:lines="8"
+            android:maxLines="30"
+            android:minHeight="60dp"
+            android:minLines="6"
+            android:scrollbars="vertical"
+            android:textColor="#FFFF"
+            android:textColorHint="#B3700000"
+            android:textColorLink="#af0404" />
+
+        <Button
+            android:id="@+id/btnRResponse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#EA4C88"
+            android:minHeight="60dp"
+            android:text="RESPONDER"
+            android:textColor="#FFFF" />
+
+    </LinearLayout>
+</FrameLayout>

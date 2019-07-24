@@ -43,7 +43,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     Button btnLogin;
 
     ProgressDialog progreso;
-    RequestQueue request;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,8 +58,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         btnLogin.setOnClickListener(this);
         txtCrear.setOnClickListener(this);
-
-        request = Volley.newRequestQueue(getContext());
 
         return view;
     }

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.UsuarioPerfilFragment">
+    tools:context=".Fragment.UserfFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,7 +22,7 @@
                 android:src="@mipmap/ic_launcher_round" />
 
             <Button
-                android:id="@+id/btnPPEdit"
+                android:id="@+id/btnPFollow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -31,11 +30,11 @@
                 android:layout_marginRight="30dp"
                 android:backgroundTint="#EA4C88"
                 android:minHeight="60dp"
-                android:text="Editar"
+                android:text="Seguir"
                 android:textColor="#FFFF" />
 
             <TextView
-                android:id="@+id/txtPPNameSur"
+                android:id="@+id/txtPFNameSur"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -43,7 +42,7 @@
                 android:text="Nombre Apellido" />
 
             <TextView
-                android:id="@+id/txtPPNick"
+                android:id="@+id/txtPFNick"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -51,7 +50,7 @@
                 android:text="@Nick" />
 
             <TextView
-                android:id="@+id/txtPPDescription"
+                android:id="@+id/txtPFDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -93,7 +92,7 @@
                         android:textSize="26sp" />
 
                     <TextView
-                        android:id="@+id/txtPSiguiendo"
+                        android:id="@+id/txtPSiguiendoF"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -131,7 +130,7 @@
                         android:textSize="26sp" />
 
                     <TextView
-                        android:id="@+id/txtPSeguidores"
+                        android:id="@+id/txtPSeguidoresF"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -168,7 +167,7 @@
                         android:textSize="26sp" />
 
                     <TextView
-                        android:id="@+id/txtPPublicaciones"
+                        android:id="@+id/txtPPublicacionesF"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -206,7 +205,7 @@
                         android:textSize="26sp" />
 
                     <TextView
-                        android:id="@+id/txtPLikes"
+                        android:id="@+id/txtPLikesF"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -240,12 +239,11 @@
                 android:textStyle="bold" />
 
             <ListView
-                android:id="@+id/listaPublicaciones"
+                android:id="@+id/listaFPublicaciones"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/fragment_publication" />
 
         </LinearLayout>
     </ScrollView>
-
 </FrameLayout>

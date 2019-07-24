@@ -1,10 +1,13 @@
 package com.example.red_social.Fragment;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +18,9 @@ import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.red_social.R;
 import com.example.red_social.Util.Global;
 import com.example.red_social.Util.Publicacion;
@@ -29,26 +30,36 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PublicateFragment extends Fragment implements View.OnClickListener {
 
-    Button btnPublicar;
-    EditText txtPublicacion;
+public class ResposeFragment extends Fragment implements View.OnClickListener {
 
     ProgressDialog progreso;
+    int id_publication;
+    String text;
+
+    EditText txtMensaje;
+    EditText txtResponse;
+    Button btnResponder;
 
     SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_publicate, container, false);
-
-        btnPublicar = view.findViewById(R.id.btnPPublicate);
-        txtPublicacion = view.findViewById(R.id.txtPPublication);
-
-        btnPublicar.setOnClickListener(this);
+        View view = inflater.inflate(R.layout.fragment_respose, container, false);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        text = sharedPreferences.getString("response_publication", "");
+        id_publication = sharedPreferences.getInt("response_idPublication", 0);
+
+        txtMensaje = view.findViewById(R.id.txtRMensaje);
+        txtResponse = view.findViewById(R.id.txtRResponse);
+        btnResponder = view.findViewById(R.id.btnRResponse);
+
+        txtMensaje.setText(text);
+
+        btnResponder.setOnClickListener(this);
 
         return view;
     }
@@ -56,38 +67,34 @@ public class PublicateFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.btnPPublicate:
-                RealizarPublicacion();
+            case R.id.btnRResponse:
+                ResponderPublicacion();
                 break;
         }
     }
 
-    private void RealizarPublicacion() {
-
-        String texto = txtPublicacion.getText().toString();
-
-        if(texto.equals("")){
-            Toast.makeText(getContext(), "No has escrito ninguna publicación", Toast.LENGTH_LONG).show();
+    private void ResponderPublicacion() {
+        if(txtResponse.getText().equals("")){
+            Toast.makeText(getContext(), "Rellena la publicación", Toast.LENGTH_LONG).show();
         }else{
-
             String token = sharedPreferences.getString("token", "");
 
             Publicacion publicacion1 = new Publicacion();
-            publicacion1.setText(texto);
+            publicacion1.setText(txtResponse.getText().toString());
 
             Publicar(publicacion1, token);
         }
-
     }
 
     private void Publicar(Publicacion publicacion1, final String token) {
+
         progreso = new ProgressDialog(getContext());
         progreso.setMessage("Cargando...");
         progreso.show();
 
         Global global = new Global();
         String url = global.url;
-        url = url+"publicate";
+        url = url+"publicateresponse/"+id_publication;
 
         Gson gson = new Gson();
         final String json = gson.toJson(publicacion1);
@@ -96,9 +103,12 @@ public class PublicateFragment extends Fragment implements View.OnClickListener 
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        txtPublicacion.setText("");
                         progreso.hide();
-                        Toast.makeText(getContext(), "Se ha realizado la publicación", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Se ha publicado correctamente", Toast.LENGTH_LONG).show();
+                        IndexFragment fragment = new IndexFragment();
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(R.id.contenedor, fragment, "fragment_meters");
+                        ft.commit();
                     }
                 },
                 new Response.ErrorListener() {
@@ -128,5 +138,6 @@ public class PublicateFragment extends Fragment implements View.OnClickListener 
         };
         postRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(postRequest);
+
     }
 }
