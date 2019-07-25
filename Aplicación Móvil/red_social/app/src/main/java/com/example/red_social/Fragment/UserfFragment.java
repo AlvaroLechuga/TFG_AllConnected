@@ -3,6 +3,7 @@ package com.example.red_social.Fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -28,6 +29,7 @@ import com.example.red_social.R;
 import com.example.red_social.Util.Global;
 import com.example.red_social.Util.Publicacion;
 import com.example.red_social.Util.VolleySingleton;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -35,12 +37,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class UserfFragment extends Fragment implements View.OnClickListener{
 
-    String name, surname, nick, description, image;
+    String name, surname, nick, description, image, token, estadoFollow;
     int id, nPublicaciones, nFollowers, nFollows, nLikes;
 
     ImageView imagenProfile;
@@ -75,6 +79,8 @@ public class UserfFragment extends Fragment implements View.OnClickListener{
         nick = sharedPreferences.getString("finduser_nick", "");
         description = sharedPreferences.getString("finduser_descripcion", "");
         image = sharedPreferences.getString("finduser_image", "");
+        token = sharedPreferences.getString("token", "");
+
 
         Global global = new Global();
         String url = global.url;
@@ -100,6 +106,7 @@ public class UserfFragment extends Fragment implements View.OnClickListener{
         SacarnFollowers(id);
         SacarnFollows(id);
         SacarnLikes(id);
+        SacarFollow(id);
     }
 
     private void SacarPublicaciones(int id){
@@ -253,10 +260,12 @@ public class UserfFragment extends Fragment implements View.OnClickListener{
 
     private void ObtenerPublicaciones(String publicationsJson) {
         final List<Publicacion> publicaciones = new ArrayList<>();
+        final List<String> tiempo = new ArrayList<>();
 
         try {
             JSONObject reader = new JSONObject(publicationsJson);
             JSONArray listPublications = reader.getJSONArray("publications");
+            JSONArray listTime = reader.getJSONArray("tiempo");
 
             for(int i = 0; i < listPublications.length(); i++) {
                 JSONObject publicationeObject = listPublications.getJSONObject(i);
@@ -273,9 +282,13 @@ public class UserfFragment extends Fragment implements View.OnClickListener{
 
                 publicaciones.add(publicacion);
 
+                String asd = listTime.getString(i);
+
+                tiempo.add(asd);
+
             }
 
-            listaPublicaciones.setAdapter(new PublicationsAdapter(getActivity(), R.layout.fragment_publication, publicaciones));
+            listaPublicaciones.setAdapter(new PublicationsAdapter(getActivity(), R.layout.fragment_publication, publicaciones, tiempo));
 
         } catch (JSONException e) { Log.i("errorInsertado", "Error"); }
 
@@ -284,10 +297,12 @@ public class UserfFragment extends Fragment implements View.OnClickListener{
     class PublicationsAdapter extends ArrayAdapter {
 
         private List<Publicacion> publicacions;
+        private List<String> tiempo;
 
-        public PublicationsAdapter(Context context, int resource, List<Publicacion> publicacions) {
+        public PublicationsAdapter(Context context, int resource, List<Publicacion> publicacions, List<String> tiempo) {
             super(context, resource, publicacions);
             this.publicacions = publicacions;
+            this.tiempo = tiempo;
         }
 
         @Override
@@ -295,7 +310,7 @@ public class UserfFragment extends Fragment implements View.OnClickListener{
             View v = ((Activity)getContext()).getLayoutInflater().inflate(R.layout.fragment_publication,null);
 
             TextView txt1 = v.findViewById(R.id.txtPLInfo);
-            txt1.setText(name+" "+surname+" - @"+nick+" - "+"Hace 10 días");
+            txt1.setText(name+" "+surname+" - @"+nick+" - "+tiempo.get(position));
 
             TextView txt3 = v.findViewById(R.id.txtPLText);
             txt3.setText(publicacions.get(position).getText());
@@ -337,11 +352,122 @@ public class UserfFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    private void SacarFollow(int id){
+        Global global = new Global();
+        String url = global.url;
+        url = url+"getfollow/"+id;
+
+        StringRequest postRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject reader = new JSONObject(response);
+                            estadoFollow = reader.getString("message");
+
+                            if(estadoFollow.equals("Follow")){
+                                btnFollow.setText("SEGUIR");
+                                btnFollow.setBackgroundColor(Color.parseColor("#00bdaa"));
+                            }else if(estadoFollow.equals("UnFollow")){
+                                btnFollow.setText("DEJAR DE SEGUIR");
+                                btnFollow.setBackgroundColor(Color.parseColor("#ff0000"));
+                            }
+
+                        } catch (JSONException e) {
+                            Log.i("errorInsertado", "Error");
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("errorInsertado", error.toString());
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization", token);
+                return params;
+            }
+        };
+        postRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(postRequest);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnPFollow:
+                if(btnFollow.getText().equals("SEGUIR")){
+                    SeguirUsuario();
+                }else{
+                    DejarSeguir();
+                }
                 break;
         }
+    }
+
+    private void SeguirUsuario() {
+        Global global = new Global();
+        String url = global.url;
+        url = url+"follow/"+id;
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        btnFollow.setText("DEJAR DE SEGUIR");
+                        SacarValores(id);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("errorInsertado", error.toString());
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization", token);
+                return params;
+            }
+        };
+        postRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(postRequest);
+    }
+
+    private void DejarSeguir() {
+        Global global = new Global();
+        String url = global.url;
+        url = url+"unfollow/"+id;
+
+        StringRequest postRequest = new StringRequest(Request.Method.DELETE, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        btnFollow.setText("SEGUIR");
+                        SacarValores(id);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("errorInsertado", error.toString());
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization", token);
+                return params;
+            }
+        };
+        postRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(postRequest);
     }
 }

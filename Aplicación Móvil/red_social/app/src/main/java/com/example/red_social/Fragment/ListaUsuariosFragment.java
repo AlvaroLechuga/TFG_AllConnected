@@ -32,6 +32,7 @@ import java.util.List;
 public class ListaUsuariosFragment extends Fragment {
 
     ListView listaUsuarios;
+    int identificador;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class ListaUsuariosFragment extends Fragment {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         String usuariosJson = sharedPreferences.getString("listausuarios", "");
+        identificador = sharedPreferences.getInt("id", 0);
 
         final List<Usuario> usuarios = new ArrayList<>();
 
@@ -75,21 +77,28 @@ public class ListaUsuariosFragment extends Fragment {
         listaUsuarios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("finduser_name", usuarios.get(position).getName());
-                editor.putString("finduser_surname", usuarios.get(position).getSurname());
-                editor.putString("finduser_nick", usuarios.get(position).getNick());
-                editor.putString("finduser_descripcion", usuarios.get(position).getDescription());
-                editor.putString("finduser_image", usuarios.get(position).getImage());
-                editor.putInt("finduser_id", usuarios.get(position).getId());
-                editor.commit();
+                if(usuarios.get(position).getId() != identificador){
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("finduser_name", usuarios.get(position).getName());
+                    editor.putString("finduser_surname", usuarios.get(position).getSurname());
+                    editor.putString("finduser_nick", usuarios.get(position).getNick());
+                    editor.putString("finduser_descripcion", usuarios.get(position).getDescription());
+                    editor.putString("finduser_image", usuarios.get(position).getImage());
+                    editor.putInt("finduser_id", usuarios.get(position).getId());
+                    editor.commit();
 
 
-                UserfFragment fragment = new UserfFragment();
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.contenedor, fragment, "fragment_meters");
-                ft.commit();
+                    UserfFragment fragment = new UserfFragment();
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.replace(R.id.contenedor, fragment, "fragment_meters");
+                    ft.commit();
+                }else{
+                    UsuarioPerfilFragment fragment = new UsuarioPerfilFragment();
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.replace(R.id.contenedor, fragment, "fragment_meters");
+                    ft.commit();
+                }
             }
         });
 

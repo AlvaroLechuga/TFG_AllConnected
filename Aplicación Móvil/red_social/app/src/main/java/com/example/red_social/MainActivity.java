@@ -26,7 +26,9 @@ import com.example.red_social.Fragment.BuscarFragment;
 import com.example.red_social.Fragment.EditProfileFragment;
 import com.example.red_social.Fragment.IndexFragment;
 import com.example.red_social.Fragment.ListaNoticiasFragment;
+import com.example.red_social.Fragment.ListaNotificationFragment;
 import com.example.red_social.Fragment.LoginFragment;
+import com.example.red_social.Fragment.MuroFragment;
 import com.example.red_social.Fragment.PublicateFragment;
 import com.example.red_social.Fragment.RegisterFragment;
 import com.example.red_social.Fragment.UsuarioPerfilFragment;
@@ -104,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.action_findUser:
                 fragmentManager.beginTransaction().replace(R.id.contenedor, new BuscarFragment()).commit();
                 break;
-
         }
 
         return super.onOptionsItemSelected(item);
@@ -131,14 +132,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_profile:
                 fragmentManager.beginTransaction().replace(R.id.contenedor, new UsuarioPerfilFragment()).commit();
                 break;
+            case R.id.nav_muro:
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new MuroFragment()).commit();
+                break;
+            case R.id.nav_notific:
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new ListaNotificationFragment()).commit();
+                break;
+            case R.id.nav_messages:
+                break;
             case R.id.nav_publicate:
                 fragmentManager.beginTransaction().replace(R.id.contenedor, new PublicateFragment()).commit();
                 break;
             case R.id.nav_logout:
                 cerrarSesion();
-                break;
-            case R.id.action_findUser:
-
                 break;
         }
 

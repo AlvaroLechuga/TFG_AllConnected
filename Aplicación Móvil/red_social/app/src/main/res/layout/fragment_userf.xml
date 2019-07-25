@@ -28,7 +28,6 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
-                android:backgroundTint="#EA4C88"
                 android:minHeight="60dp"
                 android:text="Seguir"
                 android:textColor="#FFFF" />
@@ -37,6 +36,7 @@
                 android:id="@+id/txtPFNameSur"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:text="Nombre Apellido" />

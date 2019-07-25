@@ -276,11 +276,16 @@ public class UsuarioPerfilFragment extends Fragment implements View.OnClickListe
     }
 
     private void ObtenerPublicaciones(String publicationsJson) {
+        Log.i("errorInsertado", publicationsJson);
+
         final List<Publicacion> publicaciones = new ArrayList<>();
+        final List<String> tiempo = new ArrayList<>();
 
         try {
             JSONObject reader = new JSONObject(publicationsJson);
             JSONArray listPublications = reader.getJSONArray("publications");
+            JSONArray listTime = reader.getJSONArray("tiempo");
+
 
             for(int i = 0; i < listPublications.length(); i++) {
                 JSONObject publicationeObject = listPublications.getJSONObject(i);
@@ -297,9 +302,13 @@ public class UsuarioPerfilFragment extends Fragment implements View.OnClickListe
 
                 publicaciones.add(publicacion);
 
+                String asd = listTime.getString(i);
+
+                tiempo.add(asd);
+
             }
 
-            listaPublicaciones.setAdapter(new PublicationsAdapter(getActivity(), R.layout.fragment_publication, publicaciones));
+            listaPublicaciones.setAdapter(new PublicationsAdapter(getActivity(), R.layout.fragment_publication, publicaciones, tiempo));
 
         } catch (JSONException e) { Log.i("errorInsertado", "Error"); }
 
@@ -308,10 +317,12 @@ public class UsuarioPerfilFragment extends Fragment implements View.OnClickListe
     class PublicationsAdapter extends ArrayAdapter {
 
         private List<Publicacion> publicacions;
+        private List<String> tiempo;
 
-        public PublicationsAdapter(Context context, int resource, List<Publicacion> publicacions) {
+        public PublicationsAdapter(Context context, int resource, List<Publicacion> publicacions, List<String> tiempo) {
             super(context, resource, publicacions);
             this.publicacions = publicacions;
+            this.tiempo = tiempo;
         }
 
         @Override
@@ -319,7 +330,7 @@ public class UsuarioPerfilFragment extends Fragment implements View.OnClickListe
             View v = ((Activity)getContext()).getLayoutInflater().inflate(R.layout.fragment_publication,null);
 
             TextView txt1 = v.findViewById(R.id.txtPLInfo);
-            txt1.setText(nombre+" "+apellidos+" - @"+nick+" - "+"Hace 10 días");
+            txt1.setText(nombre+" "+apellidos+" - @"+nick+" - "+tiempo.get(position));
 
             TextView txt3 = v.findViewById(R.id.txtPLText);
             txt3.setText(publicacions.get(position).getText());
