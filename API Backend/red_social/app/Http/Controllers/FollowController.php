@@ -35,7 +35,7 @@ class FollowController extends Controller {
             } else if ($follow == 0) {
                 $data = array(
                     'status' => 'success',
-                    'code' => '400',
+                    'code' => '200',
                     'message' => 'Follow'
                 );
             }

@@ -30,19 +30,22 @@ class LikeController extends Controller {
 
                 $like->save();
                 
-                $notification = new Notification();
-                $notification->id_user_emmit = $user->sub;
-                $notification->id_user_recep = $publication->id_user;
-                $notification->description = "le ha dado me gusta a una publicación";
-                
-                $notification->save();
+                if($publication->id_user != $user->sub){
+					$notification = new Notification();
+					$notification->id_user_emmit = $user->sub;
+					$notification->id_user_recep = $publication->id_user;
+					$notification->description = "le ha dado me gusta a una publicación";
+					
+					$notification->save();
+				}
 
-                $data = array(
-                    'status' => 'success',
-                    'code' => '200',
-                    'message' => 'Like',
-                    'like' => $like
-                );
+				$data = array(
+						'status' => 'success',
+						'code' => '200',
+						'message' => 'Like',
+						'like' => $like
+				);
+                
             } else {
                 $data = array(
                     'status' => 'error',

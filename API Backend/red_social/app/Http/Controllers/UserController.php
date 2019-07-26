@@ -145,20 +145,21 @@ class UserController extends Controller {
         $params = json_decode($json); // Objeto
         $params_array = json_decode($json, true); //Array
 
-
         if ($checkToken && !empty($params_array)) {
 
             // Validar los datos
             // Sacar usuario identificado
 
             $user = $jwtAuth->checkToken($token, true);
+			
+			$id = $user->sub;
 
             $validate = \Validator::make($params_array, [
                         'name' => 'required|max:50|alpha',
                         'surname' => 'required|max:100|alpha',
                         'direction' => 'required|max:255',
                         'country' => 'required|max:255|alpha',
-                        'nick' => 'required|max:100',
+                        'nick' => 'required|max:100|unique:users,nick,'.$id,
                         'description' => 'required'
             ]);
 

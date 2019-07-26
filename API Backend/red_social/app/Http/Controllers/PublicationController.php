@@ -91,12 +91,14 @@ class PublicationController extends Controller {
 
                 $publication->save();
                 
-                $notification = new Notification();
-                $notification->id_user_emmit = $user->sub;
-                $notification->id_user_recep = $publication->id_user;
-                $notification->description = "Ha respondido una publicación";
-                
-                $notification->save();
+                if($publication->id == $user->sub){
+					$notification = new Notification();
+					$notification->id_user_emmit = $user->sub;
+					$notification->id_user_recep = $publication->id_user;
+					$notification->description = "Ha respondido una publicación";
+					
+					$notification->save();
+				}
 
                 $data = array(
                     'status' => 'sucess',
@@ -146,7 +148,13 @@ class PublicationController extends Controller {
                         'message' => 'El id del usuario no corresponde con el de la publicación',
                     );
                 }
-            }
+            }else{
+				$data = array(
+                        'status' => 'error',
+                        'code' => '404',
+                        'message' => 'No existe esa publicación',
+                );
+			}
         } else {
             $data = array(
                 'status' => 'error',
@@ -230,13 +238,19 @@ class PublicationController extends Controller {
 			for ($i = 0; $i < $total; $i++) {
 				$usuario = User::where('id', $publications[$i]->id_user)->get();				
 				array_push($array_usuarios, $usuario);
+				
+				$publication = Publication::find($publications[$i]->id);
+				
+				$tiempo = \FormatTime::LongTimeFilter($publication->created_at);
+				array_push($array_tiempo, $tiempo);
 			}
 			
             $data = array(
                 'status' => 'success',
                 'code' => '200',
                 'publications' => $publications,
-				'users' => $array_usuarios
+				'users' => $array_usuarios,
+				'tiempo' => $array_tiempo
                 
             );
             
