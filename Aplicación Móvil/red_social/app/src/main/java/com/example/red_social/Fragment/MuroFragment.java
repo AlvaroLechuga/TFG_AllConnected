@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.red_social.R;
+import com.example.red_social.Util.CircleTransform;
 import com.example.red_social.Util.Global;
 import com.example.red_social.Util.Publicacion;
 import com.example.red_social.Util.Usuario;
@@ -49,7 +51,7 @@ public class MuroFragment extends Fragment {
 
     ListView publicacionesMuro;
 
-    int id;
+    int identificador;
     String token;
 
     ProgressDialog progreso;
@@ -63,7 +65,7 @@ public class MuroFragment extends Fragment {
         publicacionesMuro = view.findViewById(R.id.publicacionesMuro);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        id = sharedPreferences.getInt("id", 0);
+        identificador = sharedPreferences.getInt("id", 0);
         token = sharedPreferences.getString("token", "");
 
         SacarPublicaciones();
@@ -74,7 +76,7 @@ public class MuroFragment extends Fragment {
     private void SacarPublicaciones() {
         Global global = new Global();
         String url = global.url;
-        url = url+"publicationfollowers/"+id;
+        url = url+"publicationfollowers/"+identificador;
 
         StringRequest postRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -106,11 +108,13 @@ public class MuroFragment extends Fragment {
 
         final List<Publicacion> publicaciones = new ArrayList<>();
         final List<Usuario> usuarios = new ArrayList<>();
+        final List<String> tiempo = new ArrayList<>();
 
         try {
             JSONObject reader = new JSONObject(publicationsJson);
             JSONArray listPublications = reader.getJSONArray("publications");
             JSONArray listUsers = reader.getJSONArray("users");
+            JSONArray listTime = reader.getJSONArray("tiempo");
 
             for(int i = 0; i < listPublications.length(); i++) {
                 JSONObject publicationeObject = listPublications.getJSONObject(i);
@@ -146,24 +150,29 @@ public class MuroFragment extends Fragment {
 
                 usuarios.add(usuario);
 
+                String asd = listTime.getString(i);
+
+                tiempo.add(asd);
+
 
             }
 
-            publicacionesMuro.setAdapter(new PublicationsAdapter(getActivity(), R.layout.fragment_publication, publicaciones, usuarios));
+            publicacionesMuro.setAdapter(new PublicationsAdapter(getActivity(), R.layout.fragment_publication, publicaciones, usuarios, tiempo));
 
         } catch (JSONException e) { Log.i("errorInsertado", "Error"); }
-
     }
 
     class PublicationsAdapter extends ArrayAdapter {
 
         private List<Publicacion> publicacions;
         private List<Usuario> usuarios;
+        private List<String> tiempo;
 
-        public PublicationsAdapter(Context context, int resource, List<Publicacion> publicacions, List<Usuario> usuarios) {
+        public PublicationsAdapter(Context context, int resource, List<Publicacion> publicacions, List<Usuario> usuarios, List<String> tiempo) {
             super(context, resource, publicacions);
             this.publicacions = publicacions;
             this.usuarios = usuarios;
+            this.tiempo = tiempo;
         }
 
         @Override
@@ -171,14 +180,14 @@ public class MuroFragment extends Fragment {
             View v = ((Activity)getContext()).getLayoutInflater().inflate(R.layout.fragment_publication,null);
 
             TextView txt1 = v.findViewById(R.id.txtPLInfo);
-            txt1.setText(usuarios.get(position).getName()+" "+usuarios.get(position).getSurname()+" - @"+usuarios.get(position).getNick()+"  Hace 10 días");
+            txt1.setText(usuarios.get(position).getName()+" "+usuarios.get(position).getSurname()+" - @"+usuarios.get(position).getNick()+" - "+tiempo.get(position));
 
             TextView txt3 = v.findViewById(R.id.txtPLText);
             txt3.setText(publicacions.get(position).getText());
 
             ImageButton btnEliminar = v.findViewById(R.id.btnPLDelete);
 
-            if(id != publicacions.get(position).getId_user()){
+            if(identificador != publicacions.get(position).getId_user()){
                 btnEliminar.setVisibility(View.GONE);
             }
 
@@ -217,6 +226,7 @@ public class MuroFragment extends Fragment {
                     .load(url+"user/avatar/"+usuarios.get(position).getImage())
                     .resize(150, 150)
                     .centerCrop()
+                    .transform(new CircleTransform())
                     .into(img);
 
             return v;

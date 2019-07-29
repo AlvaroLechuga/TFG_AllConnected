@@ -24,13 +24,13 @@ import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.red_social.R;
+import com.example.red_social.Util.CircleTransform;
 import com.example.red_social.Util.Global;
-import com.example.red_social.Util.Noticia;
+import com.example.red_social.Util.Like;
 import com.example.red_social.Util.Publicacion;
 import com.example.red_social.Util.VolleySingleton;
 import com.google.gson.Gson;
@@ -64,6 +64,10 @@ public class UsuarioPerfilFragment extends Fragment implements View.OnClickListe
 
     Context context;
 
+    List<Publicacion> publicaciones = new ArrayList<>();
+    List<String> tiempo = new ArrayList<>();
+    List<Like> arrayLikes = new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +78,6 @@ public class UsuarioPerfilFragment extends Fragment implements View.OnClickListe
         View view = inflater.inflate(R.layout.fragment_usuario_perfil, container, false);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-
 
         context = getContext();
 
@@ -107,6 +110,7 @@ public class UsuarioPerfilFragment extends Fragment implements View.OnClickListe
                 .load(url+"user/avatar/"+image)
                 .resize(300, 300)
                 .centerCrop()
+                .transform(new CircleTransform())
                 .into(imageProfile);
 
         txtNombre.setText(nombre+" "+apellidos);
@@ -119,6 +123,11 @@ public class UsuarioPerfilFragment extends Fragment implements View.OnClickListe
     }
 
     private void SacarValores(int id) {
+        publicaciones.clear();
+        tiempo.clear();
+        arrayLikes.clear();
+
+        SacarLikes(id);
         SacarPublicaciones(id);
         SacarnPublicaciones(id);
         SacarnFollowers(id);
@@ -276,10 +285,8 @@ public class UsuarioPerfilFragment extends Fragment implements View.OnClickListe
     }
 
     private void ObtenerPublicaciones(String publicationsJson) {
-        Log.i("errorInsertado", publicationsJson);
-
-        final List<Publicacion> publicaciones = new ArrayList<>();
-        final List<String> tiempo = new ArrayList<>();
+        publicaciones = new ArrayList<>();
+        tiempo = new ArrayList<>();
 
         try {
             JSONObject reader = new JSONObject(publicationsJson);
@@ -337,11 +344,27 @@ public class UsuarioPerfilFragment extends Fragment implements View.OnClickListe
 
             ImageButton btnEliminar = v.findViewById(R.id.btnPLDelete);
             ImageButton btnResponse = v.findViewById(R.id.btnPLResponse);
+            final ImageView btnLike = v.findViewById(R.id.btnPLLike);
+
+            if(arrayLikes.size() == 0){
+                btnLike.setImageResource(R.drawable.nolike);
+                btnLike.setTag("like");
+            }else{
+                for(int i = 0; i < arrayLikes.size(); i++){
+                    if(publicacions.get(position).getId() == arrayLikes.get(i).getId_publication()){
+                        btnLike.setImageResource(R.drawable.like);
+                        btnLike.setTag("dislike");
+                        break;
+                    }else{
+                        btnLike.setImageResource(R.drawable.nolike);
+                        btnLike.setTag("like");
+                    }
+                }
+            }
 
             btnEliminar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     AlertDialog.Builder dialogo1 = new AlertDialog.Builder(context);
                     dialogo1.setTitle("Eliminar Publicación");
                     dialogo1.setMessage("¿ Desea eliminar la publicación ?");
@@ -377,6 +400,19 @@ public class UsuarioPerfilFragment extends Fragment implements View.OnClickListe
                 }
             });
 
+            btnLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String like = btnLike.getTag().toString();
+
+                    if(like.equals("like")){
+                        InsertarLike(publicacions.get(position));
+                    }else if(like.equals("dislike")){
+                        Dislike(publicacions.get(position));
+                    }
+                }
+            });
+
             ImageView img = v.findViewById(R.id.imageProfileL);
 
             Global global = new Global();
@@ -386,10 +422,75 @@ public class UsuarioPerfilFragment extends Fragment implements View.OnClickListe
                     .load(url+"user/avatar/"+image)
                     .resize(150, 150)
                     .centerCrop()
+                    .transform(new CircleTransform())
                     .into(img);
 
             return v;
         }
+    }
+
+    private void Dislike(Publicacion publicacion) {
+        Global global = new Global();
+        String url = global.url;
+        url = url+"dislike/"+publicacion.getId();
+
+        StringRequest postRequest = new StringRequest(Request.Method.DELETE, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        SacarValores(id);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("errorInsertado", error.toString());
+                        Toast.makeText(getContext(), "Error al realizar la publicación", Toast.LENGTH_LONG).show();
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization", token);
+
+                return params;
+            }
+        };
+        postRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(postRequest);
+    }
+
+    private void InsertarLike(Publicacion publicacion) {
+        Global global = new Global();
+        String url = global.url;
+        url = url+"like/"+publicacion.getId();
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        SacarValores(id);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("errorInsertado", error.toString());
+                        Toast.makeText(getContext(), "Error al realizar la publicación", Toast.LENGTH_LONG).show();
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization", token);
+
+                return params;
+            }
+        };
+        postRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(postRequest);
     }
 
     private void EliminarPublicacion(int idp) {
@@ -431,6 +532,58 @@ public class UsuarioPerfilFragment extends Fragment implements View.OnClickListe
         postRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(postRequest);
 
+    }
+
+    private void SacarLikes(int id) {
+        Global global = new Global();
+        String url = global.url;
+        url = url+"getlikes/"+id;
+
+        StringRequest postRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject reader = new JSONObject(response);
+                            String likesJson = reader.getString("likes");
+
+                            if(!likesJson.equals("[]")){
+                                JSONArray listLikes = reader.getJSONArray("likes");
+                                for(int i = 0; i < listLikes.length(); i++){
+                                    JSONObject likeObject = listLikes.getJSONObject(i);
+
+                                    Like like = new Like(
+                                            likeObject.getInt("id"),
+                                            likeObject.getInt("id_publication"),
+                                            likeObject.getInt("id_user_emmiter"),
+                                            likeObject.getInt("id_user_reciver"));
+
+                                    arrayLikes.add(like);
+                                }
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("errorInsertado", error.toString());
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization", token);
+                return params;
+            }
+        };
+        postRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(postRequest);
     }
 
     @Override
