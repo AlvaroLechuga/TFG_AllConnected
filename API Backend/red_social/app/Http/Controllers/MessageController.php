@@ -56,16 +56,28 @@ class MessageController extends Controller {
 
         return response()->json($data, $data['code']);
     }
+	
+	public function getMessagesUser($id){
+		
+		$messages = DB::select("SELECT e.name AS name_emmit, e.surname AS surname_emmit, e.nick AS nick_emmit, r.name AS name_recep, r.surname AS surname_recep, r.nick AS nick_recep, messages.emmiter, messages.reciver, messages.text, e.image AS image_emmit, r.image AS image_reciver FROM messages JOIN users e ON e.id = messages.emmiter JOIN users r ON r.id = messages.reciver WHERE messages.emmiter = $id OR messages.reciver = $id GROUP BY messages.emmiter, messages.reciver");
 
-    public function ObtenerMensajes($id, Request $request) {
+		$data = array(
+            'status' => 'success',
+            'code' => '200',
+            'messages' => $messages,
+        );
+		
+		return response()->json($data, $data['code']);
+	}
+
+    public function ObtenerMensajesbyUser($id, Request $request) {
         $jwtAuth = new JwtAuth();
-        $token = $request->header('Authorization', null);
+        $token = $request->header('Authorization', true);
 
         if ($token) {
             $user = $jwtAuth->checkToken($token, true);
 
-            $messages = DB::select("SELECT * FROM messages WHERE emmiter = $user->sub AND reciver = $id OR emmiter = $id AND reciver = $user->sub ORDER BY id ASC");
-
+            $messages = DB::select("SELECT e.name AS name_emmit, e.surname AS surname_emmit, r.name AS name_recep, r.surname AS surname_recep, messages.emmiter, messages.reciver, messages.text FROM messages JOIN users e ON e.id = messages.emmiter JOIN users r ON r.id = messages.reciver WHERE messages.emmiter = $user->sub OR messages.reciver = $user->sub");
 
             $data = array(
                 'status' => 'success',

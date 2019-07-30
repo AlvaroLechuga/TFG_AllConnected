@@ -52,7 +52,8 @@ Route::get('api/getlikes/{id}', 'LikeController@getLikes');
 
 // Rutas del controlador de Message
 Route::post('api/insertmessage/{id}', 'MessageController@InsertarMensaje');
-Route::get('api/getmessages/{id}', 'MessageController@ObtenerMensajes');
+Route::get('api/getmessages/{id}', 'MessageController@getMessagesUser');
+Route::get('api/obtenermensajesbyuser/{id}', 'MessageController@ObtenerMensajesbyUser');
 
 // Rutas del controlador de Notifications
 Route::get('api/getnotifications/{id}', 'NotificationController@getNotification');
