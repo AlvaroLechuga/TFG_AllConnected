@@ -45,6 +45,7 @@ public class ListaConversacionesFragment extends Fragment {
     SharedPreferences sharedPreferences;
 
     int identificador;
+    String nick;
 
     List<Mensaje> mensajes = new ArrayList<>();
 
@@ -57,6 +58,7 @@ public class ListaConversacionesFragment extends Fragment {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         identificador = sharedPreferences.getInt("id", 0);
+        nick = sharedPreferences.getString("nick", "");
 
         SacarConversaciones();
 
@@ -113,8 +115,29 @@ public class ListaConversacionesFragment extends Fragment {
                 );
 
                 mensajes.add(mensaje);
-
             }
+
+            List<String> nicks = new ArrayList<>();
+
+            for(int i = 0; i < mensajes.size(); i++){
+                if(mensajes.get(i).getNick_recep().equals(nick)){
+                    nicks.add(mensajes.get(i).getNicK_emmit());
+                }else{
+                    nicks.add(mensajes.get(i).getNick_recep());
+                }
+            }
+
+            if(nicks.size() > 1){
+                for(int i = 0; i < nicks.size()-1; i++){
+                    for(int j = i+1; j <nicks.size(); j++){
+                        if(nicks.get(i).equals(nicks.get(j))){
+                            mensajes.remove(i);
+                        }
+                    }
+                }
+            }
+
+            Log.i("errorInsertado", nicks.toString());
 
             listaConversaciones.setAdapter(new ConversacionesAdapter(getActivity(), R.layout.fragment_conversacion,  mensajes));
 
@@ -143,7 +166,19 @@ public class ListaConversacionesFragment extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
             View v = ((Activity)getContext()).getLayoutInflater().inflate(R.layout.fragment_conversacion,null);
             TextView txt1 = v.findViewById(R.id.txtInfoConv);
-            txt1.setText(mensajes.get(position).getName_emmit()+" "+mensajes.get(position).getSurname_emmit()+" @");
+
+            String nombre = "";
+            String image = "";
+
+            if(mensajes.get(position).getNick_recep().equals(nick)){
+                nombre = mensajes.get(position).getName_emmit()+" "+mensajes.get(position).getSurname_emmit()+" @"+mensajes.get(position).getNicK_emmit();
+                image = mensajes.get(position).getImage_emmit();
+            }else{
+                nombre = mensajes.get(position).getName_recep()+" "+mensajes.get(position).getSurname_emmit()+" @"+mensajes.get(position).getNick_recep();
+                image = mensajes.get(position).getImage_recep();
+            }
+
+            txt1.setText(nombre);
 
             ImageView img = v.findViewById(R.id.imageConversation);
 
@@ -151,7 +186,7 @@ public class ListaConversacionesFragment extends Fragment {
             String url = global.url;
 
             Picasso.get()
-                    .load(url+"user/avatar/"+mensajes.get(position).getImage_recep())
+                    .load(url+"user/avatar/"+image)
                     .resize(200, 200)
                     .centerCrop()
                     .transform(new CircleTransform())

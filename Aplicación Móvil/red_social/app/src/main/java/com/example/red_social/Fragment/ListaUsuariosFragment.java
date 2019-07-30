@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.red_social.R;
 import com.example.red_social.Util.Global;
@@ -33,6 +34,7 @@ public class ListaUsuariosFragment extends Fragment {
 
     ListView listaUsuarios;
     int identificador;
+    String nick;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class ListaUsuariosFragment extends Fragment {
 
         String usuariosJson = sharedPreferences.getString("listausuarios", "");
         identificador = sharedPreferences.getInt("id", 0);
+        nick = sharedPreferences.getString("nick", "");
 
         final List<Usuario> usuarios = new ArrayList<>();
 
@@ -77,27 +80,31 @@ public class ListaUsuariosFragment extends Fragment {
         listaUsuarios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(usuarios.get(position).getId() != identificador){
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putString("finduser_name", usuarios.get(position).getName());
-                    editor.putString("finduser_surname", usuarios.get(position).getSurname());
-                    editor.putString("finduser_nick", usuarios.get(position).getNick());
-                    editor.putString("finduser_descripcion", usuarios.get(position).getDescription());
-                    editor.putString("finduser_image", usuarios.get(position).getImage());
-                    editor.putInt("finduser_id", usuarios.get(position).getId());
-                    editor.commit();
+                if(!nick.equals("")){
+                    if(usuarios.get(position).getId() != identificador){
+                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putString("finduser_name", usuarios.get(position).getName());
+                        editor.putString("finduser_surname", usuarios.get(position).getSurname());
+                        editor.putString("finduser_nick", usuarios.get(position).getNick());
+                        editor.putString("finduser_descripcion", usuarios.get(position).getDescription());
+                        editor.putString("finduser_image", usuarios.get(position).getImage());
+                        editor.putInt("finduser_id", usuarios.get(position).getId());
+                        editor.commit();
 
 
-                    UserfFragment fragment = new UserfFragment();
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.replace(R.id.contenedor, fragment, "fragment_meters");
-                    ft.commit();
+                        UserfFragment fragment = new UserfFragment();
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(R.id.contenedor, fragment, "fragment_meters");
+                        ft.commit();
+                    }else{
+                        UsuarioPerfilFragment fragment = new UsuarioPerfilFragment();
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(R.id.contenedor, fragment, "fragment_meters");
+                        ft.commit();
+                    }
                 }else{
-                    UsuarioPerfilFragment fragment = new UsuarioPerfilFragment();
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.replace(R.id.contenedor, fragment, "fragment_meters");
-                    ft.commit();
+                    Toast.makeText(getContext(), "Inicia sesión para ver el perfil", Toast.LENGTH_LONG).show();
                 }
             }
         });
