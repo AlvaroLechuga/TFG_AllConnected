@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.example.red_social.Fragment.BuscarFragment;
 import com.example.red_social.Fragment.EditProfileFragment;
 import com.example.red_social.Fragment.IndexFragment;
+import com.example.red_social.Fragment.ListaConversacionesFragment;
 import com.example.red_social.Fragment.ListaNoticiasFragment;
 import com.example.red_social.Fragment.ListaNotificationFragment;
 import com.example.red_social.Fragment.LoginFragment;
@@ -139,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentManager.beginTransaction().replace(R.id.contenedor, new ListaNotificationFragment()).commit();
                 break;
             case R.id.nav_messages:
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new ListaConversacionesFragment()).commit();
                 break;
             case R.id.nav_publicate:
                 fragmentManager.beginTransaction().replace(R.id.contenedor, new PublicateFragment()).commit();

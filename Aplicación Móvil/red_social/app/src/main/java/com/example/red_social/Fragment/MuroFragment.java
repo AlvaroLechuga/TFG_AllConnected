@@ -89,7 +89,7 @@ public class MuroFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.i("errorInsertado", error.toString());
-                        Toast.makeText(getContext(), "Error al sacar las publicaciones", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "No se encuentran las publicaciones", Toast.LENGTH_LONG).show();
                     }
                 }
         ) {
@@ -153,7 +153,6 @@ public class MuroFragment extends Fragment {
                 String asd = listTime.getString(i);
 
                 tiempo.add(asd);
-
 
             }
 
@@ -273,6 +272,4 @@ public class MuroFragment extends Fragment {
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(postRequest);
 
     }
-
-
 }
