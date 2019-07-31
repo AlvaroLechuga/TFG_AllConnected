@@ -59,7 +59,7 @@ class MessageController extends Controller {
 	
 	public function getMessagesUser($id){
 		
-		$messages = DB::select("SELECT e.name AS name_emmit, e.surname AS surname_emmit, e.nick AS nick_emmit, r.name AS name_recep, r.surname AS surname_recep, r.nick AS nick_recep, messages.emmiter, messages.reciver, messages.text, e.image AS image_emmit, r.image AS image_reciver FROM messages JOIN users e ON e.id = messages.emmiter JOIN users r ON r.id = messages.reciver WHERE messages.emmiter = $id OR messages.reciver = $id GROUP BY messages.emmiter, messages.reciver");
+		$messages = DB::select("SELECT e.id AS id_emmit, r.id AS id_recep, e.name AS name_emmit, e.surname AS surname_emmit, e.nick AS nick_emmit, r.name AS name_recep, r.surname AS surname_recep, r.nick AS nick_recep, messages.emmiter, messages.reciver, messages.text, e.image AS image_emmit, r.image AS image_reciver FROM messages JOIN users e ON e.id = messages.emmiter JOIN users r ON r.id = messages.reciver WHERE messages.emmiter = $id OR messages.reciver = $id GROUP BY messages.emmiter, messages.reciver");
 
 		$data = array(
             'status' => 'success',
@@ -77,7 +77,7 @@ class MessageController extends Controller {
         if ($token) {
             $user = $jwtAuth->checkToken($token, true);
 
-            $messages = DB::select("SELECT e.name AS name_emmit, e.surname AS surname_emmit, r.name AS name_recep, r.surname AS surname_recep, messages.emmiter, messages.reciver, messages.text FROM messages JOIN users e ON e.id = messages.emmiter JOIN users r ON r.id = messages.reciver WHERE messages.emmiter = $user->sub OR messages.reciver = $user->sub");
+            $messages = DB::select("SELECT e.id AS id_emmit, r.id AS id_recep, e.name AS name_emmit, e.surname AS surname_emmit, e.nick AS nick_emmit, r.name AS name_recep, r.surname AS surname_recep, r.nick AS nick_recep, messages.emmiter, messages.reciver, messages.text, e.image AS image_emmit, r.image AS image_reciver FROM messages JOIN users e ON e.id = messages.emmiter JOIN users r ON r.id = messages.reciver WHERE messages.emmiter = $user->sub AND messages.reciver = $id OR messages.emmiter = $id AND messages.reciver = $user->sub ORDER BY messages.id DESC");
 
             $data = array(
                 'status' => 'success',
