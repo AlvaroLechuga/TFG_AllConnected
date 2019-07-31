@@ -1,10 +1,12 @@
 package com.example.red_social.Fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -27,6 +29,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.red_social.MainActivity;
 import com.example.red_social.R;
 import com.example.red_social.Util.CircleTransform;
 import com.example.red_social.Util.Global;
@@ -55,10 +58,14 @@ public class ListaChatFragment extends Fragment implements View.OnClickListener 
 
     SharedPreferences sharedPreferences;
 
+    ProgressDialog progreso;
+
     String token;
     int id_usuario;
     int identificador;
     String datosUsuarioCon;
+
+    Contador contador;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,9 +85,10 @@ public class ListaChatFragment extends Fragment implements View.OnClickListener 
         identificador = sharedPreferences.getInt("id", 0);
         datosUsuarioCon = sharedPreferences.getString("datos_chat_usuario", "");
 
-        Log.i("errorInsertado", id_usuario+"");
-
         txtInfoUser.setText(datosUsuarioCon);
+
+        contador = new Contador(10000,1000);
+        contador.start();
 
         SacarConversacion();
 
@@ -96,7 +104,6 @@ public class ListaChatFragment extends Fragment implements View.OnClickListener 
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.i("errorInsertado", response);
                         SacarConver(response);
                     }
                 },
@@ -159,13 +166,65 @@ public class ListaChatFragment extends Fragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.post:
-                EnviarChat();
+                if(!txtMensaje.getText().equals("")){
+                    EnviarChat();
+                }
                 break;
         }
     }
 
     private void EnviarChat() {
+        progreso = new ProgressDialog(getContext());
+        progreso.setMessage("Cargando...");
+        progreso.show();
 
+        Global global = new Global();
+        String url = global.url;
+        url = url+"insertmessage/"+id_usuario;
+
+        Mensaje mensaje = new Mensaje();
+        mensaje.setText(txtMensaje.getText().toString());
+
+        Gson gson = new Gson();
+        final String json = gson.toJson(mensaje);
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progreso.hide();
+                        txtMensaje.setText("");
+                        SacarConversacion();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progreso.hide();
+                        Log.i("errorInsertado", error.toString());
+                        Toast.makeText(getContext(), "No se ha podido enviar el mensaje", Toast.LENGTH_LONG).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("json", json);
+
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization", token);
+
+                return params;
+            }
+
+        };
+        postRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(postRequest);
     }
 
     class ConversacionAdapter extends ArrayAdapter {
@@ -185,12 +244,6 @@ public class ListaChatFragment extends Fragment implements View.OnClickListener 
 
             TextView txt1 = v.findViewById(R.id.txtMensaje);
 
-            if(mensajes.get(position).getId_emmit() == identificador){
-                txt1.setGravity(Gravity.RIGHT);
-                convBorde.setBackgroundResource(R.drawable.layout_border_green);
-
-            }
-
             String image = "";
 
             if(mensajes.get(position).getId_emmit() != identificador){
@@ -203,7 +256,9 @@ public class ListaChatFragment extends Fragment implements View.OnClickListener 
 
             ImageView img = v.findViewById(R.id.imageConversationUser);
 
-            if(identificador == mensajes.get(position).getId_emmit()){
+            if(identificador != mensajes.get(position).getId_emmit()){
+                txt1.setGravity(Gravity.RIGHT);
+                convBorde.setBackgroundResource(R.drawable.layout_border_green);
                 img.setVisibility(View.GONE);
             }else{
                 Global global = new Global();
@@ -218,5 +273,25 @@ public class ListaChatFragment extends Fragment implements View.OnClickListener 
             }
             return v;
         }
+    }
+
+    public class Contador extends CountDownTimer {
+
+        public Contador(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onFinish() {/////CUANDO SE TERMINA EL CONTEO DEL TIEMPO
+            SacarConversacion();
+            contador = new Contador(10000,1000);
+            contador.start();
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            int segundos = (int) (millisUntilFinished / 1000);///CADA VEZ QUE PASA UN SEGUNDO LLEGA ACA
+        }
+
     }
 }
