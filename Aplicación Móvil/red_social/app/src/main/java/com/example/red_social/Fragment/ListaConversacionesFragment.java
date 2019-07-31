@@ -100,19 +100,20 @@ public class ListaConversacionesFragment extends Fragment {
             for(int i = 0; i < listConversations.length(); i++){
                 JSONObject conversationObject = listConversations.getJSONObject(i);
 
-                Mensaje mensaje = new Mensaje(
-                        conversationObject.getString("name_emmit"),
-                        conversationObject.getString("surname_emmit"),
-                        conversationObject.getString("nick_emmit"),
-                        conversationObject.getString("name_recep"),
-                        conversationObject.getString("surname_recep"),
-                        conversationObject.getString("nick_recep"),
-                        conversationObject.getInt("emmiter"),
-                        conversationObject.getInt("reciver"),
-                        conversationObject.getString("text"),
-                        conversationObject.getString("image_emmit"),
-                        conversationObject.getString("image_reciver")
-                );
+                Mensaje mensaje = new Mensaje();
+                mensaje.setId_emmit(conversationObject.getInt("id_emmit"));
+                mensaje.setId_recep(conversationObject.getInt("id_recep"));
+                mensaje.setName_emmit(conversationObject.getString("name_emmit"));
+                mensaje.setSurname_emmit(conversationObject.getString("surname_emmit"));
+                mensaje.setNicK_emmit(conversationObject.getString("nick_emmit"));
+                mensaje.setName_recep(conversationObject.getString("name_recep"));
+                mensaje.setSurname_recep(conversationObject.getString("surname_recep"));
+                mensaje.setNick_recep(conversationObject.getString("nick_recep"));
+                mensaje.setEmmiter(conversationObject.getInt("emmiter"));
+                mensaje.setReciver(conversationObject.getInt("reciver"));
+                mensaje.setText(conversationObject.getString("text"));
+                mensaje.setImage_emmit(conversationObject.getString("image_emmit"));
+                mensaje.setImage_recep(conversationObject.getString("image_reciver"));
 
                 mensajes.add(mensaje);
             }
@@ -137,14 +138,32 @@ public class ListaConversacionesFragment extends Fragment {
                 }
             }
 
-            Log.i("errorInsertado", nicks.toString());
-
             listaConversaciones.setAdapter(new ConversacionesAdapter(getActivity(), R.layout.fragment_conversacion,  mensajes));
 
             listaConversaciones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(getContext(), ""+position, Toast.LENGTH_LONG).show();
+                    int id_usuario = 0;
+                    String datosUsuario = "";
+
+                    if(identificador == mensajes.get(position).getId_emmit()){
+                        id_usuario = mensajes.get(position).getId_recep();
+                        datosUsuario = mensajes.get(position).getName_recep()+" "+mensajes.get(position).getSurname_recep();
+                    }else{
+                        id_usuario = mensajes.get(position).getId_emmit();
+                        datosUsuario = mensajes.get(position).getName_emmit()+" "+mensajes.get(position).getSurname_emmit();
+                    }
+
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putInt("id_chat_usuario", id_usuario);
+                    editor.putString("datos_chat_usuario", datosUsuario);
+                    editor.commit();
+
+                    ListaChatFragment fragment = new ListaChatFragment();
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.replace(R.id.contenedor, fragment, "fragment_meters");
+                    ft.commit();
                 }
             });
 
@@ -174,7 +193,7 @@ public class ListaConversacionesFragment extends Fragment {
                 nombre = mensajes.get(position).getName_emmit()+" "+mensajes.get(position).getSurname_emmit()+" @"+mensajes.get(position).getNicK_emmit();
                 image = mensajes.get(position).getImage_emmit();
             }else{
-                nombre = mensajes.get(position).getName_recep()+" "+mensajes.get(position).getSurname_emmit()+" @"+mensajes.get(position).getNick_recep();
+                nombre = mensajes.get(position).getName_recep()+" "+mensajes.get(position).getSurname_recep()+" @"+mensajes.get(position).getNick_recep();
                 image = mensajes.get(position).getImage_recep();
             }
 

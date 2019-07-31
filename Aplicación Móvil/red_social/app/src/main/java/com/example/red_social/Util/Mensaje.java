@@ -2,6 +2,8 @@ package com.example.red_social.Util;
 
 public class Mensaje {
     private int id;
+    private int id_emmit;
+    private int id_recep;
     private String name_emmit;
     private String surname_emmit;
     private String nicK_emmit;
@@ -17,7 +19,9 @@ public class Mensaje {
     public Mensaje() {
     }
 
-    public Mensaje(String name_emmit, String surname_emmit, String nicK_emmit, String name_recep, String surname_recep, String nick_recep, int emmiter, int reciver, String text, String image_emmit, String image_recep) {
+    public Mensaje(int id, int id_emmit, String name_emmit, String surname_emmit, String nicK_emmit, String name_recep, String surname_recep, String nick_recep, int emmiter, int reciver, String text, String image_emmit, String image_recep) {
+        this.id = id;
+        this.id_emmit = id_emmit;
         this.name_emmit = name_emmit;
         this.surname_emmit = surname_emmit;
         this.nicK_emmit = nicK_emmit;
@@ -29,6 +33,22 @@ public class Mensaje {
         this.text = text;
         this.image_emmit = image_emmit;
         this.image_recep = image_recep;
+    }
+
+    public int getId_emmit() {
+        return id_emmit;
+    }
+
+    public void setId_emmit(int id_emmit) {
+        this.id_emmit = id_emmit;
+    }
+
+    public int getId_recep() {
+        return id_recep;
+    }
+
+    public void setId_recep(int id_recep) {
+        this.id_recep = id_recep;
     }
 
     public int getId() {

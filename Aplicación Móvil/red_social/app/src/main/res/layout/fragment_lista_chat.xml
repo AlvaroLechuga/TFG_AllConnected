@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.ListaChatFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#252525"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtInfoUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="#414141"
+            android:gravity="center"
+            android:minHeight="15dp"
+            android:text="TextView"
+            android:textColor="#FFFF"
+            android:textSize="24sp" />
+
+        <RelativeLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="#af0404"
+            android:padding="4dp">
+
+            <ImageView
+                android:id="@+id/imagenComentario"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_menu_profile" />
+
+            <EditText
+                android:id="@+id/comentario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toLeftOf="@id/post"
+                android:layout_toRightOf="@id/imagenComentario"
+                android:background="#FFFF"
+                android:hint="" />
+
+            <TextView
+                android:id="@+id/post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="5dp"
+                android:text="Enviar"
+                android:textColor="@color/colorPrimary" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#252525">
+
+            <ListView
+                android:id="@+id/listaChat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/fragment_chat">
+
+            </ListView>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</FrameLayout>

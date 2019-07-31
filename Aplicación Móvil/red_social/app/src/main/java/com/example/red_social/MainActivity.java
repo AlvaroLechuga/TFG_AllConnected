@@ -22,6 +22,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.example.red_social.Fragment.BuscarFragment;
 import com.example.red_social.Fragment.EditProfileFragment;
 import com.example.red_social.Fragment.IndexFragment;
@@ -34,6 +39,7 @@ import com.example.red_social.Fragment.PublicateFragment;
 import com.example.red_social.Fragment.RegisterFragment;
 import com.example.red_social.Fragment.UsuarioPerfilFragment;
 import com.example.red_social.Util.Global;
+import com.example.red_social.Util.VolleySingleton;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -47,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Context context;
 
     NavigationView navigationView;
+
+    boolean estadoServer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,16 +73,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        ComprobarEstadoServer();
+
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.contenedor, new IndexFragment()).commit();
 
         context = getApplicationContext();
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        fragmentManager.beginTransaction().replace(R.id.contenedor, new IndexFragment()).commit();
 
         contador = new Contador(500,1000);
         contador.start();
-
     }
 
     @Override
@@ -100,13 +109,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         int id = item.getItemId();
 
-        switch (id){
-            case R.id.action_settings:
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new EditProfileFragment()).commit();
-                break;
-            case R.id.action_findUser:
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new BuscarFragment()).commit();
-                break;
+        if(estadoServer){
+            switch (id){
+                case R.id.action_settings:
+                    fragmentManager.beginTransaction().replace(R.id.contenedor, new EditProfileFragment()).commit();
+                    break;
+                case R.id.action_findUser:
+                    fragmentManager.beginTransaction().replace(R.id.contenedor, new BuscarFragment()).commit();
+                    break;
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -120,34 +131,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         int id = item.getItemId();
 
-        switch (id){
-            case R.id.nav_home:
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new ListaNoticiasFragment()).commit();
-                break;
-            case R.id.nav_login:
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new LoginFragment()).commit();
-                break;
-            case R.id.nav_register:
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new RegisterFragment()).commit();
-                break;
-            case R.id.nav_profile:
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new UsuarioPerfilFragment()).commit();
-                break;
-            case R.id.nav_muro:
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new MuroFragment()).commit();
-                break;
-            case R.id.nav_notific:
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new ListaNotificationFragment()).commit();
-                break;
-            case R.id.nav_messages:
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new ListaConversacionesFragment()).commit();
-                break;
-            case R.id.nav_publicate:
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new PublicateFragment()).commit();
-                break;
-            case R.id.nav_logout:
-                cerrarSesion();
-                break;
+        if(estadoServer){
+            switch (id){
+                case R.id.nav_home:
+                    fragmentManager.beginTransaction().replace(R.id.contenedor, new ListaNoticiasFragment()).commit();
+                    break;
+                case R.id.nav_login:
+                    fragmentManager.beginTransaction().replace(R.id.contenedor, new LoginFragment()).commit();
+                    break;
+                case R.id.nav_register:
+                    fragmentManager.beginTransaction().replace(R.id.contenedor, new RegisterFragment()).commit();
+                    break;
+                case R.id.nav_profile:
+                    fragmentManager.beginTransaction().replace(R.id.contenedor, new UsuarioPerfilFragment()).commit();
+                    break;
+                case R.id.nav_muro:
+                    fragmentManager.beginTransaction().replace(R.id.contenedor, new MuroFragment()).commit();
+                    break;
+                case R.id.nav_notific:
+                    fragmentManager.beginTransaction().replace(R.id.contenedor, new ListaNotificationFragment()).commit();
+                    break;
+                case R.id.nav_messages:
+                    fragmentManager.beginTransaction().replace(R.id.contenedor, new ListaConversacionesFragment()).commit();
+                    break;
+                case R.id.nav_publicate:
+                    fragmentManager.beginTransaction().replace(R.id.contenedor, new PublicateFragment()).commit();
+                    break;
+                case R.id.nav_logout:
+                    cerrarSesion();
+                    break;
+            }
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -237,12 +250,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("name", "");
-                editor.putString("surname", "");
-                editor.putInt("id", 0);
-                editor.putString("nick", "");
-                editor.putString("email", "");
-                editor.putString("token", "");
+
+                editor.clear();
 
                 email = "";
                 nick = "";
@@ -274,5 +283,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         dialogo1.show();
+    }
+
+    private void ComprobarEstadoServer(){
+        Global global = new Global();
+        String url = global.url;
+        url = url+"getnotices/";
+
+        StringRequest postRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        estadoServer = true;
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        estadoServer = false;
+                    }
+                }
+        );
+
+        postRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleySingleton.getIntanciaVolley(getApplicationContext()).addToRequestQueue(postRequest);
     }
 }
