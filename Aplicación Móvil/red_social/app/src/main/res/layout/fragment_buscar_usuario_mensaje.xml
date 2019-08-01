@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.BuscarUsuarioMensajeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#252525"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="#414141"
+            android:padding="4dp">
+
+            <ImageView
+                android:id="@+id/imagenBuscar"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:src="@drawable/find" />
+
+            <EditText
+                android:id="@+id/usuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toLeftOf="@id/buscar"
+                android:layout_toRightOf="@id/imagenBuscar"
+                android:background="#FFFF"
+                android:hint="Buscar personas" />
+
+            <TextView
+                android:id="@+id/buscar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="5dp"
+                android:text="Buscar"
+                android:textColor="#FFFF" />
+
+
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/listaBuscados"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/fragment_user" />
+    </LinearLayout>
+</FrameLayout>

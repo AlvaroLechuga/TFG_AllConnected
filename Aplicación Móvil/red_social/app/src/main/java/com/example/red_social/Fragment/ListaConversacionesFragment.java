@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,9 +39,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ListaConversacionesFragment extends Fragment {
+public class ListaConversacionesFragment extends Fragment implements View.OnClickListener {
 
     ListView listaConversaciones;
+    Button btnNueva;
 
     SharedPreferences sharedPreferences;
 
@@ -54,6 +56,9 @@ public class ListaConversacionesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_lista_conversaciones, container, false);
 
         listaConversaciones = view.findViewById(R.id.listaConversaciones);
+        btnNueva = view.findViewById(R.id.btnNuevo);
+
+        btnNueva.setOnClickListener(this);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
@@ -169,6 +174,18 @@ public class ListaConversacionesFragment extends Fragment {
 
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnNuevo:
+                BuscarUsuarioMensajeFragment fragment = new BuscarUsuarioMensajeFragment();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.contenedor, fragment, "fragment_meters");
+                ft.commit();
+                break;
         }
     }
 

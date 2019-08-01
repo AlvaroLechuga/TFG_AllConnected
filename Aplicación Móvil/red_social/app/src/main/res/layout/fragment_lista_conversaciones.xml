@@ -21,6 +21,18 @@
             android:textSize="36sp"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/btnNuevo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#EA4C88"
+            android:minHeight="60dp"
+            android:text="Nuevo Mensaje"
+            android:textColor="#FFFF" />
+
         <ListView
             android:id="@+id/listaConversaciones"
             android:layout_width="match_parent"

@@ -36,7 +36,6 @@ import java.util.Map;
 public class BuscarFragment extends Fragment implements View.OnClickListener{
 
     ProgressDialog progreso;
-    RequestQueue request;
 
     Button btnBuscar;
     EditText txtUsuario;
@@ -51,8 +50,6 @@ public class BuscarFragment extends Fragment implements View.OnClickListener{
         txtUsuario = view.findViewById(R.id.txtBUsuario);
 
         btnBuscar.setOnClickListener(this);
-
-        request = Volley.newRequestQueue(getContext());
 
         return view;
     }
