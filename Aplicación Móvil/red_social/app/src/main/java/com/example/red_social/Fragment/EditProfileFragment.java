@@ -1,21 +1,17 @@
 package com.example.red_social.Fragment;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,25 +20,23 @@ import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.red_social.R;
 import com.example.red_social.Util.Global;
 import com.example.red_social.Util.Usuario;
 import com.example.red_social.Util.VolleySingleton;
 import com.google.gson.Gson;
-import com.kosalgeek.android.photoutil.CameraPhoto;
-import com.kosalgeek.android.photoutil.GalleryPhoto;
-import com.kosalgeek.android.photoutil.ImageLoader;
 import com.squareup.picasso.Picasso;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import okhttp3.OkHttpClient;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -66,7 +60,8 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
     SharedPreferences sharedPreferences;
 
     ProgressDialog progreso;
-    RequestQueue request;
+
+    File file;
 
     String nick, name, surname, imagen, pais, ciudad, biografia, token;
     int id;
@@ -120,8 +115,6 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
                 .centerCrop()
                 .into(image);
 
-        request = Volley.newRequestQueue(getContext());
-
         return view;
     }
 
@@ -130,6 +123,7 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
         switch (v.getId()){
 
             case R.id.btnEImagen:
+                BuscarImagen();
                 break;
             case R.id.btnEModificar:
                 ModificarUsuario();
@@ -138,7 +132,58 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    private void Lanzar() {
+    private void BuscarImagen() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/");
+        startActivityForResult(intent.createChooser(intent, "Seleccione la aplicación"), 10);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK){
+            Uri path = data.getData();
+
+            file = new File(path.getPath());
+
+            SubirArchivo(file);
+
+            image.setImageURI(path);
+
+        }
+    }
+
+    private void SubirArchivo(final File file) {
+        Global global = new Global();
+        String url = global.url;
+        url = url+"user/upload";
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i("errorInsertado", response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("errorInsertado", error.toString());
+                        Toast.makeText(getContext(), "Ha ocurrido un error al insertar", Toast.LENGTH_LONG).show();
+                    }
+                }
+        ) {
+            /*@Override
+            protected Map<String, String> getParams() {
+                Map<String, String>  params = new HashMap<>();
+                params.put("file0", file.getName());
+
+                return params;
+            }*/
+        };
+        postRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(postRequest);
     }
 
     private void ModificarUsuario(){
@@ -226,6 +271,5 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
         postRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(postRequest);
     }
-
 
 }
