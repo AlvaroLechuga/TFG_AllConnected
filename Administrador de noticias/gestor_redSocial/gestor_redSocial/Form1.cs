@@ -82,5 +82,13 @@ namespace gestor_redSocial
 				this.Show();
 			}
 		}
-	}
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyValue == 13)
+            {
+                btnLogin_Click(sender, e);
+            }
+        }
+    }
 }

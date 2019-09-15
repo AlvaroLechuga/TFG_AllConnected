@@ -15,3 +15,19 @@ C:\Users\alvar\source\repos\gestor_redSocial\gestor_redSocial\obj\Debug\gestor_r
 C:\Users\alvar\source\repos\gestor_redSocial\gestor_redSocial\obj\Debug\gestor_redSocial.AddNotice.resources
 C:\Users\alvar\source\repos\gestor_redSocial\gestor_redSocial\obj\Debug\gestor_redSocial.ModifyNotice.resources
 C:\Users\alvar\source\repos\gestor_redSocial\gestor_redSocial\obj\Debug\gestor_redSocial.DeleteNotice.resources
+C:\Users\alvar\Documents\GitHub\TFG_AllConnected\Administrador de noticias\gestor_redSocial\gestor_redSocial\bin\Debug\gestor_redSocial.exe.config
+C:\Users\alvar\Documents\GitHub\TFG_AllConnected\Administrador de noticias\gestor_redSocial\gestor_redSocial\bin\Debug\gestor_redSocial.exe
+C:\Users\alvar\Documents\GitHub\TFG_AllConnected\Administrador de noticias\gestor_redSocial\gestor_redSocial\bin\Debug\gestor_redSocial.pdb
+C:\Users\alvar\Documents\GitHub\TFG_AllConnected\Administrador de noticias\gestor_redSocial\gestor_redSocial\obj\Debug\gestor_redSocial.csprojAssemblyReference.cache
+C:\Users\alvar\Documents\GitHub\TFG_AllConnected\Administrador de noticias\gestor_redSocial\gestor_redSocial\obj\Debug\gestor_redSocial.AddCategory.resources
+C:\Users\alvar\Documents\GitHub\TFG_AllConnected\Administrador de noticias\gestor_redSocial\gestor_redSocial\obj\Debug\gestor_redSocial.AddNotice.resources
+C:\Users\alvar\Documents\GitHub\TFG_AllConnected\Administrador de noticias\gestor_redSocial\gestor_redSocial\obj\Debug\gestor_redSocial.DeleteNotice.resources
+C:\Users\alvar\Documents\GitHub\TFG_AllConnected\Administrador de noticias\gestor_redSocial\gestor_redSocial\obj\Debug\gestor_redSocial.Form1.resources
+C:\Users\alvar\Documents\GitHub\TFG_AllConnected\Administrador de noticias\gestor_redSocial\gestor_redSocial\obj\Debug\gestor_redSocial.Manager.resources
+C:\Users\alvar\Documents\GitHub\TFG_AllConnected\Administrador de noticias\gestor_redSocial\gestor_redSocial\obj\Debug\gestor_redSocial.ModifyNotice.resources
+C:\Users\alvar\Documents\GitHub\TFG_AllConnected\Administrador de noticias\gestor_redSocial\gestor_redSocial\obj\Debug\gestor_redSocial.Properties.Resources.resources
+C:\Users\alvar\Documents\GitHub\TFG_AllConnected\Administrador de noticias\gestor_redSocial\gestor_redSocial\obj\Debug\gestor_redSocial.csproj.GenerateResource.cache
+C:\Users\alvar\Documents\GitHub\TFG_AllConnected\Administrador de noticias\gestor_redSocial\gestor_redSocial\obj\Debug\gestor_redSocial.csproj.CoreCompileInputs.cache
+C:\Users\alvar\Documents\GitHub\TFG_AllConnected\Administrador de noticias\gestor_redSocial\gestor_redSocial\obj\Debug\gestor_redSocial.csproj.CopyComplete
+C:\Users\alvar\Documents\GitHub\TFG_AllConnected\Administrador de noticias\gestor_redSocial\gestor_redSocial\obj\Debug\gestor_redSocial.exe
+C:\Users\alvar\Documents\GitHub\TFG_AllConnected\Administrador de noticias\gestor_redSocial\gestor_redSocial\obj\Debug\gestor_redSocial.pdb

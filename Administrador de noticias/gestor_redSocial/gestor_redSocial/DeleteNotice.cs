@@ -75,5 +75,13 @@ namespace gestor_redSocial
 				b.Desconectar();
 			}
 		}
-	}
+
+        private void DeleteNotice_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13)
+            {
+                btnEliminarNoticia_Click(sender, e);
+            }
+        }
+    }
 }

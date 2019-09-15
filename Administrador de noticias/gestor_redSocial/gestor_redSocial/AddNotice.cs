@@ -79,5 +79,12 @@ namespace gestor_redSocial
 
 		}
 
-	}
+        private void AddNotice_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13)
+            {
+                btnInsertarNoticia_Click(sender, e);
+            }
+        }
+    }
 }

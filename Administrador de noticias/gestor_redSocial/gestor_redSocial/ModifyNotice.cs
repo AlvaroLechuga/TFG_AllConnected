@@ -117,5 +117,13 @@ namespace gestor_redSocial
 
 			
 		}
-	}
+
+        private void ModifyNotice_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13)
+            {
+                btnModificar_Click(sender, e);
+            }
+        }
+    }
 }

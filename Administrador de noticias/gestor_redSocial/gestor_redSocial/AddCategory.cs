@@ -70,5 +70,13 @@ namespace gestor_redSocial
 
 			}
 		}
-	}
+
+        private void AddCategory_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13)
+            {
+                btnInsertarCategoria_Click(sender, e);
+            }
+        }
+    }
 }
