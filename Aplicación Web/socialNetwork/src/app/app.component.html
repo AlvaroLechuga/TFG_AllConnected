@@ -17,7 +17,6 @@
         <li>
           <input #searchUser (keyup.enter)="buscarUsuario(searchUser.value)" type="text" class="form-control" id="buscar" placeholder="Buscar usuario"/>
         </li>    
-        <li *ngIf="identity"><a [routerLink]="['/mensajes']" [routerLinkActive]="['actived']"><span class="glyphicon glyphicon-envelope"></span> Mensajes</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right" *ngIf="!identity">
         <li><a [routerLink]="['/login']"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

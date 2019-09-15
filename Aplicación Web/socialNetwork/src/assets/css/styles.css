@@ -98,7 +98,7 @@ header{
 }
 
 .titular-noticias{
-	margin-left: 10px;
+	margin-left: 20px;
 	color: white;
 	width: 307px;
 	border-bottom: 1px solid #ccc;
@@ -259,6 +259,7 @@ header{
 	width: 70%;
 	margin-top: 10px;
 	margin-left: 10px;
+	margin-bottom: 10px;
 	background-color: white;
 	display: inline-block;
 	
@@ -326,7 +327,7 @@ header{
 }
 
 #datos-publicacion{
-	width: 35%;
+	width: 50%;
 	margin-top: -100px;
 	margin-left: 130px;
 	color:black;
@@ -367,13 +368,21 @@ hr{
 	width: 90%;
 	margin: 0px auto;
 	background-color: white;
-	min-height: 200px;
+	min-height: 100vh;
+	margin-bottom: 10px;
 }
 
 .title-notificaciones{
-	padding-top: 15px;
-	padding-left: 10px;
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-bottom: 20px;
 	border-bottom: 1px solid black;
+}
+
+.nonoti{
+	text-align: center;
+	margin-top: 50px;
+	color: red;
 }
 
 #icon-info{
@@ -442,6 +451,10 @@ hr{
 	text-align: center;
 }
 
+#profile-user h2{
+	margin-left: 40px;
+}
+
 .publicaciones{
 	width: 96%;
 	margin: 0px auto;
@@ -485,6 +498,38 @@ textarea{
 	padding-bottom: 10px;
 }
 
+/* Lista de Mensajes */
+
+#title-mensaje{
+	margin-top: 20px;
+	margin-left: 20px;
+
+}
+
+#btn-new{
+	width: 50%;
+	margin-left: 25%;
+	margin-top: 10px;
+}
+
+.listan{
+	margin-left: 30%;
+	margin-right: 30%;
+	margin-top: 20px;
+  	list-style-type:  none;
+}
+
+.listan li{
+	border-style: solid;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.listan img{
+	height: 150px;
+	width: 150px;
+	margin-right: 15px;
+}
 
 /* Footer */
 
@@ -495,7 +540,6 @@ footer{
 	color:#fff;
 	border-color: #080808;
 }
-
 
 #title-footer{
 	margin-top: 15px;

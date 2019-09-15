@@ -1,6 +1,10 @@
 <div id="contain-mensajes">
 	<h1 class="title-notificaciones">Notificaciones</h1>
 
+	<div *ngIf="notifications.length == 0">
+		<h3 class="nonoti"><span class="glyphicon">&#xe209;</span> No hay notificaciones actualmente <span class="glyphicon">&#xe209;</span></h3>
+	</div>
+
 	<div *ngFor="let notif of notifications">
 		<div id="alerta-notificacion">
 			<span id="icon-info" class="glyphicon glyphicon-info-sign"></span>
@@ -8,4 +12,3 @@
 		</div>
 	</div>
 </div>
-

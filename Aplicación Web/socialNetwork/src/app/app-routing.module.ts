@@ -10,7 +10,6 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
-import { MensajesComponent } from './components/mensajes/mensajes.component';
 
 const routes: Routes = [
 	{path: '', component: InicioComponent},
@@ -24,7 +23,6 @@ const routes: Routes = [
 	{path: 'notificaciones', component: NotificacionesComponent},
 	{path: 'perfil/:id', component: ProfileComponent},
 	{path: 'usuarios/:id', component: UsuariosComponent},
-	{path: 'mensajes', component: MensajesComponent},
 	{path: '**', component: ErrorComponent},
 ];
 

@@ -33,6 +33,8 @@ export class IndexComponent implements OnInit {
 
   public id_p;
 
+  public time;
+
     constructor(private _userService: UserService, private _publicationService: PublicationService, private _followService: FollowService ,private _router: Router) {
       this.user = new User(1, '', '', '', '', '', '', '', '', 'user', '', '', '');
       this.publication = new Publication(1, 1, '', '', '');
@@ -76,6 +78,7 @@ export class IndexComponent implements OnInit {
     getPublications(){
       this._publicationService.getPublicationFollow(this.token, this.identity.sub).subscribe(
         response => {
+          this.time = response.tiempo;
           this.publications = response.publications;
           this.infoUsers = response.users;
         },
