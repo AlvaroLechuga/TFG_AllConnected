@@ -265,4 +265,24 @@ class PublicationController extends Controller {
         return response()->json($data, $data['code']);
     }
 
+    public function getPublication($id){
+    	$publication = Publication::where('id', $id)->get();
+
+    	if($publication){
+    		$data = array(
+                'status' => 'sucess',
+                'code' => '200',
+                'publication' => $publication,
+            );
+    	}else{
+    		$data = array(
+                'status' => 'error',
+                'code' => '404',
+                'message' => 'No hay publicación',
+            );
+    	}
+
+    	return response()->json($data, $data['code']);
+    }
+
 }

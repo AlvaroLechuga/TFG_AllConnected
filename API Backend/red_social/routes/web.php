@@ -36,6 +36,7 @@ Route::delete('api/publication/delete/{id}', 'PublicationController@delete');
 Route::get('api/publications/{id}', 'PublicationController@getPublicationbyUser');
 Route::get('api/numberpublications/{id}', 'PublicationController@getNumberPublications');
 Route::get('api/publicationfollowers/{id}', 'PublicationController@getPublicationFollowers');
+Route::get('api/getpublication/{id}', 'PublicationController@getPublication');
 
 // Rutas del controlador de Follow
 Route::post('api/follow/{id}', 'FollowController@followUser');
