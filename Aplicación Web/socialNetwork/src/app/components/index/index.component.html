@@ -35,7 +35,7 @@
             <button type="button" class="btn btn-default btn-sm btn-like">
               <span class="glyphicon glyphicon-heart" title="Me gusta"></span>
             </button>
-            <button type="button" class="btn btn-default btn-sm btn-response" data-toggle="modal" data-target="#exampleModal"(click)="getIndex(i)">
+            <button type="button" class="btn btn-default btn-sm btn-response" (click)="responsePublication(publication.id)">
               <span class="glyphicon glyphicon-share-alt" title="Responder"></span>
             </button>
             <button *ngIf="publicacion.id_user == identity.sub" type="button" class="btn btn-default btn-sm btn-remove" (click)="deletePublication(publicacion.id)">

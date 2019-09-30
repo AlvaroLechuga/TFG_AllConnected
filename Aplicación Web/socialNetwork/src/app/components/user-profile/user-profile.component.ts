@@ -123,23 +123,8 @@ export class UserProfileComponent implements OnInit {
       );
     }
 
-    submitResponse(responseuser){
-      //this.publication.id_user = this.user.id;
-      //this.id_p = this.publications[this.indice].id;
-      //this.publication.text = responseuser;
-      
-      /*this._publicationService.responseUser(this.token, this.publication, this.id_p).subscribe(
-        response => {
-          this.getPublications(this.identity.sub);
-        },
-        error => {
-        }
-
-      );*/
+    responsePublication(id){
+      this._router.navigate(['/responder/'+id]);
     }
-
-  getIndex(i){
-    this.indice = i;
-  }
 
 }

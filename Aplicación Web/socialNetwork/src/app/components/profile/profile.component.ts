@@ -39,8 +39,8 @@ export class ProfileComponent implements OnInit {
 
   public id_p;
 
-  	constructor(private _userService: UserService, 
-      private _publicationService: PublicationService, 
+  	constructor(private _userService: UserService,
+      private _publicationService: PublicationService,
       private _followService: FollowService,
       private _likeService: LikeService,
       private _router: Router, 
@@ -193,7 +193,6 @@ export class ProfileComponent implements OnInit {
         this.likes = response.likes;
       },
       error => {
-
       }
     );
   }
@@ -238,8 +237,8 @@ export class ProfileComponent implements OnInit {
       
     }
 
-  getIndex(i){
-    this.indice = i;
-  }
+    responsePublication(id){
+      this._router.navigate(['/responder/'+id]);
+    }
 
 }

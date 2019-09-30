@@ -160,8 +160,7 @@ export class IndexComponent implements OnInit {
       );
     }
 
-    getIndex(i){
-      this.indice = i;
+    responsePublication(id){
+      this._router.navigate(['/responder/'+id]);
     }
-
 }

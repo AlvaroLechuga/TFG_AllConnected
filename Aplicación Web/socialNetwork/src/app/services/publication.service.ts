@@ -52,4 +52,8 @@ export class PublicationService{
 	numberPublication(id): Observable<any>{ 
 		return this._http.get(this.url+'numberpublications/'+id);
 	}
+
+	getPublication(id): Observable<any>{
+		return this._http.get(this.url+'getpublication/'+id);
+	}
 }
