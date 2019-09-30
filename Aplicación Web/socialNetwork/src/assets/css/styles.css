@@ -362,6 +362,41 @@ hr{
     margin: 1em 0; padding: 0; 
 }
 
+/* Responder */
+
+#contain-mensajes{
+	width: 90%;
+	margin: 0px auto;
+	background-color: white;
+	min-height: 100vh;
+	margin-bottom: 10px;
+}
+
+.title-response{
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-bottom: 20px;
+    margin-bottom: 20px;
+	border-bottom: 1px solid black;
+}
+
+.text-response{
+	margin-left: 10px;
+}
+
+.txtresponse{
+    margin-bottom: 10px;
+	resize: none;
+	margin-left: 10px;
+	margin-right: 10px;
+	width: 98.5%;
+}
+
+.btnresponse{
+	margin-top: 5px;
+	margin-left: 20px;
+}
+
 /* Mensajes */
 
 #contain-mensajes{

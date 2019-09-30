@@ -33,8 +33,9 @@ export class AppComponent implements OnInit, DoCheck{
 	}
 
 	buscarUsuario(value){
-		if(value != ''){
+		if(value != '' && this.token != null){
 			this._router.navigate(['/usuarios/'+value]);
+			console.log(this.token);
 		}
 	}
 

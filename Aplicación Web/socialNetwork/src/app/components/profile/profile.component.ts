@@ -55,7 +55,11 @@ export class ProfileComponent implements OnInit {
   	ngOnInit() {
   		this._route.params.subscribe(params => {
 	  		this.idIdentity = params.id;
-			
+      
+      if(this.token == null){
+        this._router.navigate(['/inicio']);
+      }
+
 			if(this.idIdentity == this.identity.sub){
 				this._router.navigate(['/perfil']);
 			}

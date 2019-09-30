@@ -18,6 +18,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { ProfileComponent } from './components/profile/profile.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { PublicationComponent } from './components/publication/publication.component';
+import { ResponsepublicationComponent } from './components/responsepublication/responsepublication.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { PublicationComponent } from './components/publication/publication.compo
     ProfileComponent,
     UsuariosComponent,
     PublicationComponent,
+    ResponsepublicationComponent,
   ],
   imports: [
     BrowserModule,
