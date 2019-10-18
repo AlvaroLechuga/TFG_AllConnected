@@ -147,8 +147,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
                         txtNick.setText("");
                         txtEmail.setText("");
                         txtPassword.setText("");
-
-
                     }
                 },
                 new Response.ErrorListener() {

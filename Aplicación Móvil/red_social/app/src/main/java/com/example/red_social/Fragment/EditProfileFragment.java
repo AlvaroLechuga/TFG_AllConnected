@@ -30,13 +30,8 @@ import com.example.red_social.Util.VolleySingleton;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import okhttp3.OkHttpClient;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -61,8 +56,6 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
 
     ProgressDialog progreso;
 
-    File file;
-
     String nick, name, surname, imagen, pais, ciudad, biografia, token;
     int id;
 
@@ -70,7 +63,6 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
-
 
         txtNombre = view.findViewById(R.id.txtENombre);
         txtApellidos = view.findViewById(R.id.txtEApellidos);
@@ -144,17 +136,18 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
 
         if(resultCode == RESULT_OK){
             Uri path = data.getData();
-
-            file = new File(path.getPath());
-
-            SubirArchivo(file);
+            image.getLayoutParams().height = 250;
+            image.getLayoutParams().width = 250;
 
             image.setImageURI(path);
-
         }
     }
 
-    private void SubirArchivo(final File file) {
+    private void Pruebas(){
+
+    }
+
+    private void SubirArchivo(final String img) {
         Global global = new Global();
         String url = global.url;
         url = url+"user/upload";
@@ -174,13 +167,13 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
                     }
                 }
         ) {
-            /*@Override
+            @Override
             protected Map<String, String> getParams() {
                 Map<String, String>  params = new HashMap<>();
-                params.put("file0", file.getName());
+                params.put("file0", img);
 
                 return params;
-            }*/
+            }
         };
         postRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(postRequest);

@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -169,8 +170,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-
-
     public class Contador extends CountDownTimer {
 
         public Contador(long millisInFuture, long countDownInterval) {
@@ -196,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         @Override
         public void onTick(long millisUntilFinished) {
-            int segundos = (int) (millisUntilFinished / 1000);///CADA VEZ QUE PASA UN SEGUNDO LLEGA ACA
+            int segundos = (int) (millisUntilFinished / 1000); // CADA VEZ QUE PASA UN SEGUNDO LLEGA ACA
         }
 
     }
@@ -294,6 +293,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+
                         estadoServer = true;
                     }
                 },

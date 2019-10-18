@@ -184,8 +184,11 @@ public class MuroFragment extends Fragment {
             TextView txt3 = v.findViewById(R.id.txtPLText);
             txt3.setText(publicacions.get(position).getText());
 
-            ImageButton btnEliminar = v.findViewById(R.id.btnPLDelete);
+            ImageButton btnLike = v.findViewById(R.id.btnPLLike);
 
+            btnLike.setVisibility(View.GONE);
+
+            ImageButton btnEliminar = v.findViewById(R.id.btnPLDelete);
             if(identificador != publicacions.get(position).getId_user()){
                 btnEliminar.setVisibility(View.GONE);
             }
