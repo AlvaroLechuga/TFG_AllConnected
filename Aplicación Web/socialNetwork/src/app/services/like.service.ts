@@ -4,34 +4,38 @@ import { Observable } from 'rxjs';
 import { global } from './global';
 
 @Injectable()
-export class LikeService{
+export class LikeService {
 	public url: string;
 
 	constructor(
 		private _http: HttpClient
-	){
+	) {
 		this.url = global.url;
 	}
 
-	getLikes(token, id): Observable<any>{
+	getLikes(token, id): Observable<any> {
 		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
 
-		return this._http.get(this.url+'getlikes/'+id, {headers: headers});
+		return this._http.get(this.url + 'getlikes/' + id, { headers: headers });
 	}
 
-	like(token, id): Observable<any>{
+	like(token, id): Observable<any> {
 		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
 
-		return this._http.post(this.url+'follow/'+id, {headers: headers});
+		console.log(token);
+
+		return this._http.post(this.url + 'like/' + id, { headers: headers });
 	}
 
-	dislike(token, id): Observable<any>{
+	dislike(token, id): Observable<any> {
 		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
 
-		return this._http.delete(this.url+'unfollow/'+id, {headers: headers});
+		console.log(token);
+
+		return this._http.delete(this.url + 'dislike/' + id, { headers: headers });
 	}
 
-	numberLikes(id): Observable<any>{
-		return this._http.get(this.url+'numberlikes/'+id);
+	numberLikes(id): Observable<any> {
+		return this._http.get(this.url + 'numberlikes/' + id);
 	}
 }

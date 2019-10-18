@@ -1,4 +1,4 @@
-export class User{
+export class User {
 	constructor(
 		public id: number,
 		public name: string,
@@ -12,6 +12,6 @@ export class User{
 		public role: string,
 		public description: string,
 		public image: string,
-		public created_at: any
-	){}
+		public created_at: any,
+	) { }
 }

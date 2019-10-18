@@ -17,13 +17,13 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class UserProfileComponent implements OnInit {
 
-	public user: User;
-	public status: string;
-	public identity;
-	public token;
- 	public url;
+  public user: User;
+  public status: string;
+  public identity;
+  public token;
+  public url;
   public publication: Publication;
-  public publications: Publication;
+  public publications;
 
   public nPublications;
   public nFollowers;
@@ -36,95 +36,149 @@ export class UserProfileComponent implements OnInit {
 
   public id_p;
 
-  constructor(private _userService: UserService, private _publicationService: PublicationService, private _followService: FollowService, private _likeService: LikeService, private _router: Router, private _route: ActivatedRoute) {
-  		this.user = new User(1, '', '', '', '', '', '', '', '', 'user', '', '', '');
-      this.publication = new Publication(1, 1, '', '', '');
-  		this.identity = this._userService.getIdentity();
-  		this.token = this._userService.getToken();
-  		this.user = this.identity;
-      this.url = global.url;
+  public likes;
 
-      if(!this.token){
-        this._router.navigate(['/inicio']);
+  constructor(private _userService: UserService, private _publicationService: PublicationService, private _followService: FollowService, private _likeService: LikeService, private _router: Router, private _route: ActivatedRoute) {
+    this.user = new User(1, '', '', '', '', '', '', '', '', 'user', '', '', '');
+    this.publication = new Publication(1, 1, '', '', '');
+    this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
+    this.user = this.identity;
+    this.url = global.url;
+
+    if (!this.token) {
+      this._router.navigate(['/inicio']);
+    }
+
+  }
+
+  ngOnInit() {
+    this.getPublications(this.identity.sub);
+    this.numberPublication();
+    this.numberFollowers();
+    this.numberFollowings();
+    this.numberLikes();
+    this.getLikes();
+  }
+
+  numberPublication() {
+    this._publicationService.numberPublication(this.identity.sub).subscribe(
+      response => {
+        this.nPublications = response.npublicaciones;
+      },
+      error => {
+      }
+    );
+  }
+
+  numberFollowers() {
+    this._followService.numberFollowers(this.identity.sub).subscribe(
+      response => {
+        this.nFollowers = response.nfollows;
+      },
+      error => {
+      }
+    );
+  }
+
+  numberFollowings() {
+    this._followService.numberFollowings(this.identity.sub).subscribe(
+      response => {
+        this.nFollowing = response.nfollowers;
+      },
+      error => {
+      }
+    );
+  }
+
+  numberLikes() {
+    this._likeService.numberLikes(this.identity.sub).subscribe(
+      response => {
+        this.nLikes = response.nlikes;
+      },
+      error => {
+      }
+    );
+  }
+
+  deletePublication(id) {
+    this._publicationService.deletePublication(id, this.token).subscribe(
+      response => {
+        this.getPublications(this.identity.sub);
+      },
+      error => {
+        console.log(<any>error);
       }
 
-  	}
+    );
+  }
 
-  	ngOnInit() {
-      this.getPublications(this.identity.sub);
-      this.numberPublication();
-      this.numberFollowers();
-      this.numberFollowings();
-      this.numberLikes();
-  	}
+  getPublications(id) {
+    this._publicationService.getPublications(id).subscribe(
+      response => {
+        this.publications = response.publications;
+        this.time = response.tiempo;
+      },
+      error => {
+        console.log(<any>error);
+      }
 
-    numberPublication(){
-      this._publicationService.numberPublication(this.identity.sub).subscribe(
-        response => {
-          this.nPublications = response.npublicaciones;
-        },
-        error => {
+    );
+  }
+
+  getLikes() {
+    this._likeService.getLikes(this.token, this.identity.sub).subscribe(
+      response => {
+        this.likes = response.likes;
+        this.asignarLikes();
+      },
+      error => {
+        console.log(<any>error)
+      }
+    );
+  }
+
+  asignarLikes() {
+    for(let i = 0; i < this.publications.length; i++){
+      for(let j = 0; j < this.likes.length; j++){
+        if(this.publications[i].id == this.likes[j].id_publication){
+          this.publications[i].like = true;
+        }else{
+          this.publications[i].like = false;
         }
-      );
+      }
     }
 
-    numberFollowers(){
-      this._followService.numberFollowers(this.identity.sub).subscribe(
-        response => {
-          this.nFollowers = response.nfollows;
-        },
-        error => {
-        }
-      );
-    }
+    console.log(this.publications);
 
-    numberFollowings(){
-      this._followService.numberFollowings(this.identity.sub).subscribe(
-        response => {
-          this.nFollowing = response.nfollowers;
-        },
-        error => {
-        }
-      );
-    }
+  }
 
-    numberLikes(){
-      this._likeService.numberLikes(this.identity.sub).subscribe(
-        response => {
-          this.nLikes = response.nlikes;
-        },
-        error => {
-        }
-      );
-    }
+  like(id) {
+    this._likeService.like(this.token, id).subscribe(
+      response => {
+        this.getLikes();
+      },
+      error => {
+        console.log(error);
+      }
 
-    deletePublication(id){
-      this._publicationService.deletePublication(id, this.token).subscribe(
-        response => {
-          this.getPublications(this.identity.sub);
-        },
-        error => {
-          console.log(<any>error);
-        }
+    );
+  }
 
-      );
-    }
+  dislike(id) {
+    this._likeService.dislike(this.token, id).subscribe(
+      response => {
+        this.getLikes();
+      },
+      error => {
+        console.log(error);
+      }
 
-    getPublications(id){
-      this._publicationService.getPublications(id).subscribe(
-        response => {
-          this.publications = response.publications;
-          this.time = response.tiempo;
-        },
-        error => {
-          console.log(<any>error);
-        }
+    );
+  }
 
-      );
-    }
-
-    responsePublication(id){
-      this._router.navigate(['/responder/'+id]);
-    }
+  responsePublication(id) {
+    this._router.navigate(['/responder/' + id]);
+  }
 
 }

@@ -4,10 +4,10 @@ import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  providers: [UserService]
+	selector: 'app-login',
+	templateUrl: './login.component.html',
+	styleUrls: ['./login.component.css'],
+	providers: [UserService]
 })
 export class LoginComponent implements OnInit {
 
@@ -16,76 +16,76 @@ export class LoginComponent implements OnInit {
 	public token: string;
 	public identity;
 
-  	constructor(private _userService: UserService, private _router: Router, private _route: ActivatedRoute) {
-  		this.user = new User(1, '', '', '', '', '', '', '', '', 'user', '', '', '');
-  	}
+	constructor(private _userService: UserService, private _router: Router, private _route: ActivatedRoute) {
+		this.user = new User(1, '', '', '', '', '', '', '', '', 'user', '', '', '');
+	}
 
-  	ngOnInit() {
+	ngOnInit() {
 
-      this.token = this._userService.getToken();
+		this.token = this._userService.getToken();
 
-      if(this.token){
-        this._router.navigate(['/index']);
-      }
+		if (this.token) {
+			this._router.navigate(['/index']);
+		}
 
-      // Se ejecuta siempre y cierra sesión solo cuando le llega el parámetro sure por la url
-      this.logout();
-  	}
+		// Se ejecuta siempre y cierra sesión solo cuando le llega el parámetro sure por la url
+		this.logout();
+	}
 
-  	iniciarUsuario(form){
-  		this._userService.signup(this.user).subscribe(
-  			response => {
-  				// Esto devuelve el token del usuario
-  				if(response.status != 'error'){
-  					this.status = 'success';
-  					this.token = response;
-  					// Objeto usuario identificado
-  					
-  					this._userService.signup(this.user, true).subscribe(
-  						response => {
-  							this.identity = response;
+	iniciarUsuario(form) {
+		this._userService.signup(this.user).subscribe(
+			response => {
+				// Esto devuelve el token del usuario
+				if (response.status != 'error') {
+					this.status = 'success';
+					this.token = response;
+					// Objeto usuario identificado
 
-  							// Persistir los datos del usuario identificado
-  							localStorage.setItem('token', this.token);
-  							localStorage.setItem('identity', JSON.stringify(this.identity));
-                this._router.navigate(['inicio']);
-  						},
-  						error => {
-  							this.status = 'error';
-  						console.log(<any>error);
-  						}
-  					);
+					this._userService.signup(this.user, true).subscribe(
+						response => {
+							this.identity = response;
 
-  				}else{
-  					this.status = 'error';
-  				}
-  			},
-  			error => {
-  				this.status = 'error';
-  				console.log(<any>error);
-  			}
-  		);
-  	}
+							// Persistir los datos del usuario identificado
+							localStorage.setItem('token', this.token);
+							localStorage.setItem('identity', JSON.stringify(this.identity));
+							this._router.navigate(['inicio']);
+						},
+						error => {
+							this.status = 'error';
+							console.log(<any>error);
+						}
+					);
 
-    logout(){
-      this._route.params.subscribe(params => {
-        let logout = +params['sure'];
+				} else {
+					this.status = 'error';
+				}
+			},
+			error => {
+				this.status = 'error';
+				console.log(<any>error);
+			}
+		);
+	}
 
-        if(logout == 1){
-          localStorage.removeItem('identity');
-          localStorage.removeItem('token');
+	logout() {
+		this._route.params.subscribe(params => {
+			let logout = +params['sure'];
 
-          console.log('Entra');
+			if (logout == 1) {
+				localStorage.removeItem('identity');
+				localStorage.removeItem('token');
 
-          this.identity = null;
-          this.token = null;
+				console.log('Entra');
 
-          // Redirección a inicio
+				this.identity = null;
+				this.token = null;
 
-          this._router.navigate(['inicio']);
-        }
+				// Redirección a inicio
 
-      });
-    }
+				this._router.navigate(['inicio']);
+			}
+
+		});
+	}
 
 }

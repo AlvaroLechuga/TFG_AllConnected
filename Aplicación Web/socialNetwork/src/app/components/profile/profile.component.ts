@@ -17,16 +17,16 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
-	public user;
-	public url;
-	public identity;
-	public token;
-	public publications: Publication;
-  public publication: Publication;
-	public idIdentity;
-	public follow;
+  public user;
+  public url;
+  public identity;
+  public token;
+  public publications;
+  public publication;
+  public idIdentity;
+  public follow;
 
-	public nPublications;
+  public nPublications;
   public nFollowers;
   public nFollowing;
   public nLikes;
@@ -39,133 +39,133 @@ export class ProfileComponent implements OnInit {
 
   public id_p;
 
-  	constructor(private _userService: UserService,
-      private _publicationService: PublicationService,
-      private _followService: FollowService,
-      private _likeService: LikeService,
-      private _router: Router, 
-      private _route: ActivatedRoute) {
-  		this.url = global.url;
-      this.publication = new Publication(1, 1, '', '', '');
-		  this.user = new User(1, '', '', '', '', '', '', '', '', 'user', '', '', '');
-  		this.identity = this._userService.getIdentity();
-  		this.token = this._userService.getToken();
-  	}
+  constructor(private _userService: UserService,
+    private _publicationService: PublicationService,
+    private _followService: FollowService,
+    private _likeService: LikeService,
+    private _router: Router,
+    private _route: ActivatedRoute) {
+    this.url = global.url;
+    this.publication = new Publication(1, 1, '', '', '');
+    this.user = new User(1, '', '', '', '', '', '', '', '', 'user', '', '', '');
+    this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
+  }
 
-  	ngOnInit() {
-  		this._route.params.subscribe(params => {
-	  		this.idIdentity = params.id;
-      
-      if(this.token == null){
+  ngOnInit() {
+    this._route.params.subscribe(params => {
+      this.idIdentity = params.id;
+
+      if (this.token == null) {
         this._router.navigate(['/inicio']);
       }
 
-			if(this.idIdentity == this.identity.sub){
-				this._router.navigate(['/perfil']);
-			}
-			
-	  	  this.getIdentity(this.idIdentity);
-	  	  this.getPublications(this.idIdentity);
-        this.getFollow(this.idIdentity, this.token);
-        this.numberPublication(this.idIdentity);
-        this.numberFollowers(this.idIdentity);
-        this.numberFollowings(this.idIdentity);
-        this.numberLikes(this.idIdentity);
-  		});
+      if (this.idIdentity == this.identity.sub) {
+        this._router.navigate(['/perfil']);
+      }
 
-  		this.getLikes();
-  	}
-	
-	getFollow(id, token){
-		this._followService.getFollow(id, token).subscribe(
-			response => {
-				this.follow = response.message;
-			},
-			error => {
-				this.follow = <any>error.error.message;
-			}
-		);
-	}
+      this.getIdentity(this.idIdentity);
+      this.getPublications(this.idIdentity);
+      this.getFollow(this.idIdentity, this.token);
+      this.numberPublication(this.idIdentity);
+      this.numberFollowers(this.idIdentity);
+      this.numberFollowings(this.idIdentity);
+      this.numberLikes(this.idIdentity);
+    });
 
-  	getIdentity(id){
-  		this._userService.getProfile(id).subscribe(
-  			response => {
-  				this.user = response.user;
-  			},
-  			error => {
-  				console.log(<any>error);
-  			}
+    this.getLikes();
+  }
 
-  		);
-  	}
+  getFollow(id, token) {
+    this._followService.getFollow(id, token).subscribe(
+      response => {
+        this.follow = response.message;
+      },
+      error => {
+        this.follow = <any>error.error.message;
+      }
+    );
+  }
 
-  	deletePublication(id){
-      this._publicationService.deletePublication(id, this.token).subscribe(
-        response => {
-          this.getPublications(this.idIdentity)
-        },
-        error => {
-          console.log(<any>error);
-        }
+  getIdentity(id) {
+    this._userService.getProfile(id).subscribe(
+      response => {
+        this.user = response.user;
+      },
+      error => {
+        console.log(<any>error);
+      }
 
-      );
-    }
+    );
+  }
 
-  	getPublications(id){
-  		this._publicationService.getPublications(id).subscribe(
-  			response => {
-  				this.publications = response.publications;
-          this.time = response.tiempo;
-  			},
-  			error => {
-  				console.log(<any>error);
-  			}
+  deletePublication(id) {
+    this._publicationService.deletePublication(id, this.token).subscribe(
+      response => {
+        this.getPublications(this.idIdentity)
+      },
+      error => {
+        console.log(<any>error);
+      }
 
-  		);
-  	}
+    );
+  }
 
-  	numberPublication(id){
-      this._publicationService.numberPublication(id).subscribe(
-        response => {
-          this.nPublications = response.npublicaciones;
-        },
-        error => {
-        }
-      );
-    }
+  getPublications(id) {
+    this._publicationService.getPublications(id).subscribe(
+      response => {
+        this.publications = response.publications;
+        this.time = response.tiempo;
+      },
+      error => {
+        console.log(<any>error);
+      }
 
-    numberFollowers(id){
-      this._followService.numberFollowers(id).subscribe(
-        response => {
-          this.nFollowers = response.nfollows;
-        },
-        error => {
-        }
-      );
-    }
+    );
+  }
 
-    numberFollowings(id){
-      this._followService.numberFollowings(id).subscribe(
-        response => {
-          this.nFollowing = response.nfollowers;
-        },
-        error => {
-        }
-      );
-    }
+  numberPublication(id) {
+    this._publicationService.numberPublication(id).subscribe(
+      response => {
+        this.nPublications = response.npublicaciones;
+      },
+      error => {
+      }
+    );
+  }
 
-    numberLikes(id){
-      this._likeService.numberLikes(id).subscribe(
-        response => {
-          this.nLikes = response.nlikes;
-        },
-        error => {
-        }
-      );
-    }
-	
-	followUser(){
-		this._followService.follow(this.user.id, this.token).subscribe(
+  numberFollowers(id) {
+    this._followService.numberFollowers(id).subscribe(
+      response => {
+        this.nFollowers = response.nfollows;
+      },
+      error => {
+      }
+    );
+  }
+
+  numberFollowings(id) {
+    this._followService.numberFollowings(id).subscribe(
+      response => {
+        this.nFollowing = response.nfollowers;
+      },
+      error => {
+      }
+    );
+  }
+
+  numberLikes(id) {
+    this._likeService.numberLikes(id).subscribe(
+      response => {
+        this.nLikes = response.nlikes;
+      },
+      error => {
+      }
+    );
+  }
+
+  followUser() {
+    this._followService.follow(this.user.id, this.token).subscribe(
       response => {
         this.follow = "UnFollow";
       },
@@ -173,72 +173,88 @@ export class ProfileComponent implements OnInit {
         console.log(<any>error);
       }
     );
-    
-	}
-	
-	unFollowUser(){
-		this._followService.unFollow(this.user.id, this.token).subscribe(
-			response => {
-				this.follow = "Follow";
-			},
-			error => {
-				console.log(<any>error);
-			}
-		);
-	}
 
-  getLikes(){
+  }
+
+  unFollowUser() {
+    this._followService.unFollow(this.user.id, this.token).subscribe(
+      response => {
+        this.follow = "Follow";
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  getLikes() {
     this._likeService.getLikes(this.token, this.user.id).subscribe(
       response => {
         this.likes = response.likes;
+        this.asignarLikes();
       },
       error => {
       }
     );
   }
 
-  like(id){
+  asignarLikes() {
+    for(let i = 0; i < this.publications.length; i++){
+      for(let j = 0; j < this.likes.length; j++){
+        if(this.publications[i].id == this.likes[j].id_publication){
+          this.publications[i].like = true;
+        }else{
+          this.publications[i].like = false;
+        }
+      }
+    }
+
+    console.log(this.publications);
+
+  }
+
+  like(id) {
     this._likeService.like(this.token, id).subscribe(
       response => {
-
+        this.getPublications(this.idIdentity);
+        this.getLikes();
       },
       error => {
-
       }
 
     );
   }
 
-  dislike(id){
+  dislike(id) {
     this._likeService.dislike(this.token, id).subscribe(
       response => {
-
+        this.getPublications(this.idIdentity);
+        this.getLikes();
       },
       error => {
-        
       }
 
     );
   }
 
-  submitResponse(responseuser){
-      this.publication.id_user = this.user.id;
-      this.id_p = this.publications[this.indice].id;
-      this.publication.text = responseuser;
-      
-      this._publicationService.responseUser(this.token, this.publication, this.id_p).subscribe(
-        response => {
-          this.getPublications(this.idIdentity)
-        },
-        error => {
-        }
+  submitResponse(responseuser) {
+    this.publication.id_user = this.user.id;
+    this.id_p = this.publications[this.indice].id;
+    this.publication.text = responseuser;
 
-      );
-      
-    }
+    this._publicationService.responseUser(this.token, this.publication, this.id_p).subscribe(
+      response => {
+        this.getPublications(this.idIdentity)
+      },
+      error => {
+      }
 
-    responsePublication(id){
-      this._router.navigate(['/responder/'+id]);
-    }
+    );
+
+  }
+
+  responsePublication(id) {
+    this._router.navigate(['/responder/' + id]);
+  }
 
 }

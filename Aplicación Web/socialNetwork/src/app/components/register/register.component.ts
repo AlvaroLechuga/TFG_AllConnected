@@ -11,36 +11,36 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-	public user: User;
-	public status: string;
+  public user: User;
+  public status: string;
   public token;
 
   constructor(private _userService: UserService, private _router: Router) {
-  	this.user = new User(1, '', '', '', '', '', '', '', '', 'user', '', '', '');		
+    this.user = new User(1, '', '', '', '', '', '', '', '', 'user', '', '', '');
   }
 
-    ngOnInit() {
-      this.token = this._userService.getToken();
+  ngOnInit() {
+    this.token = this._userService.getToken();
 
-      if(this.token){
-        this._router.navigate(['/index']);
-      }
-
+    if (this.token) {
+      this._router.navigate(['/index']);
     }
 
-  registrarUsuario(form){
-  	console.log(this.user);
-  	this._userService.register(this.user).subscribe(
-  		response => {
-  			form.reset();
+  }
+
+  registrarUsuario(form) {
+    console.log(this.user);
+    this._userService.register(this.user).subscribe(
+      response => {
+        form.reset();
         this.status = 'success';
-  		},
-  		error => {
-  			this.status = 'error';
-  			console.log(<any>error);
-  		}
-  	);
-  		
+      },
+      error => {
+        this.status = 'error';
+        console.log(<any>error);
+      }
+    );
+
   }
 
 }

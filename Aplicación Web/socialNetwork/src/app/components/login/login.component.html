@@ -1,17 +1,20 @@
-<div id="v-sup"><h1>Iniciar Sesión</h1></div>
+<div id="v-sup">
+	<h1>Iniciar Sesión</h1>
+</div>
 <div id="registro">
 	<div class="alert alert-danger" *ngIf="status == 'error'">Error al iniciar sesión</div>
 	<form #loginForm="ngForm" (ngSubmit)="iniciarUsuario(loginForm)">
 		<label for="email">Email</label>
-		<input class="form-control form-datos" type="email" name="email" #email="ngModel" [(ngModel)]="user.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+		<input class="form-control form-datos" type="email" name="email" #email="ngModel" [(ngModel)]="user.email"
+			required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
 
 		<label for="password">Contraseña</label>
-		<input class="form-control form-datos" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" required>
+		<input class="form-control form-datos" type="password" name="password" #password="ngModel"
+			[(ngModel)]="user.password" required>
 
 		<br>
-		<input class="btn btn-primary" type="submit" name="registrar" value="Iniciar Sesión" [disabled]="loginForm.invalid"><br><br>
-		<p>¿No tienes cuenta? <a [routerLink]="['/register']" >Registrate</a></p>
+		<input class="btn btn-primary" type="submit" name="registrar" value="Iniciar Sesión"
+			[disabled]="loginForm.invalid"><br><br>
+		<p>¿No tienes cuenta? <a [routerLink]="['/register']">Registrate</a></p>
 	</form>
 </div>
-
-

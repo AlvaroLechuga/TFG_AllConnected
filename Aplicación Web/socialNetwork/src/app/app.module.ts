@@ -41,7 +41,7 @@ import { ResponsepublicationComponent } from './components/responsepublication/r
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    FroalaEditorModule.forRoot(), 
+    FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
     AngularFileUploaderModule,
   ],

@@ -40,10 +40,10 @@ CREATE TABLE `categorys` (
 --
 
 INSERT INTO `categorys` (`id`, `name`) VALUES
-(1, 'Prueba'),
-(2, 'Prueba2'),
-(3, 'PRUEBA3'),
-(4, 'sadasdasd');
+(1, 'Política'),
+(2, 'Deportes'),
+(3, 'Pruebas'),
+(4, 'Educación');
 
 -- --------------------------------------------------------
 
@@ -117,8 +117,8 @@ CREATE TABLE `noticies` (
 --
 
 INSERT INTO `noticies` (`id`, `title`, `id_category`, `text`, `image`, `id_user`) VALUES
-(6, 'Test', 1, 'Jajaja', 'sadsadsadsad', 4),
-(7, 'Test de modificar', 4, 'Jajajajaj XD', 'sdasdadsa', 4);
+(6, 'Test', 1, 'asdas.jpg', 'Vamos a nuevas elecciones', 4),
+(7, 'Test de modificar', 4, 'Prueba', 'test', 4);
 
 -- --------------------------------------------------------
 

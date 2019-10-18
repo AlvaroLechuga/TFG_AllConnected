@@ -5,10 +5,10 @@ import { global } from '../../services/global';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
-  selector: 'app-usuarios',
-  templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.css'],
-   providers: [UserService]
+	selector: 'app-usuarios',
+	templateUrl: './usuarios.component.html',
+	styleUrls: ['./usuarios.component.css'],
+	providers: [UserService]
 })
 export class UsuariosComponent implements OnInit {
 
@@ -17,35 +17,35 @@ export class UsuariosComponent implements OnInit {
 	public url;
 	public token;
 
-  	constructor(private _userService: UserService, private _router: Router, private _route: ActivatedRoute) {
-		  this.url = global.url;
-		  this.token = this._userService.getToken();
-  	}
+	constructor(private _userService: UserService, private _router: Router, private _route: ActivatedRoute) {
+		this.url = global.url;
+		this.token = this._userService.getToken();
+	}
 
-  	ngOnInit() {
-  		this._route.params.subscribe(params => {
-  			this.busqueda = params.id;
-  		});
-		
-		  if(this.token == null){
+	ngOnInit() {
+		this._route.params.subscribe(params => {
+			this.busqueda = params.id;
+		});
+
+		if (this.token == null) {
 			this._router.navigate(['/inicio']);
-		  }else{
+		} else {
 			this.obtenerUsuarios();
-		  }
+		}
 
-  		
-  	}
 
-  	obtenerUsuarios(){
-  		this._userService.getUsers(this.busqueda).subscribe(
-  			response => {
-  				console.log(response);
-  				this.users = response.users;
-  			},
-  			error => {
-  				console.log(<any>error);
-  			}
-  		);
-  	}
+	}
+
+	obtenerUsuarios() {
+		this._userService.getUsers(this.busqueda).subscribe(
+			response => {
+				console.log(response);
+				this.users = response.users;
+			},
+			error => {
+				console.log(<any>error);
+			}
+		);
+	}
 
 }

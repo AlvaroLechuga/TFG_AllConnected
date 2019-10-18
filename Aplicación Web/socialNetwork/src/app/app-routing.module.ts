@@ -13,23 +13,23 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { ResponsepublicationComponent } from './components/responsepublication/responsepublication.component';
 
 const routes: Routes = [
-	{path: '', component: InicioComponent},
-	{path: 'inicio', component: InicioComponent},
-	{path: 'index', component: IndexComponent},
-	{path: 'login', component: LoginComponent},
-	{path: 'logout/:sure', component: LoginComponent},
-	{path: 'register', component: RegisterComponent},
-	{path: 'perfil', component: UserProfileComponent},
-	{path: 'ajustes', component: UserEditComponent},
-	{path: 'notificaciones', component: NotificacionesComponent},
-	{path: 'perfil/:id', component: ProfileComponent},
-	{path: 'usuarios/:id', component: UsuariosComponent},
-	{path: 'responder/:id', component: ResponsepublicationComponent},
-	{path: '**', component: ErrorComponent},
+	{ path: '', component: InicioComponent },
+	{ path: 'inicio', component: InicioComponent },
+	{ path: 'index', component: IndexComponent },
+	{ path: 'login', component: LoginComponent },
+	{ path: 'logout/:sure', component: LoginComponent },
+	{ path: 'register', component: RegisterComponent },
+	{ path: 'perfil', component: UserProfileComponent },
+	{ path: 'ajustes', component: UserEditComponent },
+	{ path: 'notificaciones', component: NotificacionesComponent },
+	{ path: 'perfil/:id', component: ProfileComponent },
+	{ path: 'usuarios/:id', component: UsuariosComponent },
+	{ path: 'responder/:id', component: ResponsepublicationComponent },
+	{ path: '**', component: ErrorComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule]
 })
 export class AppRoutingModule { }

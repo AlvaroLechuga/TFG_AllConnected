@@ -4,20 +4,20 @@ import { Observable } from 'rxjs';
 import { global } from './global';
 
 @Injectable()
-export class NotificationService{
+export class NotificationService {
 	public url: string;
 
 	constructor(
 		private _http: HttpClient
-	){
+	) {
 		this.url = global.url;
 	}
-	
 
-	sacarNotificaciones(token, id): Observable<any>{
+
+	sacarNotificaciones(token, id): Observable<any> {
 		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
 
-		return this._http.get(this.url+'getnotifications/'+id, {headers: headers});
+		return this._http.get(this.url + 'getnotifications/' + id, { headers: headers });
 	}
 
 }

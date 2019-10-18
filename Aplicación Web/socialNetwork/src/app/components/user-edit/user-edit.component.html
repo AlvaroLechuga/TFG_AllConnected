@@ -1,47 +1,51 @@
 <!-- nombre, apellidos, dirección, país, cumpleaños, nick, password, imagen -->
-<div id="v-sup"><h1>Modificar el usuario</h1></div>
+<div id="v-sup">
+	<h1>Modificar el usuario</h1>
+</div>
 <div id="registro">
 	<div class="alert alert-success" *ngIf="status == 'success'">Se ha modificado correctamente</div>
 	<div class="alert alert-danger" *ngIf="status == 'error'">No se ha podido modificar</div>
 	<form #modifyForm="ngForm" (ngSubmit)="modificarUsuario(modifyForm)">
 		<label for="nombre">Nombre</label>
-		<input class="form-control form-datos" type="text" name="name" #name="ngModel" [(ngModel)]="user.name" required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ]+">
+		<input class="form-control form-datos" type="text" name="name" #name="ngModel" [(ngModel)]="user.name" required
+			pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ]+">
 		<small class="form_error" *ngIf="name.touched && !name.valid">El nombre no es válido</small>
 
 		<label for="apellidos">Apellidos</label>
-		<input class="form-control form-datos" type="text" name="surname" #surname="ngModel" [(ngModel)]="user.surname" required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ]+">
+		<input class="form-control form-datos" type="text" name="surname" #surname="ngModel" [(ngModel)]="user.surname"
+			required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ]+">
 		<small class="form_error" *ngIf="surname.touched && !surname.valid">Los apellidos no son válidos</small>
 
 		<label for="direction">Dirección</label>
-		<input class="form-control form-datos" type="text" name="direction" #direction="ngModel" [(ngModel)]="user.direction" required>
+		<input class="form-control form-datos" type="text" name="direction" #direction="ngModel"
+			[(ngModel)]="user.direction" required>
 		<small class="form_error" *ngIf="direction.touched && !direction.valid">La dirección no es válida</small>
 
 		<label for="country">País</label>
-		<input class="form-control form-datos" type="text" name="country" #country="ngModel" [(ngModel)]="user.country" required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ]+">
+		<input class="form-control form-datos" type="text" name="country" #country="ngModel" [(ngModel)]="user.country"
+			required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ]+">
 		<small class="form_error" *ngIf="country.touched && !country.valid">El país no es válido</small>
 
 		<label for="nick">Nick</label>
 		<input class="form-control form-datos" type="text" name="nick" #nick="ngModel" [(ngModel)]="user.nick" required>
 		<small class="form_error" *ngIf="nick.touched && !nick.valid">El nick no es válido</small>
-		
+
 		<div class="imagen-updater">
 
 			<div *ngIf="identity && identity.image">
 				<img src="{{url+ 'user/avatar/'+identity.image}}" class="avatar_edit">
 			</div>
 
-			<angular-file-uploader
-			      [config]="afuConfig"
-			      [resetUpload]=resetVar
-			      (ApiResponse)="avatarUpload($event)">
+			<angular-file-uploader [config]="afuConfig" [resetUpload]=resetVar (ApiResponse)="avatarUpload($event)">
 			</angular-file-uploader>
 		</div>
 
 		<label for="description">Biografía</label>
-		<textarea class="form-control" id="txt-description" name="description" #description="ngModel" [(ngModel)]="user.description"></textarea>
+		<textarea class="form-control" id="txt-description" name="description" #description="ngModel"
+			[(ngModel)]="user.description"></textarea>
 
 		<br>
-		<input class="btn btn-primary" type="submit" name="modificar" value="Modificar usuario" [disabled]="modifyForm.invalid"><br><br>
+		<input class="btn btn-primary" type="submit" name="modificar" value="Modificar usuario"
+			[disabled]="modifyForm.invalid"><br><br>
 	</form>
 </div>
-

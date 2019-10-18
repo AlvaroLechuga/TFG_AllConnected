@@ -6,54 +6,58 @@ import { Publication } from '../models/publication';
 import { global } from './global';
 
 @Injectable()
-export class PublicationService{
+export class PublicationService {
 
 	public url: string;
 
 	constructor(
 		private _http: HttpClient
-	){
+	) {
 		this.url = global.url;
 	}
 
-	create(token, publication): Observable<any>{
+	create(token, publication): Observable<any> {
 		let json = JSON.stringify(publication);
-		let params = 'json='+json;
+		let params = 'json=' + json;
 
 		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
-		return this._http.post(this.url+'publicate', params, {headers: headers});
+		return this._http.post(this.url + 'publicate', params, { headers: headers });
 	}
 
-	responseUser(token, publication, id){
+	responseUser(token, publication, id) {
 		let json = JSON.stringify(publication);
-		let params = 'json='+json;
+		let params = 'json=' + json;
+
+		params = params.replace('[', '');
+		params = params.replace(']', '');
 
 		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
-		return this._http.post(this.url+'publicateresponse/'+id, params, {headers: headers});
+
+		return this._http.post(this.url + 'publicateresponse/' + id, params, { headers: headers });
 	}
 
-	getPublications(id): Observable<any>{
+	getPublications(id): Observable<any> {
 		let headers = new HttpHeaders().set('Content-Type', 'application/json');
-		
-		return this._http.get(this.url+'publications/'+id, {headers: headers});
+
+		return this._http.get(this.url + 'publications/' + id, { headers: headers });
 	}
 
-	deletePublication(id, token): Observable<any>{
+	deletePublication(id, token): Observable<any> {
 		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
 
-		return this._http.delete(this.url+'publication/delete/'+id, {headers: headers});
+		return this._http.delete(this.url + 'publication/delete/' + id, { headers: headers });
 	}
 
-	getPublicationFollow(token, id): Observable<any>{
+	getPublicationFollow(token, id): Observable<any> {
 		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
-		return this._http.get(this.url+'publicationfollowers/'+id, {headers: headers});
+		return this._http.get(this.url + 'publicationfollowers/' + id, { headers: headers });
 	}
 
-	numberPublication(id): Observable<any>{ 
-		return this._http.get(this.url+'numberpublications/'+id);
+	numberPublication(id): Observable<any> {
+		return this._http.get(this.url + 'numberpublications/' + id);
 	}
 
-	getPublication(id): Observable<any>{
-		return this._http.get(this.url+'getpublication/'+id);
+	getPublication(id): Observable<any> {
+		return this._http.get(this.url + 'getpublication/' + id);
 	}
 }

@@ -4,13 +4,13 @@
 
 	<div *ngFor="let notice of noticies">
 		<article id="noticia">
-		<h3 class="titular-noticia">{{notice.title}}</h3>
-		<p class="categoria-noticia">{{notice.name}}</p>
-		<p class="noticia-noticia">{{notice.text}}</p>
-	</article>
+			<h3 class="titular-noticia">{{notice.title}}</h3>
+			<p class="categoria-noticia">{{notice.name}}</p>
+			<p class="noticia-noticia">{{notice.text}}</p>
+		</article>
 
-	<img class="imagen-noticia" [src]="notice.image">
+		<img class="imagen-noticia" [src]="notice.image">
 
-	<hr>
+		<hr>
 	</div>
 </div>

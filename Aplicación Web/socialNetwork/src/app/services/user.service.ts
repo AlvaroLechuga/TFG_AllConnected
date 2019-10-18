@@ -5,7 +5,7 @@ import { User } from '../models/user';
 import { global } from './global';
 
 @Injectable()
-export class UserService{
+export class UserService {
 
 	public url: string;
 	public identity;
@@ -13,73 +13,73 @@ export class UserService{
 
 	constructor(
 		private _http: HttpClient
-	){
+	) {
 		this.url = global.url;
 	}
 
-	register(user): Observable<any>{
+	register(user): Observable<any> {
 		let json = JSON.stringify(user);
-		let params = 'json='+json;
+		let params = 'json=' + json;
 
 		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
 
-		return this._http.post(this.url+'register', params, {headers: headers});
+		return this._http.post(this.url + 'register', params, { headers: headers });
 	}
 
-	signup(user, gettoken = null): Observable<any>{
-		if(gettoken != null){
+	signup(user, gettoken = null): Observable<any> {
+		if (gettoken != null) {
 			user.getToken = 'true';
 		}
 
 		let json = JSON.stringify(user);
-		let params = 'json='+json;
+		let params = 'json=' + json;
 		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
 
-		return this._http.post(this.url+'login', params, {headers:headers});
+		return this._http.post(this.url + 'login', params, { headers: headers });
 	}
 
-	update(token, user): Observable<any>{
+	update(token, user): Observable<any> {
 		let json = JSON.stringify(user);
-		let params = 'json='+json;
+		let params = 'json=' + json;
 		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
 
-		return this._http.put(this.url+'user/update', params, {headers:headers});
+		return this._http.put(this.url + 'user/update', params, { headers: headers });
 	}
 
-	getIdentity(){
+	getIdentity() {
 		let identity = JSON.parse(localStorage.getItem('identity'));
 
-		if(identity && identity != 'undefined'){
+		if (identity && identity != 'undefined') {
 			this.identity = identity;
-		}else{
+		} else {
 			this.identity = null;
 		}
 
 		return this.identity;
 	}
 
-	getToken(){
+	getToken() {
 		let token = localStorage.getItem('token');
 
-		if(token && token != 'undefined'){
+		if (token && token != 'undefined') {
 			this.token = token;
-		}else{
+		} else {
 			this.token = null;
 		}
 
 		return this.token;
 	}
 
-	getProfile(id): Observable<any>{
+	getProfile(id): Observable<any> {
 		let headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-		return this._http.get(this.url+'user/detail/'+id, {headers: headers});
+		return this._http.get(this.url + 'user/detail/' + id, { headers: headers });
 	}
 
-	getUsers(cadena): Observable<any>{
+	getUsers(cadena): Observable<any> {
 		let headers = new HttpHeaders().set('Content-Type', 'application/json');
-		
-		return this._http.get(this.url+'user/search/'+cadena, {headers: headers});
+
+		return this._http.get(this.url + 'user/search/' + cadena, { headers: headers });
 	}
 
 }

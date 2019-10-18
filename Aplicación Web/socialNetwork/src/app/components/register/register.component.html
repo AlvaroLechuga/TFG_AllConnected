@@ -1,46 +1,56 @@
 <!-- nombre, apellidos, dirección, país, cumpleaños, nick, password, imagen -->
-<div id="v-sup"><h1>Regístrate</h1></div>
+<div id="v-sup">
+	<h1>Regístrate</h1>
+</div>
 <div id="registro">
 	<div class="alert alert-success" *ngIf="status == 'success'">Se ha registrado correctamente</div>
 	<div class="alert alert-danger" *ngIf="status == 'error'">No se ha podido registrar</div>
 	<form #registerForm="ngForm" (ngSubmit)="registrarUsuario(registerForm)">
 		<label for="nombre">Nombre</label>
-		<input class="form-control form-datos" type="text" name="name" #name="ngModel" [(ngModel)]="user.name" required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ]+">
+		<input class="form-control form-datos" type="text" name="name" #name="ngModel" [(ngModel)]="user.name" required
+			pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ]+">
 		<small class="form_error" *ngIf="name.touched && !name.valid">El nombre no es válido</small>
 
 		<label for="apellidos">Apellidos</label>
-		<input class="form-control form-datos" type="text" name="surname" #surname="ngModel" [(ngModel)]="user.surname" required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ]+">
+		<input class="form-control form-datos" type="text" name="surname" #surname="ngModel" [(ngModel)]="user.surname"
+			required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ]+">
 		<small class="form_error" *ngIf="surname.touched && !surname.valid">Los apellidos no son válidos</small>
 
 		<label for="direction">Dirección</label>
-		<input class="form-control form-datos" type="text" name="direction" #direction="ngModel" [(ngModel)]="user.direction" required>
+		<input class="form-control form-datos" type="text" name="direction" #direction="ngModel"
+			[(ngModel)]="user.direction" required>
 		<small class="form_error" *ngIf="direction.touched && !direction.valid">La dirección no es válida</small>
 
 		<label for="country">País</label>
-		<input class="form-control form-datos" type="text" name="country" #country="ngModel" [(ngModel)]="user.country" required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ]+">
+		<input class="form-control form-datos" type="text" name="country" #country="ngModel" [(ngModel)]="user.country"
+			required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ]+">
 		<small class="form_error" *ngIf="country.touched && !country.valid">El país no es válido</small>
 
 		<label for="years">Cumpleaños</label>
-		<input class="form-control form-datos" type="date" name="birthday" #birthday="ngModel" [(ngModel)]="user.birthday" required>
-		<small class="form_error" *ngIf="birthday.touched && !birthday.valid">Tu fecha de nacimiento no es válida</small>
+		<input class="form-control form-datos" type="date" name="birthday" #birthday="ngModel"
+			[(ngModel)]="user.birthday" required>
+		<small class="form_error" *ngIf="birthday.touched && !birthday.valid">Tu fecha de nacimiento no es
+			válida</small>
 
 		<label for="nick">Nick</label>
 		<input class="form-control form-datos" type="text" name="nick" #nick="ngModel" [(ngModel)]="user.nick" required>
 		<small class="form_error" *ngIf="nick.touched && !nick.valid">El nick no es válido</small>
 
 		<label for="email">Email</label>
-		<input class="form-control form-datos" type="email" name="email" #email="ngModel" [(ngModel)]="user.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+		<input class="form-control form-datos" type="email" name="email" #email="ngModel" [(ngModel)]="user.email"
+			required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
 		<small class="form_error" *ngIf="email.touched && !email.valid">El email no es válido</small>
 
 		<label for="password">Contraseña</label>
-		<input class="form-control form-datos" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" required>
+		<input class="form-control form-datos" type="password" name="password" #password="ngModel"
+			[(ngModel)]="user.password" required>
 		<small class="form_error" *ngIf="password.touched && !password.valid">La contraseña no es válida</small>
 
 		<input class="form-check-input" type="checkbox" id="gridCheck" required> Acepta los Términos y condiciones
-			
+
 		<br>
-		<input class="btn btn-primary" type="submit" name="registrar" value="Registrar" [disabled]="registerForm.invalid"><br><br>
+		<input class="btn btn-primary" type="submit" name="registrar" value="Registrar"
+			[disabled]="registerForm.invalid"><br><br>
 		<a [routerLink]="['/login']">Inicia Sesión</a>
 	</form>
 </div>
-

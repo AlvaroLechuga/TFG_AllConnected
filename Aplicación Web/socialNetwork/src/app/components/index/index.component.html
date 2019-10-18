@@ -1,6 +1,7 @@
 <div id="datos_usuario" *ngIf="user && user.name">
   <div class="circulo-imagen" *ngIf="!user && !user.image"></div>
-  <div class="circulo-imagen" *ngIf="user && user.image"><img src="{{url+ 'user/avatar/'+identity.image}}" class="imgan-perfil"></div>
+  <div class="circulo-imagen" *ngIf="user && user.image"><img src="{{url+ 'user/avatar/'+identity.image}}"
+      class="imgan-perfil"></div>
   <p id="nombre-usuario">{{user.name+' '+user.surname}}</p>
   <p id="usuario-usuario">{{'@'+user.nick}}</p>
   <table>
@@ -18,31 +19,32 @@
 
 <div id="muro" *ngIf="user && user.name">
   <form #publicationForm="ngForm" (ngSubmit)="submitPublication(publicationForm)">
-    <textarea class="form-control" id="publicar" placeholder="¿Qué está pasando?" rows="3" name="text" #text="ngModel" [(ngModel)]="publication.text" required></textarea>
+    <textarea class="form-control" id="publicar" placeholder="¿Qué está pasando?" rows="3" name="text" #text="ngModel"
+      [(ngModel)]="publication.text" required></textarea>
     <input type="submit" class="btn btn-info" id="bnt-publicar" value="Publicar" [disabled]="publicationForm.invalid">
   </form>
   <p class="horizontal-publicacion"></p>
   <div *ngFor="let publicacion of publications; let i = index" [attr.data-index]="i">
     <div id="publicacion">
-    <div class="circulo-imagenPublicacion">
-      <img src="{{url+ 'user/avatar/'+infoUsers[i][0].image}}" class="avatar_nav">
+      <div class="circulo-imagenPublicacion">
+        <img src="{{url+ 'user/avatar/'+infoUsers[i][0].image}}" class="avatar_nav">
+      </div>
+      <p id="datos-publicacion"><a
+          [routerLink]="['/perfil/']+publicacion.id_user">{{infoUsers[i][0].name+' '+infoUsers[i][0].surname}}</a>{{' @'+infoUsers[i][0].nick+' - '+time[i]}}
+      </p>
+      <p id="publicacion-publicacion">
+        {{publicacion.text}}
+      </p>
+      <div id="bnt-admin">
+        <button type="button" class="btn btn-default btn-sm btn-response" (click)="responsePublication(publication.id)">
+          <span class="glyphicon glyphicon-share-alt" title="Responder"></span>
+        </button>
+        <button *ngIf="publicacion.id_user == identity.sub" type="button" class="btn btn-default btn-sm btn-remove"
+          (click)="deletePublication(publicacion.id)">
+          <span class="glyphicon glyphicon-trash" title="Eliminar"></span>
+        </button>
+      </div>
     </div>
-    <p id="datos-publicacion"><a [routerLink]="['/perfil/']+publicacion.id_user">{{infoUsers[i][0].name+' '+infoUsers[i][0].surname}}</a>{{' @'+infoUsers[i][0].nick+' - '+time[i]}}</p>
-    <p id="publicacion-publicacion">
-      {{publicacion.text}}
-    </p>
-        <div id="bnt-admin">
-            <button type="button" class="btn btn-default btn-sm btn-like">
-              <span class="glyphicon glyphicon-heart" title="Me gusta"></span>
-            </button>
-            <button type="button" class="btn btn-default btn-sm btn-response" (click)="responsePublication(publication.id)">
-              <span class="glyphicon glyphicon-share-alt" title="Responder"></span>
-            </button>
-            <button *ngIf="publicacion.id_user == identity.sub" type="button" class="btn btn-default btn-sm btn-remove" (click)="deletePublication(publicacion.id)">
-              <span class="glyphicon glyphicon-trash" title="Eliminar"></span>
-            </button>
-    </div>
-  </div>
-  <hr>
+    <hr>
   </div>
 </div>

@@ -3,13 +3,13 @@
 		<br>
 
 		<div *ngIf="user && user.image" class="picture-profile">
-            <img src="{{url+ 'user/avatar/'+user.image}}" class="avatar_nav">
-          </div>
-		
-        <div class="btn-profile" *ngIf="follow == 'Follow'">
-			<button class="btn btn-success btn-editar"(click)="followUser()">Seguir</button>
+			<img src="{{url+ 'user/avatar/'+user.image}}" class="avatar_nav">
 		</div>
-		
+
+		<div class="btn-profile" *ngIf="follow == 'Follow'">
+			<button class="btn btn-success btn-editar" (click)="followUser()">Seguir</button>
+		</div>
+
 		<div class="btn-profile" *ngIf="follow != 'Follow'">
 			<button class="btn btn-danger btn-editar" (click)="unFollowUser()">Dejar de Seguir</button>
 		</div>
@@ -25,43 +25,50 @@
 		<div class="informacion-user">
 			<table class="table text-center">
 				<thead>
-	        		<tr>                    
-	        			<th class="text-center">Siguiendo</th>
-	        			<th class="text-center">Seguidores</th>
-	        			<th class="text-center">Publicaciones</th>
-	        			<th class="text-center">Me gusta</th>
-	    			</tr>
+					<tr>
+						<th class="text-center">Siguiendo</th>
+						<th class="text-center">Seguidores</th>
+						<th class="text-center">Publicaciones</th>
+						<th class="text-center">Me gusta</th>
+					</tr>
 				</thead>
 				<tbody>
-    				<tr>
-        				<td>{{nFollowing}}</td>
-        				<td>{{nFollowers}}</td>
-        				<td>{{nPublications}}</td>
-        				<td>{{nLikes}}</td>
-    				</tr>
+					<tr>
+						<td>{{nFollowing}}</td>
+						<td>{{nFollowers}}</td>
+						<td>{{nPublications}}</td>
+						<td>{{nLikes}}</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>
 		<h2>Publicaciones</h2>
 		<div class="publicaciones" *ngFor="let publication of publications; let i = index" [attr.data-index]="i">
 			<div id="publicacion">
-			    <div class="circulo-imagenPublicacion"><img src="{{url+ 'user/avatar/'+user.image}}" class="avatar_nav"></div>
-			    <p id="datos-publicacion">{{user.name+' '+user.surname+' - '+time[i]}}</p>
-			    <p id="publicacion-publicacion">
-			      {{publication.text}}
-			    </p>
-			        <div id="bnt-admin">
-			      <button type="button" class="btn btn-default btn-sm btn-like">
-			        <span class="glyphicon glyphicon-heart" title="Me gusta"></span>
-			      </button>
-			      <button type="button" class="btn btn-default btn-sm btn-response" (click)="responsePublication(publication.id)">
-			        <span class="glyphicon glyphicon-share-alt" title="Responder"></span>
-			      </button>
+				<div class="circulo-imagenPublicacion"><img src="{{url+ 'user/avatar/'+user.image}}" class="avatar_nav">
+				</div>
+				<p id="datos-publicacion">{{user.name+' '+user.surname+' - '+time[i]}}</p>
+				<p id="publicacion-publicacion">
+					{{publication.text}}
+				</p>
+				<div id="bnt-admin">
+					<button *ngIf="!publication.like" type="button" class="btn btn-default btn-sm btn-like" (click)="like(publication.id)">
+						<span class="glyphicon glyphicon-heart" title="Me gusta"></span>
+					</button>
 
-			      <button type="button" class="btn btn-default btn-sm btn-remove" *ngIf="publication.id_user==identity.sub" (click)="deletePublication(publication.id)">
-			        <span class="glyphicon glyphicon-trash" title="Eliminar"></span>
-			      </button>
-			    </div>
+					<button *ngIf="publication.like" type="button" class="btn btn-default btn-sm btn-like red" (click)="dislike(publication.id)">
+						<span class="glyphicon glyphicon-heart" title="Ya no me gusta"></span>
+					</button>
+					<button type="button" class="btn btn-default btn-sm btn-response"
+						(click)="responsePublication(publication.id)">
+						<span class="glyphicon glyphicon-share-alt" title="Responder"></span>
+					</button>
+
+					<button type="button" class="btn btn-default btn-sm btn-remove"
+						*ngIf="publication.id_user==identity.sub" (click)="deletePublication(publication.id)">
+						<span class="glyphicon glyphicon-trash" title="Eliminar"></span>
+					</button>
+				</div>
 			</div>
 			<hr>
 		</div>

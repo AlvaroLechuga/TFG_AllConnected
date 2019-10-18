@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user';
+import { Publication } from '../../models/publication';
 import { global } from '../../services/global';
 import { UserService } from '../../services/user.service';
 import { PublicationService } from '../../services/publication.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+
 
 @Component({
   selector: 'app-responsepublication',
@@ -18,7 +20,6 @@ export class ResponsepublicationComponent implements OnInit {
   public identity;
   public token;
   public publication;
-
   public id_p;
 
   constructor(
@@ -26,32 +27,48 @@ export class ResponsepublicationComponent implements OnInit {
     private _publicationService: PublicationService,
     private _router: Router,
     private _route: ActivatedRoute) {
-      this.url = global.url;
-		  this.user = new User(1, '', '', '', '', '', '', '', '', 'user', '', '', '');
-  		this.identity = this._userService.getIdentity();
-  		this.token = this._userService.getToken();
-   }
+    this.url = global.url;
+    this.user = new User(1, '', '', '', '', '', '', '', '', 'user', '', '', '');
+    this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
+  }
 
   ngOnInit() {
     this._route.params.subscribe(params => {
       this.id_p = params.id;
-    
-      if(this.token == null){
+
+      if (this.token == null) {
         this._router.navigate(['/inicio']);
       }
     });
     this.getPublication();
   }
 
-  getPublication(){
+  getPublication() {
     this._publicationService.getPublication(this.id_p).subscribe(
-			response => {
+      response => {
         this.publication = response.publication;
-			},
-			error => {
-				console.log(<any>error);
-			}
-		);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  responsePublication(formularioRespuesta: any) {
+
+    let respuesta = new Publication(1, 1, formularioRespuesta.target.respuesta.value, "", "");
+
+    console.log(respuesta.text);
+
+    this._publicationService.responseUser(this.token, respuesta, this.id_p).subscribe(
+      response => {
+        this._router.navigate(['/index']);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
   }
 
 }

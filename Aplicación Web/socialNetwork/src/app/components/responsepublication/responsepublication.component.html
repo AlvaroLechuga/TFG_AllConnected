@@ -1,11 +1,13 @@
 <div id="contain-mensajes">
     <h1 class="title-response">Responder Publicación</h1>
     <h3 class="nonoti" *ngIf="publication.length == 0"><span class="glyphicon">&#xe209;</span> No existe esta publicación <span class="glyphicon">&#xe209;</span></h3>
-    <div *ngFor="let p of publication">
-        <h4 class="text-response">Publicación a responder</h4>
-        <textarea class="form-control txtresponse" rows="4" readonly>{{p.text}}</textarea>
-        <h4 class="text-response">Respuesta</h4>
-        <textarea class="form-control txtresponse" rows="4"></textarea>
-        <button class="btn btn-primary btnresponse">Responder</button>
-    </div>
+    <form (ngSubmit)="responsePublication($event)">
+        <div *ngFor="let p of publication">
+            <h4 class="text-response">Publicación a responder</h4>
+            <textarea class="form-control txtresponse" rows="4" readonly>{{p.text}}</textarea>
+            <h4 class="text-response">Respuesta</h4>
+            <textarea class="form-control txtresponse" rows="4" name="respuesta"></textarea>
+            <input type="submit" value="Responder" class="btn btn-primary btnresponse">
+        </div>
+    </form>
 </div>

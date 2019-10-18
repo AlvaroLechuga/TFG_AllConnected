@@ -4,16 +4,16 @@ import { Observable } from 'rxjs';
 import { global } from './global';
 
 @Injectable()
-export class NoticeService{
+export class NoticeService {
 	public url: string;
 
 	constructor(
 		private _http: HttpClient
-	){
+	) {
 		this.url = global.url;
 	}
 
-	getNotices(): Observable<any>{
-		return this._http.get(this.url+'getnotices');
+	getNotices(): Observable<any> {
+		return this._http.get(this.url + 'getnotices');
 	}
 }
